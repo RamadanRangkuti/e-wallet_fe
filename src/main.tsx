@@ -1,4 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(<React.StrictMode></React.StrictMode>);
+import { RouterProvider } from "react-router-dom";
+
+import './styles/output.css'
+import  router  from './router.tsx';
+// import { Provider } from 'react-redux';
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+        <RouterProvider router={router}/>
+    </React.StrictMode>);

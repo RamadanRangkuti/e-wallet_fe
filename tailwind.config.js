@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+const tailwindConfig = {
   content: ["./src/**/*.tsx"],
   theme: {
     screens: {
+      xxxsm: "300px",
       xxsm: "321px",
       xsm: "376px",
       tbt: "426px",
@@ -21,8 +22,11 @@ export default {
       },
       colors: {
         primary: "#2948FF",
+        bgprimary: "#3969FD",
       },
     },
   },
   plugins: [],
 };
+
+export default tailwindConfig;

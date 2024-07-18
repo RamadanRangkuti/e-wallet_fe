@@ -1,4 +1,4 @@
-import Dashboard2Testimonies from "../components/Dashboard2Testimonials"
+import LandingPage2Testimonies from "../components/LandingPage2Testimonials"
 import phone2 from '../assets/images/2phoneDashboard2.svg'
 import applestore from '../assets/icons/applestore.svg'
 import playstore from '../assets/icons/playstore.svg'
@@ -17,7 +17,7 @@ import microsoft from "../assets/icons/microsoft.svg"
 import dropbox from "../assets/icons/dropbox.svg"
 
 
-export default function Dashboard2() {
+export default function LandingPage2() {
 return (
     <main className="flex flex-col bg-white">
     <header className="flex flex-col items-center px-16 pt-16 w-full bg-blue-600 max-md:px-5 max-md:max-w-full">
@@ -178,7 +178,7 @@ return (
             </div>
         </div>
     </section>
-    <Dashboard2Testimonies />
+    <LandingPage2Testimonies />
     <footer className="flex flex-col items-center px-16 pt-14 mt-16 w-full bg-gray-200 bg-opacity-30 max-md:px-5 max-md:mt-10 max-md:max-w-full">
         <div className=" w-full max-w-[1180px] max-md:max-w-full">
             <div className="flex gap-5 max-md:flex-col max-md:gap-0">

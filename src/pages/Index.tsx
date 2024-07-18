@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Home from "./Dashboard"
+import Home from "./LandingPage"
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 

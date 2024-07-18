@@ -19,7 +19,7 @@ import earphone from "../assets/images/earphone.png"
 import protect from "../assets/images/protect.png"
 import download from "../assets/images/download.png"
 
-export default function Dashboard() {
+export default function LandingPage() {
 return (
   <main className="flex flex-col items-center bg-white gap-16 container-fluid">
     

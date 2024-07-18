@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Index from "./pages/Index";
-import Home from "./pages/Dashboard"
-import Home2 from "./pages/Dashboard2"
+import Home from "./pages/LandingPage"
+import Home2 from "./pages/LandingPage2"
 
 
 function Error() {

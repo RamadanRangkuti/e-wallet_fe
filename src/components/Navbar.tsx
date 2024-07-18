@@ -1,4 +1,3 @@
-import React from 'react'
 import walletIcon from "../assets/icons/walletIcons.svg"
 
 export default function Navbar() {

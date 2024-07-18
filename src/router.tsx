@@ -7,6 +7,7 @@ import Home from "./pages/LandingPage";
 import Home2 from "./pages/LandingPage2";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import EnterPin from "./pages/EnterPin";
 
 const routerWithChildren = createBrowserRouter([
   {
@@ -41,6 +42,11 @@ const routerWithChildren = createBrowserRouter([
   {
     path: "/forgotpassword",
     element: <ForgotPassword />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/enterpin",
+    element: <EnterPin />,
     errorElement: <Error />,
   },
 ]);

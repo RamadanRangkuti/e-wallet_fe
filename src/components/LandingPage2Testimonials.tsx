@@ -1,18 +1,14 @@
-import arrowLeft from '../assets/icons/leftArrow.svg'
-import jamesBond from "../assets/images/jamesbond.png"
-import star from "../assets/icons/star.svg"
-import arrowKanan from "../assets/icons/blueRightArrow.svg"
+import arrowLeft from "../assets/icons/leftArrow.svg";
+import jamesBond from "../assets/images/jamesbond.png";
+import star from "../assets/icons/star.svg";
+import arrowKanan from "../assets/icons/blueRightArrow.svg";
 
-function TestimonialSection () {
+function TestimonialSection() {
   return (
     <section className="flex flex-col items-center mt-5">
       <div className="flex flex-col px-5 text-center max-md:max-w-full">
-        <h2 className="w-full text-4xl font-medium text-slate-900 max-md:max-w-full">
-          What Our Users Are Saying
-        </h2>
-        <p className="mt-6 w-full text-base text-gray-600 max-md:max-w-full">
-          Ready to experience the future of payments? Download e-wallet now and enjoy a world of convenience at your fingertips.
-        </p>
+        <h2 className="w-full text-4xl font-medium text-slate-900 max-md:max-w-full">What Our Users Are Saying</h2>
+        <p className="mt-6 w-full text-base text-gray-600 max-md:max-w-full">Ready to experience the future of payments? Download e-wallet now and enjoy a world of convenience at your fingertips.</p>
       </div>
       <div className="flex gap-5 justify-between items-center self-center px-5 mt-10 w-full text-base font-bold text-white max-w-[1180px] max-md:flex-wrap max-md:max-w-full">
         <button aria-label="Previous testimonial" className="shrink-0 self-stretch my-auto aspect-square w-[47px]">
@@ -40,6 +36,6 @@ function TestimonialSection () {
       </div>
     </section>
   );
-};
+}
 
 export default TestimonialSection;

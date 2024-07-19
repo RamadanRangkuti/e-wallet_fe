@@ -4,7 +4,6 @@ import NotFound from "./pages/NotFound";
 import Register from "./pages/Register";
 import Index from "./pages/Index";
 import Home from "./pages/LandingPage";
-import Home2 from "./pages/LandingPage2";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import EnterPin from "./pages/EnterPin";
@@ -18,10 +17,6 @@ const routerWithChildren = createBrowserRouter([
       {
         path: "home",
         element: <Home />,
-      },
-      {
-        path: "home2",
-        element: <Home2 />,
       },
       {
         path: "*",

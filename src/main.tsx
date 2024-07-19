@@ -1,4 +1,10 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(<React.StrictMode></React.StrictMode>);
+import "./styles/output.css";
+
+import "./styles/output.css";
+import router from "./router.tsx";
+// import { Provider } from 'react-redux';
+
+ReactDOM.createRoot(document.getElementById("root")!).render(<RouterProvider router={router} />);

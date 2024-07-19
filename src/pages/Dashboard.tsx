@@ -1,12 +1,12 @@
 import TransactionHistory from '../components/TransactionHistory';
 import UserNavbar from '../components/UserNavbar'
 import Sidenavbar from '../components/UserSidebar';
-
 import transfer from '../assets/icons/transfer.svg'
 import topUp from '../assets/icons/topUp.svg'
 import balance from '../assets/icons/balance.svg'
 import Upgraph from '../assets/icons/Upgraph.svg'
 import Downgraph from '../assets/icons/Downgraph.svg'
+import FinancialChart from '../components/FinancialChart';
 
 export default function Dashboard() {
   return (
@@ -76,7 +76,7 @@ export default function Dashboard() {
                 <section className="mt-4 w-full  max-md:max-w-full">
                     <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                     <div className="flex flex-col w-[67%] max-md:ml-0 max-md:w-full">
-                        {/* <FinancialChart /> */}
+                        <FinancialChart />
                     </div>
                     <div className="flex flex-col w-fit max-md:ml-0 max-md:w-full">
                         <TransactionHistory />

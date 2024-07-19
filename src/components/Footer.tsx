@@ -1,7 +1,7 @@
 import walletIcon from "../assets/icons/wallet.svg";
 import socmed from "../assets/icons/socmed.svg";
-import emailBlack from "../assets/icons/emailBlack.png";
-import email from "../assets/icons/email.svg";
+import emailBlack from "../assets/icons/email-icon.svg";
+import email from "../assets/icons/email-icon-white.svg";
 import phone from "../assets/icons/phone.svg";
 
 export default function Footer() {

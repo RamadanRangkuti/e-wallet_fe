@@ -1,5 +1,5 @@
 import arrowLeft from "../assets/icons/leftArrow.svg";
-import jamesBond from "../assets/images/jamesbond.png";
+import jamesBond from "../assets/images/jamesbond.webp";
 import star from "../assets/icons/star.svg";
 import arrowKanan from "../assets/icons/blueRightArrow.svg";
 

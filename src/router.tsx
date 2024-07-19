@@ -7,8 +7,25 @@ import Home from "./pages/LandingPage";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import EnterPin from "./pages/EnterPin";
+import Dashboard from './pages/Dashboard'
+import UsersIndex from "./pages/UsersIndex";
 
 const routerWithChildren = createBrowserRouter([
+  {
+    path: "/user/",
+    element: <UsersIndex />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
+      },
+    ],
+  },
   {
     path: "/",
     element: <Index />,

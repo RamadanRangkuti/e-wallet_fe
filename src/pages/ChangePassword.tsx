@@ -24,10 +24,10 @@ function ChangePassword() {
   };
 
   return (
-    <main className="font-montserrat md:flex w-full">
-      <div className="w-full md:mt-5">
+    <main className="font-montserrat h-screen w-full">
+      <div className="md:mt-5">
         <NavbarProfile />
-        <div className="p-5 h-screen md:h-full md:border md:border-solid md:mx-5">
+        <div className="p-5 md:border md:border-solid md:mx-5">
           <h1 className="text-xs md:text-base text-black font-semibold">Change Password</h1>
           <form className="mt-3">
             <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="existingpassword">

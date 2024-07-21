@@ -1,10 +1,11 @@
+import profile2Blue from "../assets/icons/profile2-blue.svg";
+
 function NavbarProfile() {
   return (
-    <header className='font-montserrat'>
-        <nav className='flex bg-primary text-white text-xs px-5 py-2'>
-            <p>Profile</p>
-        </nav>
-    </header>
+    <div className='flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold px-5 py-2 md:bg-white md:text-black'>
+              <img className="hidden md:flex" width="20" src={profile2Blue} alt="" />
+              <p className="md:ml-3">Profile</p>
+          </div>
   )
 }
 

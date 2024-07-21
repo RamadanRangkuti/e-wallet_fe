@@ -1,10 +1,10 @@
-import TransactionHistory from '../components/TransactionHistory';
-import transfer from '../assets/icons/transfer.svg'
-import topUp from '../assets/icons/topUp.svg'
-import balance from '../assets/icons/balance.svg'
-import Upgraph from '../assets/icons/Upgraph.svg'
-import Downgraph from '../assets/icons/Downgraph.svg'
-import FinancialChart from '../components/FinancialChart';
+import TransactionHistory from "../components/TransactionHistory";
+import transfer from "../assets/icons/transfer.svg";
+import topUp from "../assets/icons/topUp.svg";
+import balance from "../assets/icons/balance.svg";
+import Upgraph from "../assets/icons/Upgraph.svg";
+import Downgraph from "../assets/icons/Downgraph.svg";
+import FinancialChart from "../components/FinancialChart";
 
 export default function Dashboard() {
   return (
@@ -17,14 +17,10 @@ export default function Dashboard() {
                 <img loading="lazy" src={balance} className="shrink-0 my-auto w-6 aspect-square" alt="" />
                 <div>Balance</div>
               </div>
-              <div className="mt-5 text-2xl font-medium tracking-normal leading-6 text-slate-900">
-                Rp.120.000
-              </div>
+              <div className="mt-5 text-2xl font-medium tracking-normal leading-6 text-slate-900">Rp.120.000</div>
               <div className="flex gap-5 mt-6 text-xs">
                 <div className="flex flex-col flex-1">
-                  <div className="tracking-normal text-gray-600 leading-[200%]">
-                    Income
-                  </div>
+                  <div className="tracking-normal text-gray-600 leading-[200%]">Income</div>
                   <div className="flex gap-1.5 mt-3.5 text-right text-green-700 leading-[150%]">
                     <div>Rp.200.000</div>
                     <div>+2%</div>
@@ -32,9 +28,7 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="flex flex-col flex-1">
-                  <div className="tracking-normal text-gray-600 leading-[200%]">
-                    Expense
-                  </div>
+                  <div className="tracking-normal text-gray-600 leading-[200%]">Expense</div>
                   <div className="flex gap-1.5 mt-3 text-right text-red-700 leading-[150%]">
                     <div>Rp.100.000</div>
                     <div>+5%</div>
@@ -47,9 +41,7 @@ export default function Dashboard() {
           <div className="flex flex-col ml-5 w-[67%] max-md:ml-0 max-md:w-full">
             <div className="flex flex-col grow justify-center px-3.5 py-16 text-base tracking-normal rounded-md border border-gray-200 border-solid max-md:mt-5 max-md:max-w-full">
               <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
-                <div className="my-auto font-semibold leading-6 text-slate-900">
-                  Fast Service
-                </div>
+                <div className="my-auto font-semibold leading-6 text-slate-900">Fast Service</div>
                 <div className="flex gap-3.5 text-white leading-[150%]">
                   <button className="flex gap-2 py-1 pr-3 pl-2 bg-blue-600 rounded-md">
                     <img loading="lazy" src={topUp} className="shrink-0 w-6 aspect-square" alt="" />
@@ -76,6 +68,5 @@ export default function Dashboard() {
         </div>
       </section>
     </main>
-
-  )
+  );
 }

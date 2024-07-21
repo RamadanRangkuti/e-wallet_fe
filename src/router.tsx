@@ -9,6 +9,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import EnterPin from "./pages/EnterPin";
 import Dashboard from './pages/Dashboard'
 import UsersIndex from "./pages/UsersIndex";
+import Transfer from "./pages/Transfer"
+import TransferDetail from "./pages/TransferDetail"
 
 const routerWithChildren = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ const routerWithChildren = createBrowserRouter([
       {
         path: "dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "transfer",
+        element: <Transfer />,
+      },
+      {
+        path: "transfer-detail",
+        element: <TransferDetail />,
       },
       {
         path: "*",

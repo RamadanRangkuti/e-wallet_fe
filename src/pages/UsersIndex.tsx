@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 function Index() {
 
   return (
-    <div className='container-fluid h-full w-full'>
+    <div className='font-montserrat container-fluid h-full w-full'>
       <Outlet />
     </div>
   );

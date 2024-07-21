@@ -7,7 +7,7 @@ function Index() {
   const location = useLocation();
 
   return (
-    <div className='container-fluid h-full w-full'>
+    <div className='font-montserrat container-fluid h-full w-full'>
       <Navbar />
       {location.pathname === '/' ? <Home /> : <Outlet />}
       <Footer />

@@ -21,7 +21,7 @@ const PeopleCard: React.FC<PeopleCardProps> = ({ person, index }) => {
 
       <div>{person.name}</div>
       <div>{person.phoneNumber}</div>
-      <img src={person.favorite} alt="Favorite" className="w-4 h-4" />
+      <img src={person.favorite} alt="Favorite" className="w-5 h-5" />
     </div>
   );
 };

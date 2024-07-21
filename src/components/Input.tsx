@@ -1,16 +1,16 @@
-// import { ChangeEventHandler } from "react";
+import { ChangeEventHandler } from "react";
 
 type InputProps = {
   input: {
-    // onChange?: ChangeEventHandler<HTMLInputElement>;1
+    onChange?: ChangeEventHandler<HTMLInputElement>;
     type?: string;
     name?: string;
     placeholder?: string;
     autocomplete?: string;
-    // value?: string;
+    value?: string;
   };
-  // isToggler?: boolean;s
-  // onTogglerHandler?: (e: React.MouseEvent) => void;
+  isToggler?: boolean;
+  onTogglerHandler?: (e: React.MouseEvent) => void;
 };
 
 function Input(props: InputProps) {
@@ -18,14 +18,14 @@ function Input(props: InputProps) {
 
   return (
     <input
-      className="w-full h-12 border border-solid border-darkwhite rounded-xl pt-0.5 pl-14 text-lightgray mb-2 text-xs uw:text-xl"
+      className="w-full h-10 border border-solid border-gray-200 rounded-xl pt-0.5 pl-14 text-black mb-2 text-xs uw:text-xl"
       type={input.type}
       id={input.name}
       name={input.name}
-      // value={input.value}
+      value={input.value}
       placeholder={input.placeholder}
       autoComplete={input.autocomplete}
-      // onChange={input.onChange}
+      onChange={input.onChange}
     />
   );
 }

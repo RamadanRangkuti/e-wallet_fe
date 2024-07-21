@@ -8,7 +8,7 @@ import FinancialChart from '../components/FinancialChart';
 
 export default function Dashboard() {
   return (
-        <main className=" w-full p-8">
+            <main className=" w-full p-8">
                 <section className="w-full  max-md:max-w-full">
                     <div className="flex gap-5 max-md:flex-col max-md:gap-0">
                         <div className="flex flex-col w-[33%] max-md:ml-0 max-md:w-full">
@@ -75,6 +75,7 @@ export default function Dashboard() {
                     </div>
                     </div>
                 </section>
-        </main>
+            </main>
+        
   )
 }

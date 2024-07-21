@@ -9,7 +9,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import EnterPin from "./pages/EnterPin";
 import Dashboard from './pages/Dashboard'
 import UsersIndex from "./pages/UsersIndex";
-import Profile from "./pages/Profile";
+import ChangePassword from "./pages/ChangePassword";
 
 const routerWithChildren = createBrowserRouter([
   {
@@ -22,8 +22,8 @@ const routerWithChildren = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: "profile",
-        element: <Profile />,
+        path: "changepassword",
+        element: <ChangePassword />,
       },
       {
         path: "*",

@@ -947,6 +947,14 @@ video {
   width: 100%;
 }
 
+.w-16{
+  width: 4rem;
+}
+
+.w-20{
+  width: 5rem;
+}
+
 .max-w-\[1052px\]{
   max-width: 1052px;
 }
@@ -1367,6 +1375,11 @@ video {
   padding-bottom: 1.5rem;
 }
 
+.py-8{
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 .pb-11{
   padding-bottom: 2.75rem;
 }
@@ -1437,6 +1450,10 @@ video {
 
 .pt-6{
   padding-top: 1.5rem;
+}
+
+.pl-8{
+  padding-left: 2rem;
 }
 
 .text-center{
@@ -1550,6 +1567,10 @@ video {
 
 .tracking-wider{
   letter-spacing: 0.05em;
+}
+
+.tracking-wide{
+  letter-spacing: 0.025em;
 }
 
 .text-black{

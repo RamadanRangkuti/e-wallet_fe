@@ -26,34 +26,34 @@ const peopleData = [
 
 const TransferDetail: React.FC = () => {
   return (
-    <div className="flex w-full p-8">
-      <div className="flex flex-col w-full">
+    <div className="w-full pl-8 py-8">
+      <div className="flex-col w-full">
         <div className="flex mb-7">
-          <div className="flex flex-col gap-5 pr-8">
+          <div className="flex flex-col gap-5">
             <div className="flex gap-4 text-sm font-semibold tracking-normal">
               <TransferSvgHeader />
               Transfer Money
             </div>
             <div className="flex w-full items-center gap-4">
               <div className="flex items-center">
-                <div className="flex items-center justify-center w-5 h-5 bg-blue-600 text-xs text-white rounded-full ml-2  mr-1">
+                <div className="flex items-center justify-center w-5 h-5 bg-blue-600 text-xs text-white rounded-full ml-2 mr-1">
                   1
                 </div>
-                <span className="text-sm text-blue-600 tracking-normal">Find People</span>
+                <span className="text-sm text-blue-600 tracking-wide">Find People</span>
               </div>
-              <div className="flex-grow border-dashed border-t border-gray-400 w-12"></div>
+              <div className="flex-grow border-dashed border-t border-gray-400 w-20"></div>
               <div className="flex items-center h-full">
-                <div className="flex items-center justify-center w-4 h-4 bg-gray-700 text-xs text-white rounded-full ml-2  mr-1">
+                <div className="flex items-center justify-center w-4 h-4 bg-gray-700 text-xs text-white rounded-full ml-2 mr-1">
                   2
                 </div>
-                <span className="text-sm text-gray-600 tracking-normal">Set Nominal</span>
+                <span className="text-sm text-gray-600 tracking-wide">Set Nominal</span>
               </div>
-              <div className="flex-grow border-dashed border-t border-gray-400 w-12"></div>
+              <div className="flex-grow border-dashed border-t border-gray-400 w-20"></div>
               <div className="flex items-center h-full">
-                <div className="flex items-center justify-center w-5 h-5 bg-gray-700 text-xs text-white rounded-full ml-2  mr-1">
+                <div className="flex items-center justify-center w-5 h-5 bg-gray-700 text-xs text-white rounded-full ml-2 mr-1">
                   3
                 </div>
-                <span className="text-sm text-gray-600 tracking-normal">Finish</span>
+                <span className="text-sm text-gray-600 tracking-wide">Finish</span>
               </div>
             </div>
           </div>

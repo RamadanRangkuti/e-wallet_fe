@@ -1,14 +1,18 @@
+import UserNavbar from '../components/UserNavbar'
+import Sidenavbar from '../components/UserSidebar';
 import { Outlet } from 'react-router-dom';
 
-// import Sidenavbar from '../components/Sidenavbar';
-
-function Index() {
-
+export default function Index() {
   return (
-    <div className='container-fluid h-full w-full'>
-      <Outlet />
+    <div>
+        <UserNavbar/>
+        <div className='flex felx-row w-full'>
+            <div>
+                <Sidenavbar/>
+            </div>
+            <Outlet/>
+            
+        </div>
     </div>
-  );
+  )
 }
-
-export default Index;

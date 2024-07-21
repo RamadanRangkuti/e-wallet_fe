@@ -19,7 +19,7 @@ function Login() {
   };
 
   return (
-    <main className="font-montserrat md:grid md:grid-cols-2 md:bg-bgprimary h-screen">
+    <main className="font-montserrat md:grid md:grid-cols-2 md:bg-bgprimary w-full h-full">
       <section className="bg-white px-5 md:px-20 py-36 md:rounded-r-3xl">
         <div className="flex flex-wrap">
           <img className="mr-3" src={walletIcon} alt="wallet" />
@@ -52,14 +52,14 @@ function Login() {
             Email
           </label>
           <div className="relative mt-2">
-            <img className="absolute mt-4 ml-5" width="20" height="20" src={emailIcon} alt="email-icon" />
+            <img className="absolute mt-[11px] ml-5" width="20" height="20" src={emailIcon} alt="email-icon" />
             <Input input={{ type: "text", name: "email", placeholder: "Enter your email", autocomplete: "email" }} />
           </div>
           <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="pwd">
             Password
           </label>
           <div className="relative mt-2">
-            <img className="absolute mt-4 ml-5" width="20" height="20" src={passwordIcon} alt="password-icon" />
+            <img className="absolute mt-[11px] ml-5" width="20" height="20" src={passwordIcon} alt="password-icon" />
             <img className="absolute mt-3.5 mr-5 right-0 cursor-pointer" width="20" height="20" src={showPassword ? eyeOffIcon : eyeIcon} alt="toggle-password-visibility" onClick={togglePasswordVisibility} />
             <Input input={{ type: showPassword ? "text" : "password", name: "pwd", placeholder: "Enter Your Password", autocomplete: "off" }} />
           </div>

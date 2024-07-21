@@ -9,6 +9,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import EnterPin from "./pages/EnterPin";
 import Dashboard from './pages/Dashboard'
 import UsersIndex from "./pages/UsersIndex";
+import Profile from "./pages/Profile";
 
 const routerWithChildren = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const routerWithChildren = createBrowserRouter([
       {
         path: "dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
       },
       {
         path: "*",

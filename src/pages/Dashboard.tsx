@@ -1,6 +1,4 @@
 import TransactionHistory from '../components/TransactionHistory';
-import UserNavbar from '../components/UserNavbar'
-import Sidenavbar from '../components/UserSidebar';
 import transfer from '../assets/icons/transfer.svg'
 import topUp from '../assets/icons/topUp.svg'
 import balance from '../assets/icons/balance.svg'
@@ -10,12 +8,6 @@ import FinancialChart from '../components/FinancialChart';
 
 export default function Dashboard() {
   return (
-    <div>
-        <UserNavbar/>
-        <div className='flex felx-row w-full'>
-            <div>
-                <Sidenavbar/>
-            </div>
             <main className=" w-full p-8">
                 <section className="w-full  max-md:max-w-full">
                     <div className="flex gap-5 max-md:flex-col max-md:gap-0">
@@ -84,7 +76,6 @@ export default function Dashboard() {
                     </div>
                 </section>
             </main>
-        </div>
-    </div>
+        
   )
 }

@@ -16,7 +16,7 @@ function UsersIndex() {
       </div>
       <UserFooter />
     </div>
-  );
+  )
 }
 
 export default UsersIndex;

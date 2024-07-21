@@ -10,6 +10,10 @@ import EnterPin from "./pages/EnterPin";
 import Dashboard from './pages/Dashboard'
 import UsersIndex from "./pages/UsersIndex";
 import ChangePassword from "./pages/ChangePassword";
+import TransferHistory from "./pages/TransferHistory";
+import Profile from "./pages/Profile";
+
+// test
 
 const routerWithChildren = createBrowserRouter([
   {
@@ -21,6 +25,13 @@ const routerWithChildren = createBrowserRouter([
         path: "dashboard",
         element: <Dashboard />,
       },
+      {
+        path: "history",
+        element: <TransferHistory />,
+      },
+      {
+        path: "profile",
+        element: <Profile />},
       {
         path: "changepassword",
         element: <ChangePassword />,

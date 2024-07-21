@@ -3,22 +3,17 @@ import editProfile from "../assets/icons/edit-profile.svg"
 import deleteProfile from "../assets/icons/delete-profile.svg"
 import emailIcon from "../assets/icons/email-icon.svg";
 import phoneIcon from "../assets/icons/phone-icon.svg";
-import profile2Blue from "../assets/icons/profile2-blue.svg";
 
 import Input from "../components/Input";
-import UserFooter from "../components/UserFooter";
 import { Link } from "react-router-dom";
-
+import NavbarProfile from "../components/NavbarProfile";
 
 function Profile() {
   return (
     <main className="font-montserrat md:flex w-full">
     <div className="w-full md:mt-5">
-          <div className='flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold px-5 py-2 md:bg-white md:text-black'>
-              <img className="hidden md:flex" width="20" src={profile2Blue} alt="" />
-              <p className="md:ml-3">Profile</p>
-          </div>
-          <div className="p-5 md:border md:border-solid md:mx-5">
+          <NavbarProfile/>
+          <div className="p-5 h-full md:border md:border-solid md:mx-5">
               <h1 className="text-xs md:text-base text-black font-semibold">Profile Picture</h1>
               <div className="flex my-3">
                   <div className="mr-5 bg-gray-100 rounded-lg w-40 tbt:w-32 grid place-items-center">
@@ -65,7 +60,7 @@ function Profile() {
                   <p className="font-semibold text-sm mb-2 md:text-base uw:text-2xl">
                       Password
                   </p>
-                  <Link to="#" className="flex mb-4 text-primary text-sm md:text-base uw:text-xl hover:underline">
+                  <Link to="/user/changepassword" className="flex mb-4 text-primary text-sm md:text-base uw:text-xl hover:underline">
                       Change Password
                   </Link>
                   <p className="font-semibold text-sm mb-2 md:text-base uw:text-2xl">
@@ -80,7 +75,6 @@ function Profile() {
               </form>
           </div>
     </div>
-          <UserFooter />
       </main>
   )
 }

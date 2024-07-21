@@ -702,6 +702,10 @@ video {
   margin-top: 11px;
 }
 
+.mt-2\.5{
+  margin-top: 0.625rem;
+}
+
 .block{
   display: block;
 }
@@ -1524,6 +1528,10 @@ video {
 
 .focus\:border-l-4:focus{
   border-left-width: 4px;
+}
+
+.focus\:border-t-2:focus{
+  border-top-width: 2px;
 }
 
 .focus\:border-solid:focus{

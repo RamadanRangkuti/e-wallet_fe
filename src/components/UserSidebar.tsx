@@ -39,16 +39,17 @@ export default function SideNavbar() {
               />
               <div className="ml-2">History</div>
             </button>
-          </Link>
-          <button className="w-full h-10 items-center mt-2 pl-2 flex rounded-md focus:text-blue-600  focus:border-l-4 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
-            <img
-              width="20"
-              height="20"
-              src={topUp}
-            />
-            <div className="ml-2">Top Up</div>
-          </button>
-          <Link to="/user/profile">
+            </Link>
+
+            <button className="w-full h-10 items-center mt-2 pl-2 flex rounded-md focus:text-blue-600  focus:border-l-4 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
+              <img
+                width="20"
+                height="20"
+                src={topUp}
+              />
+              <div className="ml-2">Top Up</div>
+            </button>
+            <Link to="/user">
             <button className="w-full h-10 items-center mt-2 pl-2 flex rounded-md focus:text-blue-600  focus:border-l-4 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
               <img
                 width="20"

@@ -13,7 +13,6 @@ function InputPin({ length }: InputPinProps) {
       newPin[index] = value;
       setPin(newPin);
 
-      // Otomatis fokus pada input field berikutnya atau sebelumnya jika dihapus
       if (value !== "" && index < pin.length - 1) {
         (document.getElementById(`pin-${index + 1}`) as HTMLInputElement).focus();
       }

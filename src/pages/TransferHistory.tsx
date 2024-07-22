@@ -25,10 +25,14 @@ function TransferItem({ data }: TransferItemProps) {
   return (
     <div className="flex gap-5 mt-2 w-full font-medium leading-5 text-gray-600 text-lg items-center max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
       <div className="flex flex-row justify-between p-4 w-full ">
-        <img loading="lazy" src={data.imgSrc} className=" w-[48px] h-[48px] object-cover rounded-xl" alt={data.receiver} />
-        <div>{data.date}</div>
-        <div>{data.phone}</div>
-        <div>{data.receiver}</div>
+        <img loading="lazy" src={data.imgSrc} className=" w-[48px] h-[48px] object-cover rounded-xl hidden md:block" alt={data.receiver} />
+        <div className="flex flex-col md:hidden">
+          <div>{data.receiver}</div>
+          <div>{data.phone}</div>
+        </div>
+        <div className="hidden md:block">{data.date}</div>
+        <div className="hidden md:block">{data.phone}</div>
+        <div className="hidden md:block">{data.receiver}</div>
         <div className={data.income ? "text-green-500" : "text-red-500	"}>{data.amount}</div>
       </div>
     </div>
@@ -67,11 +71,6 @@ function TransferHistory() {
                     <div>2</div>
                     <div>3</div>
                     <div>4</div>
-                    <div>5</div>
-                    <div>6</div>
-                    <div>7</div>
-                    <div>8</div>
-                    <div>9</div>
                     <div className="text-stone-950">Next</div>
                   </div>
                 </div>

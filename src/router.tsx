@@ -12,7 +12,9 @@ import UsersIndex from "./pages/UsersIndex";
 import ChangePassword from "./pages/ChangePassword";
 import TransferHistory from "./pages/TransferHistory";
 import ChangePin from "./pages/ChangePin";
-import TransferPage from "./pages/Transfer";
+import Transfer from "./pages/Transfer";
+import TransferDetail from "./pages/TransferDetail";
+import TopUp from "./pages/TopUp";
 
 const routerWithChildren = createBrowserRouter([
   {
@@ -48,6 +50,10 @@ const routerWithChildren = createBrowserRouter([
         path: "*",
         element: <NotFound />,
       },
+      {
+        path: "topup",
+        element: <TopUp />
+      }
     ],
   },
   {

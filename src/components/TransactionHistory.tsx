@@ -62,7 +62,7 @@ const transactions: Transaction[] = [
 
 const TransactionHistory: React.FC = () => {
   return (
-    <div className="flex flex-col grow px-5 pt-4 pb-8 rounded-md border border-gray-200 border-solid max-md:mt-5 w-fit">
+    <div className="flex flex-col grow px-5 pt-4 pb-8 rounded-md border border-gray-200 border-solid max-md:mt-5 w-full">
       <div className="flex gap-5">
         <h2 className="flex-auto text-base font-semibold tracking-normal leading-6 text-slate-900">Transaction History</h2>
         <button className="text-xs font-medium tracking-normal leading-6 text-blue-600">See All</button>

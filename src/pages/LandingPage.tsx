@@ -18,10 +18,10 @@ import dropbox from "../assets/icons/dropbox.svg";
 
 export default function LandingPage() {
   return (
-    <main className="bg-white">
+    <main className="flex flex-col justify-center bg-white gap-4">
       <header className="flex flex-col items-center px-16 pt-16 w-full bg-blue-600 max-md:px-5 max-md:max-w-full">
-        <div className="flex flex-col w-full max-w-[1052px] max-md:max-w-full">
-          <h1 className="self-center text-6xl font-medium text-center text-white max-md:max-w-full max-md:text-4xl">Experience the Future of Digital Payments with e-wallet</h1>
+        <div className="flex flex-col w-full max-w-[1052px] max-md:max-w-full pb-8">
+          <h1 className="self-center mt-9 text-6xl font-medium text-center text-white max-md:max-w-full max-md:text-4xl">Experience the Future of Digital Payments with e-wallet</h1>
           <div className="mt-9 max-md:max-w-full">
             <div className="flex gap-5 max-md:flex-col max-md:gap-0">
               <div className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
@@ -53,23 +53,23 @@ export default function LandingPage() {
           </div>
         </div>
       </header>
-      <section className="flex justify-center items-center p-2.5 w-full max-md:px-5 max-md:max-w-full px-32">
-        <div className="flex gap-5 max-md:flex-wrap">
-          <article className="flex gap-2.5 pr-2.5">
+      <section className="flex self-center items-center p-2.5 w-full max-md:px-5 w-full max-w-[1180px] max-md:max-w-full ">
+        <div className="flex flex-row gap-5 max-md:flex-wrap px-16 items-center">
+          <article className="flex flex-col md:flex-row gap-2.5 pr-2.5 items-center text-center">
             <img loading="lazy" src={earphone} className="shrink-0 my-auto aspect-square w-[58px]" />
             <div className="flex flex-col">
               <h2 className="text-lg font-bold text-slate-900">24/7 Support</h2>
               <p className="mt-2 text-base text-gray-600">We have 24/7 contact support so you can contact us whenever you want and we will respond it.</p>
             </div>
           </article>
-          <article className="flex gap-2.5 pr-2.5">
+          <article className="flex flex-col md:flex-row gap-2.5 pr-2.5 items-center text-center">
             <img loading="lazy" src={protect} className="shrink-0 my-auto aspect-square w-[58px]" />
             <div className="flex flex-col">
               <h2 className="text-lg font-bold text-slate-900">Data Privacy</h2>
               <p className="mt-2 text-base text-gray-600">We make sure your data is safe in our database and we will encrypt any data you submitted to us.</p>
             </div>
           </article>
-          <article className="flex gap-2.5 pr-2.5">
+          <article className="flex flex-col md:flex-row gap-2.5 pr-2.5 items-center text-center">
             <img loading="lazy" src={download} className="shrink-0 my-auto aspect-square w-[58px]" />
             <div className="flex flex-col">
               <h2 className="text-lg font-bold text-slate-900">Easy Download</h2>
@@ -78,20 +78,23 @@ export default function LandingPage() {
           </article>
         </div>
       </section>
-      <section className="flex self-center mt-1.5 w-full">
-        <article className="flex flex-col w-[41%] max-md:ml-0 max-md:w-full">
-          <div className="flex flex-col grow px-5 mt-11 font-medium max-md:mt-10 max-md:max-w-full">
-            <h2 className="text-lg font-bold text-blue-600 max-md:max-w-full">WELCOME TO E-WALLET</h2>
-            <h3 className="mt-6 text-4xl text-slate-900 max-md:max-w-full">Your All-in-One Digital Payment Solution</h3>
-            <p className="mt-6 text-base leading-6 text-gray-600 max-md:max-w-full">
-              Say goodbye to cash and hello to the future of payments! With e-wallet, you have the power of secure, fast, and convenient digital transactions right at your fingertips. Whether you're shopping, dining out, or sending money to
-              loved ones, we've got you covered.
-            </p>
-            <button className="justify-center self-start p-2.5 mt-6 text-sm leading-5 text-center text-white bg-blue-600 rounded-md max-md:px-5">Get Started</button>
-          </div>
-        </article>
+      <section className="self-center mt-1.5 w-full max-w-[1180px] max-md:max-w-full">
+        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
         <div className="flex flex-col ml-5 w-[59%] max-md:ml-0 max-md:w-full">
-          <img loading="lazy" src={potraitPhoto} className="grow w-full aspect-[1.67] max-md:mt-5 max-md:max-w-full" />
+            <img loading="lazy" src={potraitPhoto} className="grow w-full aspect-[1.67] max-md:mt-5 max-md:max-w-full" />
+          </div> 
+          <article className="flex flex-col w-[41%] max-md:ml-0 max-md:w-full">
+            <div className="flex flex-col grow px-5 mt-11 font-medium max-md:mt-10 max-md:max-w-full items-center text-center">
+              <h2 className="text-lg font-bold text-blue-600 max-md:max-w-full">WELCOME TO E-WALLET</h2>
+              <h3 className="mt-6 text-4xl text-slate-900 max-md:max-w-full">Your All-in-One Digital Payment Solution</h3>
+              <p className="mt-6 text-base leading-6 text-gray-600 max-md:max-w-full">
+                Say goodbye to cash and hello to the future of payments! With e-wallet, you have the power of secure, fast, and convenient digital transactions right at your fingertips. Whether you're shopping, dining out, or sending money
+                to loved ones, we've got you covered.
+              </p>
+              <button className="justify-center self-start p-2.5 mt-6 text-sm leading-5 text-center text-white bg-blue-600 rounded-md max-md:px-5 w-full md:w-[100px]">Get Started</button>
+            </div>
+          </article>
+           
         </div>
       </section>
       <section className="flex justify-center items-center p-2.5 mt-20 w-full bg-gray-200 bg-opacity-30 max-md:px-5 max-md:mt-10 max-md:max-w-full">
@@ -118,27 +121,27 @@ export default function LandingPage() {
                     <span className="justify-center self-start">User Friendly</span>
                   </li>
                 </ul>
-                <button className="justify-center p-2.5 mt-6 text-sm font-medium leading-5 text-center text-white bg-blue-600 rounded-md max-md:px-5">Get Started</button>
-              </div>
+                <button className="justify-center self-start p-2.5 mt-6 text-sm leading-5 text-center text-white bg-blue-600 rounded-md max-md:px-5 w-full md:w-[100px]">Get Started</button>
+                </div>
             </article>
           </div>
         </div>
       </section>
       <section className="flex justify-center items-center px-16 py-20 w-full max-md:px-5 max-md:max-w-full">
         <div className="w-full max-w-[1168px] max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-            <article className="flex flex-col w-[41%] max-md:ml-0 max-md:w-full">
+          <div className="flex flex-col md:flex-row gap-5 max-md:flex-col max-md:gap-0 w-full">
+            <article className="flex flex-col w-[41%] max-md:ml-0 max-md:w-full items-center text-center">
               <div className="flex flex-col grow max-md:mt-2.5 max-md:max-w-full">
                 <h2 className="text-4xl font-medium text-slate-900 max-md:max-w-full">100+ Trusted Partners</h2>
                 <p className="mt-6 text-base text-gray-600 max-md:max-w-full">
                   We have reached global level and have 100+
                   <br />
                   brand partners around the globe.
-                </p>
+                </p>  
               </div>
             </article>
-            <div className="flex flex-col ml-5 w-[59%] max-md:ml-0 max-md:w-full">
-              <div className="flex gap-5 justify-between self-stretch my-auto max-md:flex-wrap max-md:mt-7">
+            <div className="flex ml-5 w-full  max-md:ml-0 max-md:w-full items-center text-center">
+              <div className="flex  flex-wrap sm:flex-wrap  w-full items-center justify-center  gap-2 md:justify-between self-stretch my-auto max-md:flex-wrap max-md:mt-7">
                 <img loading="lazy" src={microsoft} className="shrink-0 max-w-full aspect-[1.45] w-[100px]" />
                 <img loading="lazy" src={dropbox} className="shrink-0 max-w-full aspect-[1.45] w-[100px]" />
                 <img loading="lazy" src={hnm} className="shrink-0 max-w-full aspect-[1.45] w-[100px]" />

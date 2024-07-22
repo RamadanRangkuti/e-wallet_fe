@@ -18,7 +18,7 @@ import dropbox from "../assets/icons/dropbox.svg";
 
 export default function LandingPage() {
   return (
-    <main className="flex flex-col bg-white">
+    <main className="bg-white">
       <header className="flex flex-col items-center px-16 pt-16 w-full bg-blue-600 max-md:px-5 max-md:max-w-full">
         <div className="flex flex-col w-full max-w-[1052px] max-md:max-w-full">
           <h1 className="self-center text-6xl font-medium text-center text-white max-md:max-w-full max-md:text-4xl">Experience the Future of Digital Payments with e-wallet</h1>
@@ -78,22 +78,20 @@ export default function LandingPage() {
           </article>
         </div>
       </section>
-      <section className="self-center mt-1.5 w-full max-w-[1180px] max-md:max-w-full">
-        <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-          <article className="flex flex-col w-[41%] max-md:ml-0 max-md:w-full">
-            <div className="flex flex-col grow px-5 mt-11 font-medium max-md:mt-10 max-md:max-w-full">
-              <h2 className="text-lg font-bold text-blue-600 max-md:max-w-full">WELCOME TO E-WALLET</h2>
-              <h3 className="mt-6 text-4xl text-slate-900 max-md:max-w-full">Your All-in-One Digital Payment Solution</h3>
-              <p className="mt-6 text-base leading-6 text-gray-600 max-md:max-w-full">
-                Say goodbye to cash and hello to the future of payments! With e-wallet, you have the power of secure, fast, and convenient digital transactions right at your fingertips. Whether you're shopping, dining out, or sending money
-                to loved ones, we've got you covered.
-              </p>
-              <button className="justify-center self-start p-2.5 mt-6 text-sm leading-5 text-center text-white bg-blue-600 rounded-md max-md:px-5">Get Started</button>
-            </div>
-          </article>
-          <div className="flex flex-col ml-5 w-[59%] max-md:ml-0 max-md:w-full">
-            <img loading="lazy" src={potraitPhoto} className="grow w-full aspect-[1.67] max-md:mt-5 max-md:max-w-full" />
+      <section className="flex self-center mt-1.5 w-full">
+        <article className="flex flex-col w-[41%] max-md:ml-0 max-md:w-full">
+          <div className="flex flex-col grow px-5 mt-11 font-medium max-md:mt-10 max-md:max-w-full">
+            <h2 className="text-lg font-bold text-blue-600 max-md:max-w-full">WELCOME TO E-WALLET</h2>
+            <h3 className="mt-6 text-4xl text-slate-900 max-md:max-w-full">Your All-in-One Digital Payment Solution</h3>
+            <p className="mt-6 text-base leading-6 text-gray-600 max-md:max-w-full">
+              Say goodbye to cash and hello to the future of payments! With e-wallet, you have the power of secure, fast, and convenient digital transactions right at your fingertips. Whether you're shopping, dining out, or sending money to
+              loved ones, we've got you covered.
+            </p>
+            <button className="justify-center self-start p-2.5 mt-6 text-sm leading-5 text-center text-white bg-blue-600 rounded-md max-md:px-5">Get Started</button>
           </div>
+        </article>
+        <div className="flex flex-col ml-5 w-[59%] max-md:ml-0 max-md:w-full">
+          <img loading="lazy" src={potraitPhoto} className="grow w-full aspect-[1.67] max-md:mt-5 max-md:max-w-full" />
         </div>
       </section>
       <section className="flex justify-center items-center p-2.5 mt-20 w-full bg-gray-200 bg-opacity-30 max-md:px-5 max-md:mt-10 max-md:max-w-full">

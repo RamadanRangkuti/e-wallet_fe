@@ -14,6 +14,7 @@ import TransferHistory from "./pages/TransferHistory";
 import ChangePin from "./pages/ChangePin";
 import Transfer from "./pages/Transfer";
 import TransferDetail from "./pages/TransferDetail";
+import TopUp from "./pages/TopUp";
 
 const routerWithChildren = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const routerWithChildren = createBrowserRouter([
         path: "*",
         element: <NotFound />,
       },
+      {
+        path: "topup",
+        element: <TopUp/>
+      }
     ],
   },
   {

@@ -6,13 +6,16 @@ import phoneIcon from "../assets/icons/phone-icon.svg";
 
 import Input from "../components/Input";
 import { Link } from "react-router-dom";
-import NavbarProfile from "../components/NavbarProfile";
+import profile2Blue from "../assets/icons/profile2-blue.svg";
 
 function Profile() {
   return (
-    <main className="font-montserrat h-screen w-full">
+    <main className="font-montserrat w-full">
       <div className="md:mt-5">
-        <NavbarProfile />
+        <div className="flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold px-5 py-2 md:bg-white md:text-black md:mt-5">
+          <img className="hidden md:flex" width="20" src={profile2Blue} alt="" />
+          <p className="md:ml-3">Profile</p>
+        </div>
         <div className="p-5 md:border md:border-solid md:mx-5">
           <h1 className="text-xs md:text-base text-black font-semibold">Profile Picture</h1>
           <div className="flex my-3">

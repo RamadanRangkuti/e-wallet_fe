@@ -26,10 +26,12 @@ function UserFooter() {
           <p className="text-[10px]">History</p>
         </button>
       </Link>
-      <button className="grid place-items-center p-3 focus:text-blue-600  focus:border-t-2 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
-        <img width="20" src={topUp} alt="topup" />
-        <p className="text-[10px]">Topup</p>
-      </button>
+      <Link to="/user/topup">
+        <button className="grid place-items-center p-3 focus:text-blue-600  focus:border-t-2 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
+          <img width="20" src={topUp} alt="topup" />
+          <p className="text-[10px]">Topup</p>
+        </button>
+      </Link>
       <Link to="/user">
         <button className="grid place-items-center p-3 focus:text-blue-600  focus:border-t-2 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
           <img width="20" src={profile2} alt="profile" />

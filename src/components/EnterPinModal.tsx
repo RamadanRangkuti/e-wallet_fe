@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import TransferSuccessModal from './TransferSuccess';
-import TransferFailedModal from './TransferFailed';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import TransferSuccessModal from "./TransferSuccess";
+import TransferFailedModal from "./TransferFailed";
 
 interface EnterPinModalProps {
   onClose: () => void;
@@ -25,8 +25,8 @@ const EnterPinModal: React.FC<EnterPinModalProps> = ({ onClose, onSuccess, onFai
   };
 
   const handleSubmit = () => {
-    const enteredPin = pin.join('');
-    const correctPin = '123456'; // Dummy correct PIN
+    const enteredPin = pin.join("");
+    const correctPin = "123456"; // Dummy correct PIN
 
     if (enteredPin === correctPin) {
       setShowSuccessModal(true);
@@ -45,20 +45,18 @@ const EnterPinModal: React.FC<EnterPinModalProps> = ({ onClose, onSuccess, onFai
       <div className="absolute h-full inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" onClick={onClose}>
         <div className="bg-white w-auto p-5 rounded-md shadow-md" onClick={(e) => e.stopPropagation()}>
           <div className="flex flex-col font-montserrat">
-            <div className="flex w-full border-b border-gray-200 text-gray-400 text-sm font-semibold">TRANSFER TO GHALUH 1</div>
+            <div className="flex w-full border-b border-gray-200 text-gray-400 text-xs md:text-sm font-semibold">TRANSFER TO GHALUH 1</div>
             <div className="flex flex-col justify-center my-8">
-              <div className="flex text-xl mb-2 font-semibold">
-                Enter Your Pin 👋
-              </div>
-              <div className="text-sm text-gray-400">Enter Your Pin For Transaction</div>
-              <div className="flex justify-between mb-10 mt-4 gap-4">
+              <div className="flex text-base md:text-xl mb-2 font-semibold">Enter Your Pin 👋</div>
+              <div className="text-xs md:text-sm text-gray-400">Enter Your Pin For Transaction</div>
+              <div className="flex justify-between mb-10 mt-4 gap-2 md:gap-4">
                 {pin.map((digit, index) => (
                   <input
                     key={index}
                     id={`pin-${index}`}
                     type="text"
                     maxLength={1}
-                    className="w-12 h-12 py-5 text-center font-semibold text-xl border-b border-gray-300 focus:outline-none focus:border-blue-500"
+                    className="w-8 md:w-12 h-8 md:h-12 py-5 text-center font-semibold text-base md:text-xl border-b border-gray-300 focus:outline-none focus:border-blue-500"
                     value={digit}
                     onChange={(e) => handleChange(e.target.value, index)}
                     autoFocus={index === 0}
@@ -66,13 +64,16 @@ const EnterPinModal: React.FC<EnterPinModalProps> = ({ onClose, onSuccess, onFai
                 ))}
               </div>
               <div className="flex flex-col items-center">
-                <button
-                  onClick={handleSubmit}
-                  className="bg-blue-600 h-12 w-full rounded-lg text-white font-light tracking-wider my-2"
-                >
+                <button onClick={handleSubmit} className="bg-blue-600 h-10 md:h-12 w-full rounded-lg text-white text-sm md:text-base font-light tracking-wider my-2">
                   Next
                 </button>
-                <div className="text-sm">Forgot Your Pin? <Link to="#" className="text-blue-600"> Reset</Link></div>
+                <div className="text-xs md:text-sm">
+                  Forgot Your Pin?{" "}
+                  <Link to="#" className="text-blue-600">
+                    {" "}
+                    Reset
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

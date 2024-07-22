@@ -24,7 +24,7 @@ function ChangePassword() {
   };
 
   return (
-    <main className="font-montserrat h-screen w-full">
+    <main className="font-montserrat w-full">
       <div className="md:mt-5">
         <NavbarProfile />
         <div className="p-5 md:border md:border-solid md:mx-5">
@@ -46,13 +46,13 @@ function ChangePassword() {
               <img className="absolute mt-2.5 mr-5 right-0 cursor-pointer" width="20" height="20" src={showNewPassword ? eyeOffIcon : eyeIcon} alt="toggle-password-visibility" onClick={toggleNewPasswordVisibility} />
               <Input input={{ type: showNewPassword ? "text" : "password", name: "newpassword", placeholder: "Enter Your Password Again", autocomplete: "off" }} />
             </div>
-            <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="newpassword">
+            <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="confirmnewpassword">
               Confirm New Password
             </label>
             <div className="relative mt-2">
               <img className="absolute mt-[11px] ml-5" width="20" height="20" src={passwordIcon} alt="confirmpassword-icon" />
               <img className="absolute mt-2.5 mr-5 right-0 cursor-pointer" width="20" height="20" src={showConfirmNewPassword ? eyeOffIcon : eyeIcon} alt="toggle-password-visibility" onClick={toggleConfirmNewPasswordVisibility} />
-              <Input input={{ type: showConfirmNewPassword ? "text" : "password", name: "newpassword", placeholder: "Enter Your Password Again", autocomplete: "off" }} />
+              <Input input={{ type: showConfirmNewPassword ? "text" : "password", name: "confirmnewpassword", placeholder: "Enter Your Password Again", autocomplete: "off" }} />
             </div>
             <button className="text-white text-sm uw:text-2xl bg-primary hover:bg-blue-700 active:bg-blue-800 rounded-lg w-full h-11 uw:h-16" type="submit">
               Submit

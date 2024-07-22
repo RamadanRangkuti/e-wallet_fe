@@ -2,7 +2,7 @@ import NavbarProfile from "../components/NavbarProfile";
 import { useState } from "react";
 
 function ChangePassword() {
-  const [pin, setPin] = useState<string[]>(new Array(5).fill(""));
+  const [pin, setPin] = useState<string[]>(new Array(6).fill(""));
 
   const handleChange = (value: string, index: number) => {
     const newPin = [...pin];
@@ -15,7 +15,7 @@ function ChangePassword() {
   };
 
   return (
-    <main className="font-montserrat h-screen w-full">
+    <main className="font-montserrat w-full">
       <div className="md:mt-5">
         <NavbarProfile />
         <div className="px-5 py-20 md:border md:border-solid md:mx-5">

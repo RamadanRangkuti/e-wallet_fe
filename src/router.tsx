@@ -14,6 +14,8 @@ import TransferHistory from "./pages/TransferHistory";
 import ChangePin from "./pages/ChangePin";
 
 // test
+import Transfer from "./pages/Transfer"
+import TransferDetail from "./pages/TransferDetail"
 
 const routerWithChildren = createBrowserRouter([
   {

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function EnterPin() {
-  const [pin, setPin] = useState<string[]>(new Array(5).fill(""));
+  const [pin, setPin] = useState<string[]>(new Array(6).fill(""));
 
   const handleChange = (value: string, index: number) => {
     const newPin = [...pin];

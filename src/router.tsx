@@ -7,11 +7,11 @@ import Home from "./pages/LandingPage";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import EnterPin from "./pages/EnterPin";
-import Dashboard from './pages/Dashboard'
+import Dashboard from "./pages/Dashboard";
 import UsersIndex from "./pages/UsersIndex";
 import ChangePassword from "./pages/ChangePassword";
 import TransferHistory from "./pages/TransferHistory";
-import Profile from "./pages/Profile";
+import ChangePin from "./pages/ChangePin";
 
 // test
 import Transfer from "./pages/Transfer"
@@ -32,20 +32,12 @@ const routerWithChildren = createBrowserRouter([
         element: <TransferHistory />,
       },
       {
-        path: "profile",
-        element: <Profile />
-      },
-      {
         path: "changepassword",
         element: <ChangePassword />,
       },
       {
-        path: "transfer",
-        element: <Transfer />,
-      },
-      {
-        path: "transfer-detail",
-        element: <TransferDetail />,
+        path: "changepin",
+        element: <ChangePin />,
       },
       {
         path: "*",

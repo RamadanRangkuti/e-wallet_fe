@@ -795,16 +795,8 @@ video {
   margin-top: 11px;
 }
 
-.mb-8{
-  margin-bottom: 2rem;
-}
-
-.mb-14{
-  margin-bottom: 3.5rem;
-}
-
-.mb-16{
-  margin-bottom: 4rem;
+.mb-10{
+  margin-bottom: 2.5rem;
 }
 
 .block{
@@ -903,48 +895,18 @@ video {
   height: 100vh;
 }
 
-.h-40{
-  height: 10rem;
+.h-max{
+  height: -moz-max-content;
+  height: max-content;
 }
 
-.h-20{
-  height: 5rem;
-}
-
-.h-36{
-  height: 9rem;
-}
-
-.h-32{
-  height: 8rem;
-}
-
-.max-h-96{
-  max-height: 24rem;
+.h-fit{
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .max-h-full{
   max-height: 100%;
-}
-
-.max-h-screen{
-  max-height: 100vh;
-}
-
-.max-h-\[400px\]{
-  max-height: 400px;
-}
-
-.min-h-20{
-  min-height: 5rem;
-}
-
-.min-h-12{
-  min-height: 3rem;
-}
-
-.min-h-10{
-  min-height: 2.5rem;
 }
 
 .w-1\/2{
@@ -1586,14 +1548,24 @@ video {
   padding-bottom: 1.5rem;
 }
 
-.py-7{
-  padding-top: 1.75rem;
-  padding-bottom: 1.75rem;
+.py-96{
+  padding-top: 24rem;
+  padding-bottom: 24rem;
 }
 
-.py-8{
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+.px-10{
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.px-20{
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.px-40{
+  padding-left: 10rem;
+  padding-right: 10rem;
 }
 
 .pb-11{
@@ -1735,6 +1707,10 @@ video {
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-\[11px\]{
+  font-size: 11px;
 }
 
 .font-bold{
@@ -2092,6 +2068,11 @@ video {
   .tbt\:w-96{
     width: 24rem;
   }
+
+  .tbt\:px-40{
+    padding-left: 10rem;
+    padding-right: 10rem;
+  }
 }
 
 @media (min-width: 769px){
@@ -2142,6 +2123,10 @@ video {
 
   .md\:h-full{
     height: 100%;
+  }
+
+  .md\:h-screen{
+    height: 100vh;
   }
 
   .md\:w-full{

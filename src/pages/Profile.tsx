@@ -10,10 +10,10 @@ import NavbarProfile from "../components/NavbarProfile";
 
 function Profile() {
   return (
-    <main className="font-montserrat w-full">
-      <div className="w-full md:mt-5">
+    <main className="font-montserrat h-screen w-full">
+      <div className="md:mt-5">
         <NavbarProfile />
-        <div className="p-5 h-screen md:h-full md:border md:border-solid md:mx-5">
+        <div className="p-5 md:border md:border-solid md:mx-5">
           <h1 className="text-xs md:text-base text-black font-semibold">Profile Picture</h1>
           <div className="flex my-3">
             <div className="mr-5 bg-gray-100 rounded-lg w-40 tbt:w-32 grid place-items-center">
@@ -62,7 +62,7 @@ function Profile() {
               Change Password
             </Link>
             <p className="font-semibold text-sm mb-2 md:text-base uw:text-2xl">Pin</p>
-            <Link to="#" className="flex mb-4 text-primary text-sm md:text-base uw:text-xl hover:underline">
+            <Link to="/user/changepin" className="flex mb-4 text-primary text-sm md:text-base uw:text-xl hover:underline">
               Change Pin
             </Link>
             <button className="text-white text-sm uw:text-2xl bg-primary hover:bg-blue-700 active:bg-blue-800 rounded-lg w-full h-11 uw:h-16" type="submit">

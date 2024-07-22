@@ -14,7 +14,6 @@ function EnterPin() {
     newPin[index] = value;
     setPin(newPin);
 
-    // Automatically focus on the next input field
     if (value && index < pin.length - 1) {
       (document.getElementById(`pin-${index + 1}`) as HTMLInputElement).focus();
     }

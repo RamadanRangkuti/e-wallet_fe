@@ -12,10 +12,8 @@ import UsersIndex from "./pages/UsersIndex";
 import ChangePassword from "./pages/ChangePassword";
 import TransferHistory from "./pages/TransferHistory";
 import ChangePin from "./pages/ChangePin";
-
-// test
-import Transfer from "./pages/Transfer"
-import TransferDetail from "./pages/TransferDetail"
+import Transfer from "./pages/Transfer";
+import TransferDetail from "./pages/TransferDetail";
 
 const routerWithChildren = createBrowserRouter([
   {
@@ -30,6 +28,14 @@ const routerWithChildren = createBrowserRouter([
       {
         path: "history",
         element: <TransferHistory />,
+      },
+      {
+        path: "transfer",
+        element: <Transfer />,
+      },
+      {
+        path: "transfer-detail",
+        element: <TransferDetail />,
       },
       {
         path: "changepassword",

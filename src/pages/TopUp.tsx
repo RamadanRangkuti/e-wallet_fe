@@ -119,8 +119,8 @@ export default function TopUp() {
                     input={{
                       type: "checkbox",
                       name: "",
-                      placeholder: "Enter your email",
-                      autocomplete: "email",
+                      placeholder: "",
+                      autocomplete: "",
                     }}
                   />
                   <img className="w-auto h-8" src={Bri} alt="..." />

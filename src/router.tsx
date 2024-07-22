@@ -32,11 +32,11 @@ const routerWithChildren = createBrowserRouter([
       },
       {
         path: "transfer",
-        element: <Transfer />,
+        element: <TransferPage />,
       },
       {
-        path: "transfer-detail",
-        element: <TransferDetail />,
+        path: "transfer/:id",
+        element: <TransferPage />,
       },
       {
         path: "changepassword",
@@ -52,7 +52,7 @@ const routerWithChildren = createBrowserRouter([
       },
       {
         path: "topup",
-        element: <TopUp/>
+        element: <TopUp />
       }
     ],
   },

@@ -14,14 +14,18 @@ function UserFooter() {
           <p className="text-[10px]">Dashboard</p>
         </button>
       </Link>
-      <button className="grid place-items-center p-3 focus:text-blue-600  focus:border-t-2 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
-        <img width="20" src={transfer} alt="transfer" />
-        <p className="text-[10px]">Transfer</p>
-      </button>
-      <button className="grid place-items-center p-3 focus:text-blue-600  focus:border-t-2 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
-        <img width="20" src={history} alt="history" />
-        <p className="text-[10px]">History</p>
-      </button>
+      <Link to="/user/transfer">
+        <button className="grid place-items-center p-3 focus:text-blue-600  focus:border-t-2 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
+          <img width="20" src={transfer} alt="transfer" />
+          <p className="text-[10px]">Transfer</p>
+        </button>
+      </Link>
+      <Link to="/user/history">
+        <button className="grid place-items-center p-3 focus:text-blue-600  focus:border-t-2 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
+          <img width="20" src={history} alt="history" />
+          <p className="text-[10px]">History</p>
+        </button>
+      </Link>
       <button className="grid place-items-center p-3 focus:text-blue-600  focus:border-t-2 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
         <img width="20" src={topUp} alt="topup" />
         <p className="text-[10px]">Topup</p>

@@ -129,7 +129,7 @@ export default function LandingPage() {
       </section>
       <section className="flex justify-center items-center px-16 py-20 w-full max-md:px-5 max-md:max-w-full">
         <div className="w-full max-w-[1168px] max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+          <div className="flex flex-col md:flex-row gap-5 max-md:flex-col max-md:gap-0 w-full">
             <article className="flex flex-col w-[41%] max-md:ml-0 max-md:w-full items-center text-center">
               <div className="flex flex-col grow max-md:mt-2.5 max-md:max-w-full">
                 <h2 className="text-4xl font-medium text-slate-900 max-md:max-w-full">100+ Trusted Partners</h2>
@@ -140,8 +140,8 @@ export default function LandingPage() {
                 </p>  
               </div>
             </article>
-            <div className="flex ml-5 w-full md:w-[59%] max-md:ml-0 max-md:w-full items-center text-center">
-              <div className="flex  flex-col md:flex-row  w-full items-center justify-center  gap-5 md:justify-between self-stretch my-auto max-md:flex-wrap max-md:mt-7">
+            <div className="flex ml-5 w-full  max-md:ml-0 max-md:w-full items-center text-center">
+              <div className="flex  flex-wrap sm:flex-wrap  w-full items-center justify-center  gap-2 md:justify-between self-stretch my-auto max-md:flex-wrap max-md:mt-7">
                 <img loading="lazy" src={microsoft} className="shrink-0 max-w-full aspect-[1.45] w-[100px]" />
                 <img loading="lazy" src={dropbox} className="shrink-0 max-w-full aspect-[1.45] w-[100px]" />
                 <img loading="lazy" src={hnm} className="shrink-0 max-w-full aspect-[1.45] w-[100px]" />

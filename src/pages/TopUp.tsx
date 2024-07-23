@@ -58,7 +58,7 @@ export default function TopUp() {
   };
 
   return (
-    <main className="w-full">
+    <main className="relative w-full">
       <div className="flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold py-2 px-5 md:px-8 md:bg-white md:text-black">
         <img className="hidden md:flex" width="20" src={topup} alt="" />
         <p className="md:ml-3">Transfer Money</p>

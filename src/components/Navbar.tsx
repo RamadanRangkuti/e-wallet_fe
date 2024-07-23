@@ -22,8 +22,12 @@ export default function Navbar() {
         </div>
       </div>
       <div className="hidden gap-5 md:flex text-sm text-center">
-        <button className="px-5 py-3 w-30 text-white rounded-md border border-white border-solid">Sign In</button>
-        <button className="px-5 py-3 w-30 text-blue-500 bg-white rounded-md">Sign Up</button>
+        <Link to={"/login"} >
+          <button className="px-5 py-3 w-30 text-white rounded-md border border-white border-solid">Sign In</button>
+        </Link>
+        <Link to={"/register"}>
+          <button className="px-5 py-3 w-30 text-blue-500 bg-white rounded-md">Sign Up</button>
+        </Link>
       </div>
       <div className="md:hidden">
         <div>

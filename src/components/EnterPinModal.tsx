@@ -38,7 +38,7 @@ function EnterPinModal({ onClose, onSuccess, onFailure }: EnterPinModalProps) {
 
   const handleSubmit = () => {
     const enteredPin = pin.join("");
-    const correctPin = "123456"; // Dummy correct PIN
+    const correctPin = "123456"
 
     if (enteredPin === correctPin) {
       setShowSuccessModal(true);

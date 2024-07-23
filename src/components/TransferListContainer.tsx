@@ -15,6 +15,7 @@ interface TransferListContainerProps {
   onSelectPerson: (id: number) => void;
 }
 
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const peopleData = [
   { id: 1, image: image1, name: "Ghaluh 1", phoneNumber: "(239)555-0108", favorite: unfilledStar },

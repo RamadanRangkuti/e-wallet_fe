@@ -20,12 +20,12 @@ function TransferDetailContainer({ personId, onFinish, onTransferAgain }: Transf
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailedModal, setShowFailedModal] = useState(false);
   const [nominal, setNominal] = useState<string>('');
-  const [rawNominal, setRawNominal] = useState<number>(0); // Default to 0
+  const [rawNominal, setRawNominal] = useState<number>(0);
   const [notes, setNotes] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch or filter the person data based on personId
+
     const selectedPerson = peopleData.find((p: { id: number }) => p.id === personId);
     setPerson(selectedPerson || null);
   }, [personId]);
@@ -37,7 +37,7 @@ function TransferDetailContainer({ personId, onFinish, onTransferAgain }: Transf
   const handleSuccess = () => {
     setShowSuccessModal(true);
     setIsModalOpen(false);
-    onFinish(); // Call onFinish to move to step 3
+    onFinish();
   };
 
   const handleFailure = () => {
@@ -48,7 +48,7 @@ function TransferDetailContainer({ personId, onFinish, onTransferAgain }: Transf
   const navigate = useNavigate();
 
   const handleTryAgain = () => {
-    onTransferAgain(); // Call the callback to reset step and navigate
+    onTransferAgain();
     navigate("/user/transfer");
   };
 
@@ -57,12 +57,12 @@ function TransferDetailContainer({ personId, onFinish, onTransferAgain }: Transf
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // Remove non-numeric characters
+
     const value = event.target.value.replace(/[^0-9]/g, '');
     const numericValue = parseFloat(value);
 
     if (isNaN(numericValue)) {
-      setRawNominal(0); // Default to 0 if NaN
+      setRawNominal(0);
       setNominal('');
     } else {
       setRawNominal(numericValue);

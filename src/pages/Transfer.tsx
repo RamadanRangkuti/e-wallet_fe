@@ -38,7 +38,7 @@ function TransferPage() {
 
   const handleFinish = () => {
     setCurrentStep(3);
-    setShowSuccessModal(true); // Show success modal
+    setShowSuccessModal(true);
   };
 
   const handleTransferAgain = () => {

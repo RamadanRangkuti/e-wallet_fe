@@ -1,4 +1,3 @@
-// import * as React from "react";
 import wallet from "../assets/icons/wallet.svg";
 import profile from "../assets/images/ProfileNavbar.png";
 import dropdown from "../assets/icons/dropdown.svg";

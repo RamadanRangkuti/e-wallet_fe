@@ -70,7 +70,7 @@ export default function SideNavbar() {
               <div className="ml-2">Profile</div>
             </button>
           </Link>
-          <button onClick={handleLogout} className="w-full h-10 items-center mt-2 pl-2 flex rounded-md focus:border-l-4 focus:border-red-600 focus:border-solid focus:bg-red-600 focus:bg-opacity-10">
+          <button onClick={handleLogout} className="w-full h-10 items-center mt-2 pl-2 flex rounded-md text-red-600 focus:border-l-4 focus:border-red-600 focus:border-solid focus:bg-red-600 focus:bg-opacity-10">
             <img width="20" height="20" src={quit} />
             <div className="ml-2">Keluar</div>
           </button>

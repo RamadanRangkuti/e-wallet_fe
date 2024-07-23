@@ -1251,6 +1251,11 @@ video {
   background-color: rgb(232 232 232 / var(--tw-bg-opacity));
 }
 
+.bg-amber-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 158 11 / var(--tw-bg-opacity));
+}
+
 .bg-bgprimary{
   --tw-bg-opacity: 1;
   background-color: rgb(57 105 253 / var(--tw-bg-opacity));
@@ -1955,10 +1960,6 @@ video {
 }
 
 @media (min-width: 426px){
-  .tbt\:w-32{
-    width: 8rem;
-  }
-
   .tbt\:w-96{
     width: 24rem;
   }
@@ -2323,6 +2324,14 @@ video {
 }
 
 @media (min-width: 1025px){
+  .lg\:h-10{
+    height: 2.5rem;
+  }
+
+  .lg\:w-10{
+    width: 2.5rem;
+  }
+
   .lg\:w-\[250px\]{
     width: 250px;
   }
@@ -2346,6 +2355,11 @@ video {
   .lg\:text-4xl{
     font-size: 2.25rem;
     line-height: 2.5rem;
+  }
+
+  .lg\:text-base{
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 
   .lg\:text-lg{

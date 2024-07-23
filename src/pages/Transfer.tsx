@@ -76,7 +76,6 @@ function TransferPage() {
         {(currentStep === 2 || currentStep === 3) && selectedPersonId && (
           <div>
             <TransferDetailContainer
-              personId={selectedPersonId}
               onFinish={handleFinish}
               onTransferAgain={handleTransferAgain}
             />

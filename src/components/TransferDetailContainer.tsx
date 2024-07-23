@@ -1,21 +1,30 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import PeopleDetailCard from '../components/PeopleDetailCard';
 import moneyIcon from '../assets/icons/u_money-bill.svg';
 import EnterPinModal from '../components/EnterPinModal';
 import TransferSuccessModal from '../components/TransferSuccess';
 import TransferFailedModal from '../components/TransferFailed';
-import { peopleData } from './TransferListContainer';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios'; // Adjust the import path according to your project structure
+import { RootState } from '../redux/store';
 
 interface TransferDetailContainerProps {
-  personId: number;
   onResetStep?: () => void;
   onFinish: () => void;
   onTransferAgain: () => void;
 }
 
-function TransferDetailContainer({ personId, onFinish, onTransferAgain }: TransferDetailContainerProps) {
-  const [person, setPerson] = useState<typeof peopleData[0] | null>(null);
+interface User {
+  fullname: string;
+  phoneNumber?: string;
+  image?: string;
+  favorite?: string;
+}
+
+function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailContainerProps) {
+  const { id } = useParams<{ id: string }>();
+  const [person, setPerson] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailedModal, setShowFailedModal] = useState(false);
@@ -24,11 +33,31 @@ function TransferDetailContainer({ personId, onFinish, onTransferAgain }: Transf
   const [notes, setNotes] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  // Get the token from Redux state
+  const token = useSelector((state: RootState) => state.auth.token);
 
-    const selectedPerson = peopleData.find((p: { id: number }) => p.id === personId);
-    setPerson(selectedPerson || null);
-  }, [personId]);
+  useEffect(() => {
+    const getPost = async (id: string) => {
+      try {
+        const res = await axios.get(`http://localhost:8080/api/v1/user/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (res.data && res.data.results && res.data.results.length > 0) {
+          setPerson(res.data.results[0] || null);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    if (id) {
+      getPost(id);
+    } else {
+      console.error("Id is undefined");
+    }
+  }, [id, token]);
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(value);
@@ -57,7 +86,6 @@ function TransferDetailContainer({ personId, onFinish, onTransferAgain }: Transf
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-
     const value = event.target.value.replace(/[^0-9]/g, '');
     const numericValue = parseFloat(value);
 
@@ -98,7 +126,7 @@ function TransferDetailContainer({ personId, onFinish, onTransferAgain }: Transf
     <div className="flex flex-col md:border md:mr-8 p-7 gap-3 md:gap-6">
       <div className="flex flex-col font-semibold gap-4">
         <div className="text-xs md:text-base">People Information</div>
-        <PeopleDetailCard image={person.image} name={person.name} phoneNumber={person.phoneNumber} favoriteIcon={person.favorite} isVerified={true} />
+        <PeopleDetailCard image={person.image} name={person.fullname} phoneNumber={person.phoneNumber} favoriteIcon={person.favorite} isVerified={true} />
       </div>
       <div className="flex flex-col justify-center">
         <div className="text-sm md:text-base font-semibold">Amount</div>

@@ -7,7 +7,8 @@ type InputProps = {
     name?: string;
     placeholder?: string;
     autocomplete?: string;
-    value?: string;
+    maxLength?: number;
+    value?: string | number;
   };
   isToggler?: boolean;
   onTogglerHandler?: (e: React.MouseEvent) => void;
@@ -25,6 +26,7 @@ function Input(props: InputProps) {
       value={input.value}
       placeholder={input.placeholder}
       autoComplete={input.autocomplete}
+      maxLength={input.maxLength}
       onChange={input.onChange}
     />
   );

@@ -2,7 +2,6 @@
 import wallet from "../assets/icons/wallet.svg";
 // import profile from "../assets/images/ProfileNavbar.png";
 import dropdown from "../assets/icons/dropdown.svg";
-import Threedots from '../assets/icons/Threedots.svg'
 import { Link } from "react-router-dom";
 import { MouseEventHandler, useState } from "react";
 

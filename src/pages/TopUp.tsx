@@ -16,6 +16,8 @@ import TransferFailedModal from "../components/TransferFailed";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 
+
+
 interface Person {
   image: string;
   name: string;
@@ -33,9 +35,42 @@ const person: Person = {
 };
 
 export default function TopUp() {
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailedModal, setShowFailedModal] = useState(false);
+
+  const [nominal, setNominal] = useState("0"); 
+  const [subtotal, setSubtotal] = useState("0");
+  const [adminFee, setAdminFee] = useState("0");
+  const [paymentMethod, setPaymentMethod] = useState<string | number>(); 
+
+  const handlePaymentMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPaymentMethod(e.target.value);
+  };
+
+  const handleNominalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    value = value.replace(/\D/g, '');
+    const numericValue = parseFloat(value);
+
+    if (isNaN(numericValue)) {
+      setNominal("0");
+      setAdminFee("0");
+      setSubtotal("0");
+    } else {
+      const calculatedAdminFee = numericValue * 0.01;
+      const calculatedSubtotal = numericValue + calculatedAdminFee;
+
+      const formattedNominal = numericValue.toLocaleString('id-ID');
+      const formattedAdminFee = calculatedAdminFee.toLocaleString('id-ID');
+      const formattedSubtotal = calculatedSubtotal.toLocaleString('id-ID');
+
+      setNominal(formattedNominal);
+      setAdminFee(formattedAdminFee);
+      setSubtotal(formattedSubtotal);
+    }
+  };
 
   const handleSuccess = () => {
     setIsModalOpen(false);
@@ -56,6 +91,19 @@ export default function TopUp() {
   const handleDashboard = () => {
     navigate("/");
   };
+
+  const handleSubmit = () => {
+    setIsModalOpen(true); 
+    
+    const amountNumber = parseFloat(nominal.replace(/[,.]/g, '')); 
+    const adminFeeNumber = parseFloat(adminFee.replace(/[,.]/g, '')); 
+    const subtotalNumber = parseFloat(subtotal.replace(/[,.]/g, ''));
+
+    console.log("Payment Method:", paymentMethod);
+    console.log("Amount:", amountNumber);
+    console.log("Admin Fee:", adminFeeNumber);
+    console.log("Sub Total:", subtotalNumber);
+  };  
 
   return (
     <main className="relative w-full">
@@ -80,7 +128,7 @@ export default function TopUp() {
               <div className="text-sm text-gray-500 mb-4">Type the amount you want to transfer and then press continue to the next steps.</div>
               <div className="relative flex items-center">
                 <img src={moneyIcon} alt="Money Icon" className="absolute left-3 w-5 h-5 text-gray-400" />
-                <input type="text" name="nominal" className="pl-10 border rounded-md focus:outline-gray-400 w-full h-12 font-semibold" placeholder="Enter Nominal Transfer" autoComplete="off" />
+                <input type="text" name="nominal"  value={nominal} onChange={handleNominalChange}  className="pl-10 border rounded-md focus:outline-gray-400 w-full h-12 font-semibold" placeholder="Enter Nominal Transfer" autoComplete="off" />
               </div>
             </div>
 
@@ -93,10 +141,10 @@ export default function TopUp() {
                 <div className="grid grid-cols-[auto,auto,1fr] gap-7 items-center ">
                   <Input
                     input={{
-                      type: "checkbox",
-                      name: "",
-                      placeholder: "",
-                      autocomplete: "",
+                      type: "radio",
+                      name: "paymentMethod",
+                      value: 1 ,
+                      onChange:handlePaymentMethodChange
                     }}
                   />
                   <img className="w-auto h-8" src={Bri} alt="..." />
@@ -106,10 +154,10 @@ export default function TopUp() {
                 <div className="grid grid-cols-[auto,auto,1fr] gap-7 items-center ">
                   <Input
                     input={{
-                      type: "checkbox",
-                      name: "",
-                      placeholder: "Enter your email",
-                      autocomplete: "email",
+                      type: "radio",
+                      name: "paymentMethod",
+                      value: 2 ,
+                      onChange:handlePaymentMethodChange
                     }}
                   />
                   <img className="w-auto h-3" src={Dana} alt="..." />
@@ -119,10 +167,10 @@ export default function TopUp() {
                 <div className="grid grid-cols-[auto,auto,1fr] gap-7 items-center ">
                   <Input
                     input={{
-                      type: "checkbox",
-                      name: "",
-                      placeholder: "Enter your email",
-                      autocomplete: "email",
+                      type: "radio",
+                      name: "paymentMethod",
+                     value: 3 ,
+                      onChange:handlePaymentMethodChange
                     }}
                   />
                   <img className="w-auto h-3" src={BCA} alt="..." />
@@ -132,10 +180,10 @@ export default function TopUp() {
                 <div className="grid grid-cols-[auto,auto,1fr] gap-7 items-center ">
                   <Input
                     input={{
-                      type: "checkbox",
-                      name: "",
-                      placeholder: "Enter your email",
-                      autocomplete: "email",
+                      type: "radio",
+                      name: "paymentMethod",
+                      value: 4 ,
+                      onChange:handlePaymentMethodChange
                     }}
                   />
                   <img className="w-auto h-3" src={Gopay} alt="..." />
@@ -145,10 +193,10 @@ export default function TopUp() {
                 <div className="grid grid-cols-[auto,auto,1fr] gap-7 items-center ">
                   <Input
                     input={{
-                      type: "checkbox",
-                      name: "",
-                      placeholder: "Enter your email",
-                      autocomplete: "email",
+                      type: "radio",
+                      name: "paymentMethod",
+                      value: 5,
+                      onChange:handlePaymentMethodChange
                     }}
                   />
                   <img className="w-auto h-3" src={OVO} alt="..." />
@@ -166,25 +214,21 @@ export default function TopUp() {
               <div className="grid gap-5">
                 <div className="grid gap-2">
                   <div className="grid grid-cols-2 text-sm lg:gap-12">
-                    <p className="text-[#4F5665]">Order</p>
-                    <p className="text-end">Idr. 40.000</p>
-                  </div>
-                  <div className="grid grid-cols-2 text-sm gap-12">
-                    <p className="text-[#4F5665]">Delivery</p>
-                    <p className="text-end">0</p>
+                    <p className="text-[#4F5665]">Amount</p>
+                    <p className="text-end">Idr. {nominal || "0"}</p>
                   </div>
                   <div className="grid grid-cols-2 text-sm lg:gap-12">
-                    <p className="text-[#4F5665]">Tax</p>
-                    <p className="text-end">Idr. 4000</p>
+                    <p className="text-[#4F5665]">admin</p>
+                    <p className="text-end">Idr. {adminFee || "0" }</p>
                   </div>
                   <div className="h-[1px] w-full bg-[#E8E8E8]"></div>
                   <div className="grid grid-cols-2 text-sm gap-12">
                     <p className="text-[#4F5665]">Sub Total</p>
-                    <p className="text-end">Idr. 44000</p>
+                    <p className="text-end">Idr. {subtotal || "0" }</p>
                   </div>
                 </div>
 
-                <button className="bg-blue-600 min-h-10 w-full rounded-lg text-white font-thin tracking-wider" onClick={() => setIsModalOpen(true)}>
+                <button className="bg-blue-600 min-h-10 w-full rounded-lg text-white font-thin tracking-wider"  onClick={handleSubmit}>
                   Submit
                 </button>
                 {isModalOpen && <EnterPinModal onClose={() => setIsModalOpen(false)} onSuccess={handleSuccess} onFailure={handleFailure} />}

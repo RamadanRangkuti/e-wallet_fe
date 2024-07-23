@@ -1,4 +1,5 @@
 import userIcon from "../assets/images/user.webp";
+import user from "../assets/icons/user.svg";
 import editProfile from "../assets/icons/edit-profile.svg";
 import deleteProfile from "../assets/icons/delete-profile.svg";
 import emailIcon from "../assets/icons/email-icon.svg";
@@ -11,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import { useStoreSelector } from "../redux/hooks";
 import { IProfileBody } from "../types/profile";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 function Profile() {
   const [form, setForm] = useState<IProfileBody>();
@@ -18,10 +20,19 @@ function Profile() {
   const [getProfile, setProfile] = useState<IProfileBody[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [changeImage, setImage] = useState<File | null>(null);
+  const [id, setId] = useState<string>("");
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode<{ id: string }>(token);
+      setId(decodedToken.id);
+    }
+  }, [token]);
 
   useEffect(() => {
     const getDataUser = async () => {
-      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user`;
+      if (!id || !token) return;
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
       try {
         const result = await axios.get(url, {
           headers: {
@@ -30,12 +41,13 @@ function Profile() {
         });
         setProfile(result.data.data);
         setForm(result.data.data[0]);
+        console.log(result.data);
       } catch (error) {
         console.log(error);
       }
     };
     getDataUser();
-  }, [token]);
+  }, [id, token]);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((form) => {
@@ -62,16 +74,16 @@ function Profile() {
     e.preventDefault();
     try {
       const formData = new FormData();
-      if (form?.full_name) {
-        formData.append("full_name", form.full_name);
+      if (form?.fullname) {
+        formData.append("fullname", form.fullname);
       }
       if (form?.phone) {
         formData.append("phone", form.phone);
       }
       if (changeImage) {
-        formData.append("image", changeImage);
+        formData.append("images", changeImage);
       }
-      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/settings`;
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
       const result = await axios.patch(url, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -117,12 +129,12 @@ function Profile() {
           </div>
           <p className="text-[10px] md:text-xs">The profile picture must be 512 x 512 pixels or less</p>
           <form onSubmit={onSubmitHandler} className="mt-3">
-            <label className="font-semibold text-sm md:text-base uw:text-2xl" htmlFor="full_name">
+            <label className="font-semibold text-sm md:text-base uw:text-2xl" htmlFor="fullname">
               Full Name
             </label>
             <div className="relative mt-2">
-              <img className="absolute mt-[11px] ml-5" width="20" height="20" src={userIcon} alt="email-icon" />
-              <Input input={{ type: "text", name: "full_name", placeholder: "Enter Full Name", autocomplete: "name", value: form?.full_name, onChange: onChangeHandler }} />
+              <img className="absolute mt-[11px] ml-5" width="20" height="20" src={user} alt="user-icon" />
+              <Input input={{ type: "text", name: "fullname", placeholder: "Enter Full Name", autocomplete: "name", value: form?.fullname, onChange: onChangeHandler }} />
             </div>
             <label className="font-semibold text-sm md:text-base uw:text-2xl" htmlFor="phone">
               Phone

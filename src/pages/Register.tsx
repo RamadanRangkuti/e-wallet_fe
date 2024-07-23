@@ -8,12 +8,47 @@ import passwordIcon from "../assets/icons/password-icon.svg";
 import registerLogo from "../assets/images/register.webp";
 
 import Input from "../components/Input";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import axios, { AxiosResponse } from "axios";
+import { IAuthResponse } from "../types/response";
 
 function Register() {
+  const [form, setForm] = useState<{ email: string; password: string; pin?: number }>({ email: "", password: "", pin: undefined });
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((form) => {
+      return {
+        ...form,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
+  const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (form.password !== confirmPassword) {
+      return setErrorMessage("Password harus sama");
+    }
+    setErrorMessage("");
+    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/auth/register`;
+    axios
+      .post(url, form)
+      .then((result: AxiosResponse<IAuthResponse>) => {
+        console.log(result.data);
+        navigate("/login");
+      })
+      .catch((err) => console.error(err));
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -25,7 +60,7 @@ function Register() {
 
   return (
     <main className="font-montserrat md:grid md:grid-cols-2 md:bg-bgprimary w-full h-screen">
-      <section className="bg-white px-5 md:px-20 py-24 lg:py-36 md:rounded-r-3xl">
+      <section className="bg-white px-5 md:px-20 py-10 md:rounded-r-3xl">
         <div className="flex">
           <img className="mr-3" src={walletIcon} alt="wallet" />
           <div className="my-auto">
@@ -51,29 +86,37 @@ function Register() {
           </button>
         </div>
         <p className="text-center text-xs uw:text-2xl text-gray-500">Or</p>
-        <form className="mt-2">
+        <form onSubmit={onSubmitHandler} className="mt-2">
           <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="email">
             Email
           </label>
           <div className="relative mt-2">
             <img className="absolute mt-[11px] ml-5" width="20" height="20" src={emailIcon} alt="email-icon" />
-            <Input input={{ type: "text", name: "email", placeholder: "Enter your email", autocomplete: "email" }} />
+            <Input input={{ type: "text", name: "email", placeholder: "Enter your email", autocomplete: "email", value: form.email, onChange: onChangeHandler }} />
           </div>
-          <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="pwd">
+          <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="password">
             Password
           </label>
           <div className="relative mt-2">
             <img className="absolute mt-[11px] ml-5" width="20" height="20" src={passwordIcon} alt="password-icon" />
             <img className="absolute mt-3.5 mr-5 right-0 cursor-pointer" width="20" height="20" src={showPassword ? eyeOffIcon : eyeIcon} alt="toggle-password-visibility" onClick={togglePasswordVisibility} />
-            <Input input={{ type: showPassword ? "text" : "password", name: "pwd", placeholder: "Enter Your Password", autocomplete: "off" }} />
+            <Input input={{ type: showPassword ? "text" : "password", name: "password", placeholder: "Enter Your Password", autocomplete: "off", value: form.password, onChange: onChangeHandler }} />
           </div>
           <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="confirmpassword">
             Confirm Password
           </label>
           <div className="relative mt-2">
             <img className="absolute mt-[11px] ml-5" width="20" height="20" src={passwordIcon} alt="confirmpassword-icon" />
-            <img className="absolute mt-3.5 mr-5 right-0 cursor-pointer" width="20" height="20" src={showConfirmPassword ? eyeOffIcon : eyeIcon} alt="toggle-password-visibility" onClick={toggleConfirmPasswordVisibility} />
-            <Input input={{ type: showConfirmPassword ? "text" : "password", name: "confirmpassword", placeholder: "Enter Your Password Again", autocomplete: "off" }} />
+            <img className="absolute mt-3.5 mr-5 right-0 cursor-pointer" width="20" height="20" src={showConfirmPassword ? eyeOffIcon : eyeIcon} alt="toggle-confirm-password-visibility" onClick={toggleConfirmPasswordVisibility} />
+            <Input input={{ type: showConfirmPassword ? "text" : "password", name: "confirmpassword", placeholder: "Enter Your Password Again", autocomplete: "off", value: confirmPassword, onChange: onConfirmPasswordChange }} />
+          </div>
+          {errorMessage && <p className="text-red-500 text-sm mb-3">{errorMessage}</p>}
+          <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="pin">
+            Pin
+          </label>
+          <div className="relative mt-2">
+            <img className="absolute mt-[11px] ml-5" width="20" height="20" src={passwordIcon} alt="pin-icon" />
+            <Input input={{ type: "password", name: "pin", placeholder: "Enter Your Pin", autocomplete: "off", maxLength: 6, value: form.pin, onChange: onChangeHandler }} />
           </div>
           <button className="text-white uw:text-2xl bg-primary hover:bg-blue-700 active:bg-blue-800 rounded-lg w-full h-11 uw:h-16" type="submit">
             Register

@@ -12,8 +12,7 @@ import UsersIndex from "./pages/UsersIndex";
 import ChangePassword from "./pages/ChangePassword";
 import TransferHistory from "./pages/TransferHistory";
 import ChangePin from "./pages/ChangePin";
-import Transfer from "./pages/Transfer";
-import TransferDetail from "./pages/TransferDetail";
+import TransferPage from "./pages/Transfer";
 import TopUp from "./pages/TopUp";
 
 const routerWithChildren = createBrowserRouter([
@@ -22,6 +21,10 @@ const routerWithChildren = createBrowserRouter([
     element: <UsersIndex />,
     errorElement: <Error />,
     children: [
+      {
+        path: "topup",
+        element: <TopUp />,
+      },
       {
         path: "dashboard",
         element: <Dashboard />,
@@ -32,11 +35,11 @@ const routerWithChildren = createBrowserRouter([
       },
       {
         path: "transfer",
-        element: <Transfer />,
+        element: <TransferPage />,
       },
       {
-        path: "transfer-detail",
-        element: <TransferDetail />,
+        path: "transfer/:id",
+        element: <TransferPage />,
       },
       {
         path: "changepassword",
@@ -50,10 +53,6 @@ const routerWithChildren = createBrowserRouter([
         path: "*",
         element: <NotFound />,
       },
-      {
-        path: "topup",
-        element: <TopUp/>
-      }
     ],
   },
   {

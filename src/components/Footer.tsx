@@ -1,53 +1,46 @@
-import walletIcon from "../assets/icons/wallet.svg";
+import wallet from "../assets/icons/wallet.svg";
 import socmed from "../assets/icons/socmed.svg";
-import emailBlack from "../assets/icons/email-icon.svg";
+import emailIcon from "../assets/icons/email-icon.svg";
 import email from "../assets/icons/email-icon-white.svg";
 import phone from "../assets/icons/phone.svg";
+import Input from "./Input";
 
 export default function Footer() {
   return (
-    <footer className="flex justify-center items-center self-stretch px-16 py-11 mt-20 w-full bg-blue-600 max-md:px-5 max-md:mt-10 max-md:max-w-full bottom-0 ">
-      <div className="flex flex-col w-full max-w-[1166px] max-md:max-w-full">
-        <div className="max-md:max-w-full">
-          <div className="flex gap-5 max-md:flex-col max-md:gap-0">
-            <div className="flex flex-col w-3/12 max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col grow text-white max-md:mt-10">
-                <div className="flex gap-4 text-4xl font-semibold whitespace-nowrap">
-                  <img loading="lazy" src={walletIcon} className="shrink-0 aspect-square w-[50px]" />
-                  <div className="justify-center self-start py-3">E-Wallet</div>
-                </div>
-                <div className="mt-6 text-base leading-7">Clarity gives you the blocks and components you need to create a truly professional website.</div>
-              </div>
+    <footer className="font-montserrat bg-blue-600 px-5 md:px-20 pt-10 text-white mt-10 bottom-0">
+      <div>
+        <div className="md:flex md:justify-between md:gap-5 w-full">
+          <div>
+            <div className="flex gap-4">
+              <img width="40" src={wallet} />
+              <p className="font-nunitosans justify-center self-center w-48 text-4xl md:text-2xl">E-Wallet</p>
             </div>
-            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col self-stretch my-auto text-base font-semibold leading-7 text-zinc-100 max-md:mt-10">
-                <div className="text-lg tracking-wider leading-5 text-white uppercase">Get In Touch</div>
-                <div className="flex gap-4 mt-7">
-                  <img loading="lazy" src={phone} className="shrink-0 my-auto w-6 aspect-square" />
-                  <div>+62 5637 8882 9901</div>
-                </div>
-                <div className="flex gap-4 mt-3 whitespace-nowrap">
-                  <img loading="lazy" src={email} className="shrink-0 self-start mt-1 w-6 aspect-square" />
-                  <div>contact@zwallet.com</div>
-                </div>
-              </div>
+            <p className="mt-6 md:mt-2 text-sm leading-7 w-56">Clarity gives you the blocks and components you need to create a truly professional website.</p>
+          </div>
+          <div className="text-zinc-100 mt-10 md:mt-0 md:ml-5">
+            <p className="text-lg md:text-base leading-5 text-white">GET IN TOUCH</p>
+            <div className="flex gap-4 mt-7 md:mt-5">
+              <img width="20" src={phone} />
+              <p className="text-sm md:text-xs">+62 5637 8882 9901</p>
             </div>
-            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col mt-4 text-lg font-semibold tracking-wider leading-5 text-white uppercase max-md:mt-10">
-                <div>Social Media</div>
-                <img loading="lazy" src={socmed} className="self-center mt-6 aspect-[5.26] w-[222px]" />
-              </div>
+            <div className="flex gap-4 mt-5">
+              <img width="20" src={email} />
+              <p className="text-sm">contact@zwallet.com</p>
             </div>
-            <div className="flex flex-col ml-5 w-3/12 max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col mt-4 max-md:mt-10">
-                <div className="text-lg font-semibold tracking-wider leading-5 text-white uppercase">Newsletter</div>
-                <div className="flex gap-2.5 px-3.5 py-3.5 mt-5 text-xs tracking-wider text-gray-600 bg-white rounded-lg border border-solid border-neutral-200">
-                  <img loading="lazy" src={emailBlack} className="shrink-0 w-4 aspect-square" />
-                  <div className="flex-1">Enter Your Email</div>
-                </div>
-                <div className="justify-center items-center px-2.5 py-2 mt-4 text-base font-medium text-center text-blue-600 whitespace-nowrap bg-white rounded-md max-md:px-5">Subscribe</div>
-              </div>
+          </div>
+          <div className="mt-10 md:mt-0 md:ml-5">
+            <p className="text-lg md:text-base leading-5 text-white uppercase">Social Media</p>
+            <img width="222" src={socmed} className="mt-6" />
+          </div>
+          <div className="md:ml-5 mt-10 md:mt-0 w-3/12">
+            <label className="text-lg md:text-base leading-5 text-white uppercase" htmlFor="email">
+              NEWSLETTER
+            </label>
+            <div className="relative mt-2">
+              <img className="absolute mt-[11px] ml-5" width="20" height="20" src={emailIcon} alt="email-icon" />
+              <Input input={{ type: "text", name: "email", placeholder: "Enter your email", autocomplete: "email" }} />
             </div>
+            <div className="justify-center items-center py-2 mt-4 font-semibold text-center text-primary bg-white rounded-md px-5">Subscribe</div>
           </div>
         </div>
         <div className="shrink-0 mt-24 h-px bg-white border border-white border-solid max-md:mt-10 max-md:max-w-full" />

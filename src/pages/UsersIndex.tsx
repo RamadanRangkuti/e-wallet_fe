@@ -8,7 +8,7 @@ function UsersIndex() {
   const location = useLocation();
 
   return (
-    <div className="h-full w-full">
+    <div className="h-screen w-full flex flex-col">
       <UserNavbar />
       <div className="md:flex">
         <SideNavbar />

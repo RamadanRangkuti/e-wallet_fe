@@ -99,10 +99,10 @@ function TransferDetail() {
             Submit & Transfer
           </button>
           {isModalOpen && <EnterPinModal onClose={() => setIsModalOpen(false)} onSuccess={handleSuccess} onFailure={handleFailure} />}
+          {showSuccessModal && <TransferSuccessModal onClose={() => setShowSuccessModal(false)} />}
+          {showFailedModal && <TransferFailedModal onClose={() => setShowFailedModal(false)} onBackTo={handleDashboard} onTryAgain={handleTryAgain} />}
         </div>
       </div>
-      {showSuccessModal && <TransferSuccessModal onClose={() => setShowSuccessModal(false)} />}
-      {showFailedModal && <TransferFailedModal onClose={() => setShowFailedModal(false)} onBackTo={handleDashboard} onTryAgain={handleTryAgain} />}
     </div>
   );
 }

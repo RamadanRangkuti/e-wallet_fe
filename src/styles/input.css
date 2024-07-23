@@ -4,3 +4,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .modal-bg {
+    @apply hidden;
+  }
+  .modal-bg.show {
+    @apply flex;
+  }
+}

@@ -8,11 +8,36 @@ import passwordIcon from "../assets/icons/password-icon.svg";
 import loginLogo from "../assets/images/login.webp";
 
 import Input from "../components/Input";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { authAction } from "../redux/slices/auth";
+import { useStoreDispatch, useStoreSelector } from "../redux/hooks";
 
 function Login() {
+  const { token, isLoading } = useStoreSelector((state) => state.auth);
+  const dispatch = useStoreDispatch();
+  const { loginThunk } = authAction;
+  const [form, setForm] = useState<{ email: string; password: string }>({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm((form) => {
+      return {
+        ...form,
+        [e.target.name]: e.target.value,
+      };
+    });
+  };
+
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(loginThunk(form));
+  };
+
+  useEffect(() => {
+    if (token) navigate("/");
+  }, [navigate, token]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -46,25 +71,24 @@ function Login() {
           </button>
         </div>
         <p className="text-center text-xs uw:text-2xl text-gray-500">Or</p>
-
-        <form className="mt-2">
+        <form onSubmit={onSubmitHandler} className="mt-2">
           <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="email">
             Email
           </label>
           <div className="relative mt-2">
             <img className="absolute mt-[11px] ml-5" width="20" height="20" src={emailIcon} alt="email-icon" />
-            <Input input={{ type: "text", name: "email", placeholder: "Enter your email", autocomplete: "email" }} />
+            <Input input={{ type: "text", name: "email", placeholder: "Enter your email", autocomplete: "email", value: form.email, onChange: onChangeHandler }} />
           </div>
-          <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="pwd">
+          <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="password">
             Password
           </label>
           <div className="relative mt-2">
             <img className="absolute mt-[11px] ml-5" width="20" height="20" src={passwordIcon} alt="password-icon" />
             <img className="absolute mt-3.5 mr-5 right-0 cursor-pointer" width="20" height="20" src={showPassword ? eyeOffIcon : eyeIcon} alt="toggle-password-visibility" onClick={togglePasswordVisibility} />
-            <Input input={{ type: showPassword ? "text" : "password", name: "pwd", placeholder: "Enter Your Password", autocomplete: "off" }} />
+            <Input input={{ type: showPassword ? "text" : "password", name: "password", placeholder: "Enter Your Password", autocomplete: "off", value: form.password, onChange: onChangeHandler }} />
           </div>
           <button className="text-white uw:text-2xl bg-primary hover:bg-blue-700 active:bg-blue-800 rounded-lg w-full h-11 uw:h-16" type="submit">
-            Login
+          {isLoading ? "loading..." : "Login"}
           </button>
           <p className="text-center text-lightgray text-sm uw:text-2xl my-2">
             Not Have An Account?

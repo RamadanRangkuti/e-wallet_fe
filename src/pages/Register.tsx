@@ -59,7 +59,7 @@ function Register() {
   };
 
   return (
-    <main className="font-montserrat md:grid md:grid-cols-2 md:bg-bgprimary w-full h-full">
+    <main className="font-montserrat md:grid md:grid-cols-2 md:bg-bgprimary w-full h-screen">
       <section className="bg-white px-5 md:px-20 py-24 lg:py-36 md:rounded-r-3xl">
         <div className="flex">
           <img className="mr-3" src={walletIcon} alt="wallet" />

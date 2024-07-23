@@ -7,13 +7,13 @@ import Home from "./pages/LandingPage";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import EnterPin from "./pages/EnterPin";
-import Dashboard from './pages/Dashboard'
+import Dashboard from "./pages/Dashboard";
 import UsersIndex from "./pages/UsersIndex";
 import ChangePassword from "./pages/ChangePassword";
 import TransferHistory from "./pages/TransferHistory";
-import Profile from "./pages/Profile";
-
-// test
+import ChangePin from "./pages/ChangePin";
+import TransferPage from "./pages/Transfer";
+import TopUp from "./pages/TopUp";
 
 const routerWithChildren = createBrowserRouter([
   {
@@ -21,6 +21,10 @@ const routerWithChildren = createBrowserRouter([
     element: <UsersIndex />,
     errorElement: <Error />,
     children: [
+      {
+        path: "topup",
+        element: <TopUp />,
+      },
       {
         path: "dashboard",
         element: <Dashboard />,
@@ -30,11 +34,20 @@ const routerWithChildren = createBrowserRouter([
         element: <TransferHistory />,
       },
       {
-        path: "profile",
-        element: <Profile />},
+        path: "transfer",
+        element: <TransferPage />,
+      },
+      {
+        path: "transfer/:id",
+        element: <TransferPage />,
+      },
       {
         path: "changepassword",
         element: <ChangePassword />,
+      },
+      {
+        path: "changepin",
+        element: <ChangePin />,
       },
       {
         path: "*",

@@ -7,14 +7,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function EnterPin() {
-  const [pin, setPin] = useState<string[]>(new Array(5).fill(""));
+  const [pin, setPin] = useState<string[]>(new Array(6).fill(""));
 
   const handleChange = (value: string, index: number) => {
     const newPin = [...pin];
     newPin[index] = value;
     setPin(newPin);
 
-    // Automatically focus on the next input field
     if (value && index < pin.length - 1) {
       (document.getElementById(`pin-${index + 1}`) as HTMLInputElement).focus();
     }

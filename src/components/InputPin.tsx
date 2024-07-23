@@ -8,44 +8,41 @@ function InputPin({ length }: InputPinProps) {
   const [pin, setPin] = useState<string[]>(new Array(length).fill(""));
 
   const handleChange = (value: string, index: number) => {
-    if (value === "" || /^[0-9]$/.test(value)) {
-      const newPin = [...pin];
-      newPin[index] = value;
-      setPin(newPin);
+    const newPin = [...pin];
+    newPin[index] = value;
 
-      if (value !== "" && index < pin.length - 1) {
-        (document.getElementById(`pin-${index + 1}`) as HTMLInputElement).focus();
-      }
+    if (value && index < pin.length - 1) {
+      (document.getElementById(`pin-${index + 1}`) as HTMLInputElement).focus();
     }
+
+    setPin(newPin);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
-    if (e.key === "Backspace") {
-      const newPin = [...pin];
-      if (pin[index] === "" && index > 0) {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (event.key === "Backspace" && pin[index] === "") {
+      if (index > 0) {
+        const newPin = [...pin];
         newPin[index - 1] = "";
         setPin(newPin);
         (document.getElementById(`pin-${index - 1}`) as HTMLInputElement).focus();
-      } else {
-        newPin[index] = "";
-        setPin(newPin);
       }
     }
   };
 
   return (
     <form>
-      <div className="flex justify-between mb-6">
+      <div className="flex justify-between mb-10 mt-4 gap-2 md:gap-4">
         {pin.map((digit, index) => (
           <input
             key={index}
             id={`pin-${index}`}
-            type="tel"
+            type="text"
             maxLength={1}
-            className="w-7 h-10 py-5 text-center font-semibold text-lg border-b-2 border-gray-300 focus:outline-none focus:border-blue-500"
+            className="w-8 md:w-12 h-8 md:h-12 py-5 text-center font-semibold text-base md:text-xl border-b border-gray-300 focus:outline-none focus:border-blue-500"
             value={digit}
             onChange={(e) => handleChange(e.target.value, index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
+            autoFocus={index === 0}
           />
         ))}
       </div>

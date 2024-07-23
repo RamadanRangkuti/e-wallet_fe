@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import PeopleCard from '../components/PeopleCard';
+import { useNavigate } from "react-router-dom";
+import PeopleCard from "../components/PeopleCard";
 import searchIcon from "../assets/icons/searchDark.svg";
 import image1 from "../assets/images/people1.png";
 import image2 from "../assets/images/people2.png";
@@ -36,22 +36,25 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
   };
 
   return (
-    <div className="flex flex-col md:border md:mr-8 px-7 py-6">
+    <div className="flex flex-col md:border md:mr-8 px-5 py-6">
       <div className="flex flex-col font-semibold gap-4">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center">
           <div className="text-xs md:text-base">Find People</div>
           <div className="relative w-full md:w-fit">
-            <input type="text" placeholder="Enter Number or Fullname" className="text-xs md:text-base w-full md:w-72 py-2 pl-2 md:pl-4 md:pr-10 h-8 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal md:font-semibold" />
+            <input
+              type="text"
+              placeholder="Enter Number or Fullname"
+              className="text-xs md:text-base w-full md:w-72 py-2 pl-2 md:pl-4 md:pr-10 h-8 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-normal md:font-semibold"
+            />
             <img src={searchIcon} alt="Search" className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-100" />
           </div>
         </div>
         <div className="hidden md:flex text-sm text-gray-500 font-normal">8 People Found For Galuh</div>
-        <div className="overflow-y-auto max-h-[400px]"> {/* Adjust max-h-96 or another value as needed */}
+        <div>
           <div className="text-gray-500">
             {peopleData.map((person, index) => (
               <PeopleCard key={person.id} person={person} index={index} onClick={() => handleSelectPerson(person.id)} />
             ))}
-            {/* Pagination Here (Adjust if needed) */}
           </div>
         </div>
       </div>

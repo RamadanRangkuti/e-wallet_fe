@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import TransferSuccessModal from './TransferSuccess';
-import TransferFailedModal from './TransferFailed';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import TransferSuccessModal from "./TransferSuccess";
+import TransferFailedModal from "./TransferFailed";
 
 interface EnterPinModalProps {
   onClose: () => void;
@@ -25,8 +25,8 @@ const EnterPinModal: React.FC<EnterPinModalProps> = ({ onClose, onSuccess, onFai
   };
 
   const handleSubmit = () => {
-    const enteredPin = pin.join('');
-    const correctPin = '123456'; // Dummy correct PIN
+    const enteredPin = pin.join("");
+    const correctPin = "123456"; // Dummy correct PIN
 
     if (enteredPin === correctPin) {
       setShowSuccessModal(true);
@@ -47,9 +47,7 @@ const EnterPinModal: React.FC<EnterPinModalProps> = ({ onClose, onSuccess, onFai
           <div className="flex flex-col font-montserrat">
             <div className="flex w-full border-b border-gray-200 text-gray-400 text-xs md:text-sm font-semibold">TRANSFER TO GHALUH 1</div>
             <div className="flex flex-col justify-center my-8">
-              <div className="flex text-base md:text-xl mb-2 font-semibold">
-                Enter Your Pin 👋
-              </div>
+              <div className="flex text-base md:text-xl mb-2 font-semibold">Enter Your Pin 👋</div>
               <div className="text-xs md:text-sm text-gray-400">Enter Your Pin For Transaction</div>
               <div className="flex justify-between mb-10 mt-4 gap-2 md:gap-4">
                 {pin.map((digit, index) => (
@@ -66,13 +64,16 @@ const EnterPinModal: React.FC<EnterPinModalProps> = ({ onClose, onSuccess, onFai
                 ))}
               </div>
               <div className="flex flex-col items-center">
-                <button
-                  onClick={handleSubmit}
-                  className="bg-blue-600 h-10 md:h-12 w-full rounded-lg text-white text-sm md:text-base font-light tracking-wider my-2"
-                >
+                <button onClick={handleSubmit} className="bg-blue-600 h-10 md:h-12 w-full rounded-lg text-white text-sm md:text-base font-light tracking-wider my-2">
                   Next
                 </button>
-                <div className="text-xs md:text-sm">Forgot Your Pin? <Link to="#" className="text-blue-600"> Reset</Link></div>
+                <div className="text-xs md:text-sm">
+                  Forgot Your Pin?{" "}
+                  <Link to="#" className="text-blue-600">
+                    {" "}
+                    Reset
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

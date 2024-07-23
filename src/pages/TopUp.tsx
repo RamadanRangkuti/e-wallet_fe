@@ -59,59 +59,35 @@ export default function TopUp() {
 
   return (
     <main className="w-full">
-
-      <div className="flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold py-5 px-5 md:px-8 md:bg-white md:text-black">
+      <div className="flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold py-2 px-5 md:px-8 md:bg-white md:text-black">
         <img className="hidden md:flex" width="20" src={topup} alt="" />
         <p className="md:ml-3">Transfer Money</p>
       </div>
-      
-      <div className="grid min-h-screen w-full px-5 md:px-8 md:pb-8">
 
+      <div className="grid w-full px-5 md:px-8 md:pb-8">
         <div className="grid grid-cols-[1fr] grid-rows-[1fr,auto] lg:grid-rows-1 lg:grid-cols-[1fr,auto] gap-7">
-
           {/* Account Information */}
           <div className="grid grid-cols-1 w-full md:border mr-8 md:px-7 py-7 gap-6 h-fit ">
             {/* account */}
             <div className="flex flex-col font-semibold gap-4">
               <div>Account Information</div>
-              <PeopleDetailCard
-                image={person.image}
-                name={person.name}
-                phoneNumber={person.phoneNumber}
-                isVerified={person.isVerified}
-                favoriteIcon={person.favoriteIcon}
-              />
+              <PeopleDetailCard image={person.image} name={person.name} phoneNumber={person.phoneNumber} isVerified={person.isVerified} favoriteIcon={person.favoriteIcon} />
             </div>
 
             {/* input nomninal */}
             <div className="flex flex-col justify-center">
               <div className="font-semibold">Amount</div>
-              <div className="text-sm text-gray-500 mb-4">
-                Type the amount you want to transfer and then press continue to
-                the next steps.
-              </div>
+              <div className="text-sm text-gray-500 mb-4">Type the amount you want to transfer and then press continue to the next steps.</div>
               <div className="relative flex items-center">
-                <img
-                  src={moneyIcon}
-                  alt="Money Icon"
-                  className="absolute left-3 w-5 h-5 text-gray-400"
-                />
-                <input
-                  type="text"
-                  name="nominal"
-                  className="pl-10 border rounded-md focus:outline-gray-400 w-full h-12 font-semibold"
-                  placeholder="Enter Nominal Transfer"
-                  autoComplete="off"
-                />
+                <img src={moneyIcon} alt="Money Icon" className="absolute left-3 w-5 h-5 text-gray-400" />
+                <input type="text" name="nominal" className="pl-10 border rounded-md focus:outline-gray-400 w-full h-12 font-semibold" placeholder="Enter Nominal Transfer" autoComplete="off" />
               </div>
             </div>
 
             {/* input bank */}
             <div>
               <div className="font-semibold">Payment Method</div>
-              <div className="text-sm text-gray-500 mb-4">
-                Choose your payment method for top up account.
-              </div>
+              <div className="text-sm text-gray-500 mb-4">Choose your payment method for top up account.</div>
 
               <form action="">
                 <div className="grid grid-cols-[auto,auto,1fr] gap-7 items-center ">
@@ -124,9 +100,7 @@ export default function TopUp() {
                     }}
                   />
                   <img className="w-auto h-8" src={Bri} alt="..." />
-                  <p className="text-base font-normal text-[#4F5665]">
-                    Bank Rakyat Indonesia
-                  </p>
+                  <p className="text-base font-normal text-[#4F5665]">Bank Rakyat Indonesia</p>
                 </div>
 
                 <div className="grid grid-cols-[auto,auto,1fr] gap-7 items-center ">
@@ -152,9 +126,7 @@ export default function TopUp() {
                     }}
                   />
                   <img className="w-auto h-3" src={BCA} alt="..." />
-                  <p className="text-base font-normal text-[#4F5665]">
-                    Bank Central Asia
-                  </p>
+                  <p className="text-base font-normal text-[#4F5665]">Bank Central Asia</p>
                 </div>
 
                 <div className="grid grid-cols-[auto,auto,1fr] gap-7 items-center ">
@@ -212,37 +184,19 @@ export default function TopUp() {
                   </div>
                 </div>
 
-                <button
-                  className="bg-blue-600 min-h-10 w-full rounded-lg text-white font-thin tracking-wider"
-                  onClick={() => setIsModalOpen(true)}>
+                <button className="bg-blue-600 min-h-10 w-full rounded-lg text-white font-thin tracking-wider" onClick={() => setIsModalOpen(true)}>
                   Submit
                 </button>
-                {isModalOpen && (
-                  <EnterPinModal
-                    onClose={() => setIsModalOpen(false)}
-                    onSuccess={handleSuccess}
-                    onFailure={handleFailure}
-                  />
-                )}
-                <p className="text-[#4F5665] text-sm font-normal text-wrap">
-                  *Get Discount if you pay with Bank Central Asia
-                </p>
+                {isModalOpen && <EnterPinModal onClose={() => setIsModalOpen(false)} onSuccess={handleSuccess} onFailure={handleFailure} />}
+                <p className="text-[#4F5665] text-sm font-normal text-wrap">*Get Discount if you pay with Bank Central Asia</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {showSuccessModal && (
-        <TransferSuccessModal onClose={() => setShowSuccessModal(false)} />
-      )}
-      {showFailedModal && (
-        <TransferFailedModal
-          onClose={() => setShowFailedModal(false)}
-          onBackTo={handleDashboard}
-          onTryAgain={handleTryAgain}
-        />
-      )}
+      {showSuccessModal && <TransferSuccessModal onClose={() => setShowSuccessModal(false)} />}
+      {showFailedModal && <TransferFailedModal onClose={() => setShowFailedModal(false)} onBackTo={handleDashboard} onTryAgain={handleTryAgain} />}
     </main>
   );
 }

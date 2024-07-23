@@ -50,7 +50,7 @@ function TransferHistory() {
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             <div className="flex flex-col ml-5 w-4/5 max-md:ml-0 max-md:w-full w-ful">
               <div className="flex flex-col  max-md:max-w-full p-4 w-full">
-                <div className="flex gap-4 self-start px-5 font-semibold tracking-normal leading-6 text-slate-900 text-lg hidden md:flex">
+                <div className="gap-4 self-start px-5 font-semibold tracking-normal leading-6 text-slate-900 text-lg hidden md:flex">
                   <img loading="lazy" src={historyTransfer} className="shrink-0 my-auto w-6 aspect-square" alt="History Transfer" />
                   <div>History Transaction</div>
                 </div>
@@ -83,7 +83,8 @@ function TransferHistory() {
             </div>
           </div>
         </div>
-      </div></>
+      </div>
+    </>
   );
 }
 

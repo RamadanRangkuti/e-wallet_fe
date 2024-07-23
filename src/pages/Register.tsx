@@ -14,7 +14,7 @@ import axios, { AxiosResponse } from "axios";
 import { IAuthResponse } from "../types/response";
 
 function Register() {
-  const [form, setForm] = useState<{ email: string; password: string, pin?: number }>({ email: "", password: "", pin: undefined });
+  const [form, setForm] = useState<{ email: string; password: string; pin?: number }>({ email: "", password: "", pin: undefined });
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -60,7 +60,7 @@ function Register() {
 
   return (
     <main className="font-montserrat md:grid md:grid-cols-2 md:bg-bgprimary w-full h-screen">
-      <section className="bg-white px-5 md:px-20 py-24 lg:py-36 md:rounded-r-3xl">
+      <section className="bg-white px-5 md:px-20 py-10 md:rounded-r-3xl">
         <div className="flex">
           <img className="mr-3" src={walletIcon} alt="wallet" />
           <div className="my-auto">
@@ -94,7 +94,7 @@ function Register() {
             <img className="absolute mt-[11px] ml-5" width="20" height="20" src={emailIcon} alt="email-icon" />
             <Input input={{ type: "text", name: "email", placeholder: "Enter your email", autocomplete: "email", value: form.email, onChange: onChangeHandler }} />
           </div>
-          <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="passwrd">
+          <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="password">
             Password
           </label>
           <div className="relative mt-2">

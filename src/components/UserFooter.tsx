@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 function UserFooter() {
   return (
-    <footer className="md:hidden font-montserrat flex justify-around bottom-0">
+    <footer className="md:hidden font-montserrat flex justify-around bottom-0 py-4">
       <Link to="/user/dashboard">
         <button className="grid place-items-center p-3 focus:text-blue-600  focus:border-t-2 focus:border-blue-600 focus:border-solid focus:bg-blue-600 focus:bg-opacity-10">
           <img width="20" src={dashboard} alt="dashboard" />

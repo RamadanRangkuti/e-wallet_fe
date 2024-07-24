@@ -4,7 +4,7 @@ import image from '../assets/images/Contact us-pana 1.webp';
 
 interface TransferSuccessModalProps {
   onClose?: () => void;
-  onTransferAgain?: () => void; // Add the new prop
+  onTransferAgain?: () => void;
 }
 
 const TransferSuccessModal: React.FC<TransferSuccessModalProps> = ({ onClose, onTransferAgain }) => {

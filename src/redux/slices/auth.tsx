@@ -3,7 +3,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { IAuthResponse } from "../../types/response";
 
 export interface IAuthState {
-  token: string | null;
+  token: string ;
   isLoading: boolean;
   isRejected: boolean;
   isFulfilled: boolean;
@@ -42,7 +42,7 @@ const authSlice = createSlice({
       prevState.token = initialState.token;
     },
     logout: (state) => {
-      state.token = null;
+      state.token = '';
     },
   },
   extraReducers: (builder) => {

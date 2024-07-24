@@ -8,6 +8,7 @@ import Upgraph from "../assets/icons/Upgraph.svg";
 import Downgraph from "../assets/icons/Downgraph.svg";
 import profile from "../assets/images/ProfileNavbar.png";
 import FinancialChart from "../components/FinancialChart";
+import { Link } from "react-router-dom";
 
 interface BalanceData {
   balance: number;
@@ -21,10 +22,10 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchBalanceData = async () => {
       try {
-        const userId = 3; // Replace with actual user ID as needed
+        const userId = 3; // test ID
         const url = `http://localhost:8080/api/v1/user/${userId}`;
         const response = await axios.get(url);
-        const data = response.data.data[0]; // Accessing the first user object
+        const data = response.data.data[0]; 
         console.log(response.data.data[0].balance)
         setBalanceData({
           balance: data.balance,
@@ -85,14 +86,18 @@ export default function Dashboard() {
                 <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
                   <div className="my-auto font-semibold leading-6 text-slate-900">Fast Service</div>
                   <div className="flex gap-3.5 text-white leading-[150%]">
-                    <button className="flex gap-2 py-1 pr-3 pl-2 bg-blue-600 rounded-md">
-                      <img loading="lazy" src={topUp} className="shrink-0 w-6 aspect-square" alt="Top Up" />
-                      <span>Top Up</span>
-                    </button>
-                    <button className="flex gap-2 py-1 pr-3 pl-2 whitespace-nowrap bg-blue-600 rounded-md">
-                      <img loading="lazy" src={transfer} className="shrink-0 w-6 aspect-square" alt="Transfer" />
-                      <span>Transfer</span>
-                    </button>
+                      <Link to={"/user/transfer"}>
+                        <button className="flex gap-2 py-1 pr-3 pl-2 whitespace-nowrap bg-blue-600 rounded-md">
+                          <img loading="lazy" src={transfer} className="shrink-0 w-6 aspect-square" alt="Transfer" />
+                          <span>Transfer</span>
+                        </button>
+                      </Link>
+                      <Link to={"/user/topup"}>
+                        <button className="flex gap-2 py-1 pr-3 pl-2 bg-blue-600 rounded-md">
+                          <img loading="lazy" src={topUp} className="shrink-0 w-6 aspect-square" alt="Top Up" />
+                          <span>Top Up</span>
+                        </button>
+                      </Link>
                   </div>
                 </div>
               </div>

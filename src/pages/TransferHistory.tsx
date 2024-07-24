@@ -77,14 +77,14 @@ function TransferHistory() {
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             <div className="flex flex-col ml-5 w-4/5 max-md:ml-0 max-md:w-full">
               <div className="flex flex-col max-md:max-w-full p-4 w-full">
-                <div className="gap-4 self-start px-5 font-semibold tracking-normal leading-6 text-slate-900 text-lg hidden md:flex">
+                <div className="gap-4 py-4 self-start px-5 font-semibold tracking-normal leading-6 text-slate-900 text-lg hidden md:flex">
                   <img loading="lazy" src={historyTransfer} className="shrink-0 my-auto w-6 aspect-square" alt="History Transfer" />
                   <div>History Transaction</div>
                 </div>
                 <div className="flex flex-col md:px-8 pb-11 md:border md:border-gray-200 md:border-solid max-md:px-5 max-md:max-w-full w-full gap-4">
-                  <div className="flex gap-5 w-full max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
+                  <div className="flex py-3 gap-5 w-full max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
                     <div className="flex-auto my-auto font-semibold tracking-normal leading-6 text-slate-900 text-lg">Find Transaction</div>
-                    <div className="flex gap-8 p-4 text-sm font-medium leading-5 text-gray-600 rounded-md border border-gray-200 border-solid">
+                    <div className="flex gap-8 px-4 py-2 text-sm font-medium leading-5 text-gray-600 rounded-md border border-gray-200 border-solid">
                       <div className="flex-1 text-base">Enter Number Or Full Name</div>
                       <img loading="lazy" src={search} className="shrink-0 my-auto w-4 aspect-square" alt="Search Icon" />
                     </div>

@@ -67,17 +67,14 @@ function EnterPinModal({ onClose, onSuccess, onFailure, userId, targetId, amount
         );
         console.log(res);
 
-        // On success, display success modal and call onSuccess
         setShowSuccessModal(true);
         onSuccess();
       } catch (error) {
         console.error("Error making transfer:", error);
-        // On failure, display failure modal and call onFailure
         setShowFailedModal(true);
         onFailure();
       }
     } else {
-      // On incorrect PIN, display failure modal and call onFailure
       setShowFailedModal(true);
       onFailure();
     }

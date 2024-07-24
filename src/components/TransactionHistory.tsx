@@ -17,7 +17,7 @@ interface Transaction {
 const TransactionHistory = () => {
   // const { token } = useStoreSelector((state) => state.auth);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [userId, setUserId] = useState<string>("3");
+  const [userId] = useState<string>("3");
 
   useEffect(() => {
     // if (!token) return;

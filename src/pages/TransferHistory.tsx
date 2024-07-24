@@ -1,7 +1,7 @@
-import {jwtDecode} from "jwt-decode";
+// import {jwtDecode} from "jwt-decode"; // Mengubah import jwtDecode ke jwt_decode
 import historyTransfer from "../assets/icons/historyTransfer.svg";
 import search from "../assets/icons/searchDark.svg";
-import { useStoreSelector } from "../redux/hooks";
+// import { useStoreSelector } from "../redux/hooks";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -27,14 +27,19 @@ interface TransferItemProps {
 function TransferItem({ data, userId }: TransferItemProps) {
   return (
     <div className="flex gap-5 mt-2 w-full font-medium leading-5 text-gray-600 text-lg items-center max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
-      <div className="flex flex-row justify-between p-4 w-full ">
-        <img loading="lazy" src={data.sender_image} className="w-[48px] h-[48px] object-cover rounded-xl hidden md:block" alt={data.sender_fullname} />
+      <div className="flex flex-row justify-between p-4 w-full">
+        <img
+          loading="lazy"
+          src={data.sender_image}
+          className="w-[48px] h-[48px] object-cover rounded-xl hidden md:block"
+          alt={data.sender_fullname}
+        />
         <div className="flex flex-col gap-4 md:hidden">
           <div>{data.sender_fullname}</div>
-          <div>{ data.sender_phone }</div>
+          <div>{data.sender_phone}</div>
         </div>
         <div className="hidden md:block">{data.created_at}</div>
-        <div className="hidden md:block">{data.sender_phone }</div>
+        <div className="hidden md:block">{data.sender_phone}</div>
         <div className="hidden md:block">{data.sender_fullname}</div>
         <div className={data.sender_id === userId ? "text-red-500" : "text-green-500"}>{data.transfer_amount}</div>
       </div>
@@ -43,21 +48,26 @@ function TransferItem({ data, userId }: TransferItemProps) {
 }
 
 function TransferHistory() {
-  const { token } = useStoreSelector((state) => state.auth);
-  const [userId, setUserId] = useState<number | null>(null);
-  const [data, setUserData] = useState<DataHistory[]>([]);
+  // const { token } = useStoreSelector((state) => state.auth);
+  const [userId, setUserId] = useState<number | null>(3);
+  const [data, setData] = useState<DataHistory[]>([]);
 
   useEffect(() => {
-    if (!token) return;
+    // if (!token) return;
 
-    const decodedToken = jwtDecode<{ id: string }>(token);
-    setUserId(parseInt(decodedToken.id));
+    // const decodedToken = jwtDecode<{ id: string }>(token);
+    // setUserId(parseInt(decodedToken.id));
 
     const getTransactions = async () => {
       try {
         const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/7`;
+        // const result = await axios.get(url, {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
         const result = await axios.get(url);
-        setUserData(result.data.data);
+        setData(result.data.data);
         console.log(result.data);
       } catch (error) {
         console.error("Error fetching transactions:", error);
@@ -65,7 +75,7 @@ function TransferHistory() {
     };
 
     getTransactions();
-  }, [token]);
+  }, []);
 
   if (userId === null) return null;
 

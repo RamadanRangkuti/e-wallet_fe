@@ -1,11 +1,11 @@
 import verifiedIcon from "../assets/icons/verified.svg"
 
 interface PeopleCardProps {
-  image: string
+  image?: string
   name: string
-  phoneNumber: string
-  isVerified: boolean
-  favoriteIcon: string
+  phoneNumber?: string
+  isVerified?: boolean
+  favoriteIcon?: string
 }
 
 function PeopleCard({ image, name, phoneNumber, isVerified, favoriteIcon }: PeopleCardProps) {

@@ -46,7 +46,7 @@ const PagePagination = ({ pages, currentPage, onPageChange }: PagePaginationProp
             {pageNumber}
           </button>
         ))}
-        <button className="flex justify-center items-center bg-amber-500 rounded-full w-5 lg:w-10 h-5 lg:h-10" onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === pages}>
+        <button className="flex justify-center items-center bg-blue-500 rounded-full w-5 lg:w-10 h-5 lg:h-10" onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === pages}>
           <FeatherIcon icon="arrow-right" />
         </button>
       </div>

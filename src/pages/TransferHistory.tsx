@@ -13,8 +13,10 @@ interface DataHistory {
   receiver_phone: string;
   sender_phone: string;
   sender_image: string;
+  sender_fullname: string;
   phone: string;
   receiver_id: number;
+  sender_id: number;
 }
 
 interface TransferItemProps {
@@ -26,15 +28,15 @@ function TransferItem({ data, userId }: TransferItemProps) {
   return (
     <div className="flex gap-5 mt-2 w-full font-medium leading-5 text-gray-600 text-lg items-center max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
       <div className="flex flex-row justify-between p-4 w-full ">
-        <img loading="lazy" src={data.sender_image} className="w-[48px] h-[48px] object-cover rounded-xl hidden md:block" alt={data.receiver_fullname} />
+        <img loading="lazy" src={data.sender_image} className="w-[48px] h-[48px] object-cover rounded-xl hidden md:block" alt={data.sender_fullname} />
         <div className="flex flex-col gap-4 md:hidden">
-          <div>{data.receiver_fullname}</div>
-          <div>{data.receiver_id === userId ? data.sender_phone : data.receiver_phone}</div>
+          <div>{data.sender_fullname}</div>
+          <div>{ data.sender_phone }</div>
         </div>
         <div className="hidden md:block">{data.created_at}</div>
-        <div className="hidden md:block">{data.receiver_id === userId ? data.sender_phone : data.receiver_phone}</div>
-        <div className="hidden md:block">{data.receiver_fullname}</div>
-        <div className={data.receiver_id === userId ? "text-green-500" : "text-red-700"}>{data.transfer_amount}</div>
+        <div className="hidden md:block">{data.sender_phone }</div>
+        <div className="hidden md:block">{data.sender_fullname}</div>
+        <div className={data.sender_id === userId ? "text-red-500" : "text-green-500"}>{data.transfer_amount}</div>
       </div>
     </div>
   );
@@ -53,7 +55,7 @@ function TransferHistory() {
 
     const getTransactions = async () => {
       try {
-        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/3`;
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/7`;
         const result = await axios.get(url);
         setUserData(result.data.data);
         console.log(result.data);

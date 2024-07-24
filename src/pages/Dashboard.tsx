@@ -21,7 +21,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchBalanceData = async () => {
       try {
-        const userId = 3; // Replace with actual user ID as needed
+        const userId = 7; // Replace with actual user ID as needed
         const url = `http://localhost:8080/api/v1/user/${userId}`;
         const response = await axios.get(url);
         const data = response.data.data[0]; // Accessing the first user object

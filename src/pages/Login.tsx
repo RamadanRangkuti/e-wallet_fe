@@ -36,7 +36,7 @@ function Login() {
   };
 
   useEffect(() => {
-    if (token) navigate("/");
+    if (token) navigate("/enterpin");
   }, [navigate, token]);
 
   const togglePasswordVisibility = () => {
@@ -88,7 +88,7 @@ function Login() {
             <Input input={{ type: showPassword ? "text" : "password", name: "password", placeholder: "Enter Your Password", autocomplete: "off", value: form.password, onChange: onChangeHandler }} />
           </div>
           <button className="text-white uw:text-2xl bg-primary hover:bg-blue-700 active:bg-blue-800 rounded-lg w-full h-11 uw:h-16" type="submit">
-          {isLoading ? "loading..." : "Login"}
+            {isLoading ? "loading..." : "Login"}
           </button>
           <p className="text-center text-lightgray text-sm uw:text-2xl my-2">
             Not Have An Account?

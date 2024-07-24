@@ -25,7 +25,7 @@ export default function FinancialChart() {
         const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/3/balance/chart`;
         const result = await axios.get<ApiResponse>(url);
         setBalanceData(result.data.data);
-        console.log(result.data);
+        // console.log('in idata charst'result.data);
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }

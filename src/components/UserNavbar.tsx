@@ -1,4 +1,3 @@
-// import * as React from "react";
 import wallet from "../assets/icons/wallet.svg";
 import userIcon from "../assets/images/user.webp";
 import dropdown from "../assets/icons/dropdown.svg";
@@ -35,6 +34,8 @@ export default function UserNavbar() {
       setId(decodedToken.id);
     }
   }, [token]);
+
+  console.log(id);
 
   useEffect(() => {
     const getDataUser = async () => {

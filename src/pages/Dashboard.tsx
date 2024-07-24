@@ -15,6 +15,7 @@ interface BalanceData {
 }
 
 export default function Dashboard() {
+
   const [balanceData, setBalanceData] = useState<BalanceData>({
     balance: 0,
   });

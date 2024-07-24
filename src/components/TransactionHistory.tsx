@@ -1,5 +1,5 @@
-import {  useStoreSelector } from "../redux/hooks";
-import {jwtDecode} from "jwt-decode";
+// import {  useStoreSelector } from "../redux/hooks";
+// import {jwtDecode} from "jwt-decode";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -15,15 +15,15 @@ interface Transaction {
 }
 
 const TransactionHistory = () => {
-  const { token } = useStoreSelector((state) => state.auth);
+  // const { token } = useStoreSelector((state) => state.auth);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [userId, setUserId] = useState<string>("");
+  const [userId, setUserId] = useState<string>("3");
 
   useEffect(() => {
-    if (!token) return;
+    // if (!token) return;
 
-    const decodedToken = jwtDecode<{ id: string }>(token);
-    setUserId(decodedToken.id);
+    // const decodedToken = jwtDecode<{ id: string }>(token);
+    // setUserId(decodedToken.id);
 
     const getTransactions = async () => {
       try {
@@ -36,8 +36,9 @@ const TransactionHistory = () => {
       }
     };
 
+    
     getTransactions();
-  }, [token]);
+  }, []);
 
   return (
     <div className="flex flex-col grow px-5 pt-4 pb-8 rounded-md border border-gray-200 border-solid max-md:mt-5 w-full">

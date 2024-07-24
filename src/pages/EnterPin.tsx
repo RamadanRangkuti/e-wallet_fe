@@ -1,8 +1,5 @@
 import walletIcon from "../assets/icons/wallet.svg";
 import enterPinLogo from "../assets/images/enterpin.webp";
-// import emailIcon from "../assets/icons/email-icon.svg";
-
-// import Input from "../components/Input";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 

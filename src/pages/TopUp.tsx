@@ -8,13 +8,16 @@ import OVO from "../assets/images/OVO.png";
 import Dana from "../assets/images/Dana.png";
 import Gopay from "../assets/images/Gopay.png";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PeopleDetailCard from "../components/PeopleDetailCard";
-import EnterPinModal from "../components/EnterPinModal";
-import TransferSuccessModal from "../components/TransferSuccess";
-import TransferFailedModal from "../components/TransferFailed";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input";
+import { useStoreSelector } from "../redux/hooks";
+import axios from "axios";
+import { IProfileBody } from "../types/profile";
+import { jwtDecode } from "jwt-decode";
+import { TopupSuccessModal } from "../components/TopupSuccessModal";
+import { TopupFailedModal } from "../components/TopupFailedModal";
 
 
 
@@ -36,9 +39,36 @@ const person: Person = {
 
 export default function TopUp() {
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailedModal, setShowFailedModal] = useState(false);
+  const { token } = useStoreSelector((state) => state.auth);
+  const [id, setId] = useState<string>("");
+  const [getProfile, setProfile] = useState<IProfileBody[]>([]);
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode<{ id: string }>(token);
+      setId(decodedToken.id);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    const getDataUser = async () => {
+      if (!id || !token) return;
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
+      try {
+        const result = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setProfile(result.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDataUser();
+  }, [id, token]);
 
   const [nominal, setNominal] = useState("0"); 
   const [subtotal, setSubtotal] = useState("0");
@@ -51,60 +81,73 @@ export default function TopUp() {
 
   const handleNominalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
-    value = value.replace(/\D/g, '');
-    const numericValue = parseFloat(value);
+  value = value.replace(/\D/g, ''); // Hapus karakter non-digit
 
-    if (isNaN(numericValue)) {
-      setNominal("0");
-      setAdminFee("0");
-      setSubtotal("0");
-    } else {
-      const calculatedAdminFee = numericValue * 0.01;
-      const calculatedSubtotal = numericValue + calculatedAdminFee;
+  const numericValue = parseFloat(value); // Konversi menjadi angka desimal
 
-      const formattedNominal = numericValue.toLocaleString('id-ID');
-      const formattedAdminFee = calculatedAdminFee.toLocaleString('id-ID');
-      const formattedSubtotal = calculatedSubtotal.toLocaleString('id-ID');
+  if (isNaN(numericValue)) {
+    setNominal("0");
+    setAdminFee("0");
+    setSubtotal("0");
+  } else {
+    const calculatedAdminFee = numericValue * 0.01; 
+    const calculatedSubtotal = numericValue + calculatedAdminFee; 
 
-      setNominal(formattedNominal);
-      setAdminFee(formattedAdminFee);
-      setSubtotal(formattedSubtotal);
-    }
-  };
+    const formattedNominal = Math.round(numericValue).toLocaleString('id-ID');
+    const formattedAdminFee = calculatedAdminFee.toFixed(0).toLocaleString();
+    const formattedSubtotal = calculatedSubtotal.toLocaleString('id-ID');
 
-  const handleSuccess = () => {
-    setIsModalOpen(false);
-    setShowSuccessModal(true);
-  };
-
-  const handleFailure = () => {
-    setIsModalOpen(false);
-    setShowFailedModal(true);
+    setNominal(formattedNominal); 
+    setAdminFee(formattedAdminFee);
+    setSubtotal(formattedSubtotal);
+  }
   };
 
   const navigate = useNavigate();
 
   const handleTryAgain = () => {
-    navigate("/user/transfer");
+    navigate("/user/topup");
   };
 
   const handleDashboard = () => {
-    navigate("/");
+    navigate("user/dashboard");
   };
 
-  const handleSubmit = () => {
-    setIsModalOpen(true); 
+
+  const handleSubmit = async () => {
     
     const amountNumber = parseFloat(nominal.replace(/[,.]/g, '')); 
     const adminFeeNumber = parseFloat(adminFee.replace(/[,.]/g, '')); 
     const subtotalNumber = parseFloat(subtotal.replace(/[,.]/g, ''));
+    console.log("user_id: ", id)
+    console.log("uang yang di topup: ", amountNumber)
+    console.log("admin: ", adminFeeNumber)
+    console.log("sub totoal: ",subtotalNumber)
 
-    console.log("Payment Method:", paymentMethod);
-    console.log("Amount:", amountNumber);
-    console.log("Admin Fee:", adminFeeNumber);
-    console.log("Sub Total:", subtotalNumber);
+    const data = {
+      user_id: id ,
+      payment_id: paymentMethod,
+      amount: amountNumber,
+      admin: adminFeeNumber,
+    };
+
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/topup`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      console.log('Transaction successful:', response.data);
+
+      setShowSuccessModal(true);
+    } catch (error) {
+      console.error('Error during transaction:', error);
+      setShowFailedModal(true);
+    }
   };  
 
+  
   return (
     <main className="relative w-full">
       <div className="flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold py-2 px-5 md:px-8 md:bg-white md:text-black">
@@ -119,8 +162,14 @@ export default function TopUp() {
             {/* account */}
             <div className="flex flex-col font-semibold gap-4">
               <div>Account Information</div>
-              <PeopleDetailCard image={person.image} name={person.name} phoneNumber={person.phoneNumber} isVerified={person.isVerified} favoriteIcon={person.favoriteIcon} />
-            </div>
+                <PeopleDetailCard
+                  image={getProfile.length > 0 ? getProfile[0]?.image ?? person.image : person.image}
+                  name={getProfile.length > 0 ? getProfile[0]?.fullname ?? person.name : person.name}
+                  phoneNumber={getProfile.length > 0 ? getProfile[0]?.phone ?? person.phoneNumber : person.phoneNumber}
+                  isVerified={person.isVerified}
+                  favoriteIcon={person.favoriteIcon}
+                />
+              </div>
 
             {/* input nomninal */}
             <div className="flex flex-col justify-center">
@@ -231,7 +280,6 @@ export default function TopUp() {
                 <button className="bg-blue-600 min-h-10 w-full rounded-lg text-white font-thin tracking-wider"  onClick={handleSubmit}>
                   Submit
                 </button>
-                {isModalOpen && <EnterPinModal onClose={() => setIsModalOpen(false)} onSuccess={handleSuccess} onFailure={handleFailure} />}
                 <p className="text-[#4F5665] text-sm font-normal text-wrap">*Get Discount if you pay with Bank Central Asia</p>
               </div>
             </div>
@@ -239,8 +287,13 @@ export default function TopUp() {
         </div>
       </div>
 
-      {showSuccessModal && <TransferSuccessModal onClose={() => setShowSuccessModal(false)} />}
-      {showFailedModal && <TransferFailedModal onClose={() => setShowFailedModal(false)} onBackTo={handleDashboard} onTryAgain={handleTryAgain} />}
+      {showSuccessModal && <TopupSuccessModal 
+      onClose={() => setShowSuccessModal(false)} /
+      >}
+      {showFailedModal && <TopupFailedModal 
+        onClose={() => setShowFailedModal(false)} 
+        onBackTo={handleDashboard} 
+        onTryAgain={handleTryAgain} />}
     </main>
   );
 }

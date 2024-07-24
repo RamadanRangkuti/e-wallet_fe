@@ -75,7 +75,7 @@ export default function UserNavbar() {
           <div className="">
             <div>
               <button onClick={dropDown} type="button" className="flex gap-5 items-center" id="menu-button" aria-expanded="true" aria-haspopup="true">
-                <p>{getProfile[0]?.fullname || "fullname"}</p>
+                <p>{getProfile[0]?.fullname || "Enter Your Name"}</p>
                 <img src={getProfile[0]?.image || userIcon} width="40" className="rounded-full" />
                 <img width="20" src={dropdown} />
               </button>

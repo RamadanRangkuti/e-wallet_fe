@@ -43,20 +43,20 @@ export default function Navbar() {
           </button>
         </div>
         <div
-          className="bg-white absolute right-0 mt-2 w-full origin-top-right divide-y divide-gray-100 hidden shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-black"
+          className="bg-white absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 hidden shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-black"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button1"
         >
           <div className="py-5 flex flex-col gap-2 p-4" role="none">
-            <Link to={"/login"}>
+            <Link to={"#"}>
               <button className="justify-center px-5 py-3 text-blue-500 bg-white rounded-md border border-white border-solid w-full  active:border active:border-primary active:border-solid focus:border focus:border-primary focus:border-solid">
-                Sign In
+                Log out
               </button>
             </Link>
-            <Link to={"/register"}>
+            <Link to={"#"}>
               <button className="justify-center px-5 py-3 text-blue-500 bg-white rounded-md border border-white border-solid w-full active:border active:border-primary active:border-solid focus:border focus:border-primary focus:border-solid">
-                Sign Up
+                xxxxxx
               </button>
             </Link>
           </div>

@@ -9,6 +9,7 @@ import profile from "../assets/images/ProfileNavbar.png";
 import FinancialChart from "../components/FinancialChart";
 
 export default function Dashboard() {
+  
   return (
         <>
           <div className="flex items-center bg-primary w-screen text-white text-xs md:text-base md:font-bold py-2 px-5 md:px-8 md:bg-white md:text-black  md:hidden">

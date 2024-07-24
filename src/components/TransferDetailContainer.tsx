@@ -6,8 +6,10 @@ import EnterPinModal from '../components/EnterPinModal';
 import TransferSuccessModal from '../components/TransferSuccess';
 import TransferFailedModal from '../components/TransferFailed';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios'; // Adjust the import path according to your project structure
+import axios from 'axios';
 import { RootState } from '../redux/store';
+import unfilledStar from '../assets/icons/UnfilledStar.svg'
+import { jwtDecode } from 'jwt-decode';
 
 interface TransferDetailContainerProps {
   onResetStep?: () => void;
@@ -24,7 +26,7 @@ interface User {
 
 function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailContainerProps) {
   const { id } = useParams<{ id: string }>();
-  const [person, setPerson] = useState<User | null>(null);
+  const [target, setTarget] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailedModal, setShowFailedModal] = useState(false);
@@ -32,20 +34,21 @@ function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailCo
   const [rawNominal, setRawNominal] = useState<number>(0);
   const [notes, setNotes] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
+  const [userId, setUserId] = useState<number | null>(null)
+  const [targetId, setTargetId] = useState<number | null>(null)
 
-  // Get the token from Redux state
   const token = useSelector((state: RootState) => state.auth.token);
 
   useEffect(() => {
     const getPost = async (id: string) => {
       try {
-        const res = await axios.get(`http://localhost:8080/api/v1/user/${id}`, {
+        const res = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        if (res.data && res.data.results && res.data.results.length > 0) {
-          setPerson(res.data.results[0] || null);
+        if (res.data && res.data.data && res.data.data.length > 0) {
+          setTarget(res.data.data[0] || null);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -54,10 +57,18 @@ function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailCo
 
     if (id) {
       getPost(id);
+      setTargetId(parseInt(id))
     } else {
       console.error("Id is undefined");
     }
   }, [id, token]);
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode<{ id: number }>(token);
+      setUserId(decodedToken.id);
+    }
+  }, [token]);
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(value);
@@ -105,7 +116,9 @@ function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailCo
   };
 
   const handleFocus = () => {
-    setNominal(rawNominal.toString());
+    if (rawNominal) {
+      setNominal(rawNominal.toString());
+    }
   };
 
   const handleSubmit = () => {
@@ -118,7 +131,7 @@ function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailCo
     setIsModalOpen(true);
   };
 
-  if (!person) {
+  if (!target) {
     return <div>Loading...</div>;
   }
 
@@ -126,7 +139,7 @@ function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailCo
     <div className="flex flex-col md:border md:mr-8 p-7 gap-3 md:gap-6">
       <div className="flex flex-col font-semibold gap-4">
         <div className="text-xs md:text-base">People Information</div>
-        <PeopleDetailCard image={person.image} name={person.fullname} phoneNumber={person.phoneNumber} favoriteIcon={person.favorite} isVerified={true} />
+        <PeopleDetailCard image={target.image} name={target.fullname} phoneNumber={target.phoneNumber} favoriteIcon={unfilledStar} isVerified={true} />
       </div>
       <div className="flex flex-col justify-center">
         <div className="text-sm md:text-base font-semibold">Amount</div>
@@ -166,7 +179,17 @@ function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailCo
       >
         Submit & Transfer
       </button>
-      {isModalOpen && <EnterPinModal onClose={() => setIsModalOpen(false)} onSuccess={handleSuccess} onFailure={handleFailure} />}
+      {isModalOpen && userId && targetId !== null && (
+        <EnterPinModal
+          onClose={() => setIsModalOpen(false)}
+          onSuccess={handleSuccess}
+          onFailure={handleFailure}
+          userId={userId}
+          targetId={targetId}
+          amount={rawNominal}
+          notes={notes}
+        />
+      )}
       {showSuccessModal && <TransferSuccessModal onClose={() => setShowSuccessModal(false)} onTransferAgain={handleTryAgain} />}
       {showFailedModal && <TransferFailedModal onClose={() => setShowFailedModal(false)} onBackTo={handleDashboard} onTryAgain={handleTryAgain} />}
     </div>

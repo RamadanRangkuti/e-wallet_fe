@@ -32,23 +32,23 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
   const getPosts = useCallback(
     async (page: number | string, fullname?: string) => {
       try {
-        let pageToFetch = page;
+        let getPage = page;
         if (page === 'next') {
-          pageToFetch = currentPage + 1;
+          getPage = currentPage + 1;
         }
 
         const params: {
           page: number | string;
           fullname?: string;
         } = {
-          page: pageToFetch,
+          page: getPage,
         };
 
         if (fullname) {
           params.fullname = fullname;
         }
 
-        const res = await axios.get("http://localhost:8080/api/v1/user", { params });
+        const res = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user`, { params });
         setPageInfo(res.data.meta);
         setPeopleData(res.data.data);
         setCurrentPage(res.data.meta.page);

@@ -14,11 +14,16 @@ import TransferHistory from "./pages/TransferHistory";
 import ChangePin from "./pages/ChangePin";
 import TransferPage from "./pages/Transfer";
 import TopUp from "./pages/TopUp";
+import PrivateRoute from "./components/PrivateRoute";
 
 const routerWithChildren = createBrowserRouter([
   {
     path: "/user/",
-    element: <UsersIndex />,
+    element: (
+      <PrivateRoute to={"/login"}>
+        <UsersIndex />
+      </PrivateRoute>
+    ),
     errorElement: <Error />,
     children: [
       {

@@ -49,7 +49,7 @@ function TransferItem({ data, userId }: TransferItemProps) {
 
 function TransferHistory() {
   // const { token } = useStoreSelector((state) => state.auth);
-  const [userId, setUserId] = useState<number | null>(3);
+  const [userId] = useState<number | null>(3);
   const [data, setData] = useState<DataHistory[]>([]);
 
   useEffect(() => {

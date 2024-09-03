@@ -84,7 +84,7 @@ function Profile() {
         formData.append("images", changeImage);
       }
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
-      const result = await axios.put(url, formData, {
+      const result = await axios.patch(url, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

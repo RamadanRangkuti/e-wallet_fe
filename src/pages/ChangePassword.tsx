@@ -36,7 +36,7 @@ function ChangePassword() {
     const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/editpassword/${id}`;
     console.log("Token:", token);
     axios
-      .put(url, form, {
+      .patch(url, form, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

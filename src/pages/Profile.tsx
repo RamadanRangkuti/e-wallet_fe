@@ -81,7 +81,7 @@ function Profile() {
         formData.append("phone", form.phone);
       }
       if (changeImage) {
-        formData.append("images", changeImage);
+        formData.append("image", changeImage);
       }
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
       const result = await axios.put(url, formData, {

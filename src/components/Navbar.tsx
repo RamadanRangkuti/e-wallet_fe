@@ -1,10 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useStoreDispatch, useStoreSelector } from "../redux/hooks";
 import ThreeDots from "../assets/icons/Threedots.svg";
 import walletIcon from "../assets/icons/wallet.svg";
 import { MouseEventHandler, useState } from "react";
+import { logout } from "../redux/slices/auth";
 
 export default function Navbar() {
+  const { token } = useStoreSelector((state) => state.auth);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useStoreDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
+
   const dropDown: MouseEventHandler<HTMLButtonElement> = () => {
     const dropdownMenu = document.querySelector('.absolute[aria-labelledby="menu-button"]');
     const dropdownMenu1 = document.querySelector('.absolute[aria-labelledby="menu-button1"]');
@@ -22,12 +34,26 @@ export default function Navbar() {
         </div>
       </div>
       <div className="hidden gap-5 md:flex text-sm text-center">
-        <Link to={"/login"} >
-          <button className="px-5 py-3 w-30 text-white rounded-md border border-white border-solid">Sign In</button>
-        </Link>
-        <Link to={"/register"}>
-          <button className="px-5 py-3 w-30 text-blue-500 bg-white rounded-md">Sign Up</button>
-        </Link>
+        {token ? (
+          <>
+            <Link to="/user">
+              <button className="px-5 py-3 w-30 text-white rounded-md border border-white border-solid">Profile</button>
+            </Link>
+            <button onClick={handleLogout} className="px-5 py-3 w-30 text-blue-500 bg-white rounded-md">
+              Logout
+            </button>
+          </>
+        ) :
+          <>
+            <Link to={"/login"} >
+              <button className="px-5 py-3 w-30 text-white rounded-md border border-white border-solid">Sign In</button>
+            </Link>
+            <Link to={"/register"}>
+              <button className="px-5 py-3 w-30 text-blue-500 bg-white rounded-md">Sign Up</button>
+            </Link>
+          </>
+        }
+
       </div>
       <div className="md:hidden">
         <div>
@@ -49,16 +75,31 @@ export default function Navbar() {
           aria-labelledby="menu-button1"
         >
           <div className="py-5 flex flex-col gap-2 p-4" role="none">
-            <Link to={"#"}>
-              <button className="justify-center px-5 py-3 text-blue-500 bg-white rounded-md border border-white border-solid w-full  active:border active:border-primary active:border-solid focus:border focus:border-primary focus:border-solid">
-                Log out
-              </button>
-            </Link>
-            <Link to={"#"}>
-              <button className="justify-center px-5 py-3 text-blue-500 bg-white rounded-md border border-white border-solid w-full active:border active:border-primary active:border-solid focus:border focus:border-primary focus:border-solid">
-                xxxxxx
-              </button>
-            </Link>
+            {token ? (
+              <>
+                <Link to={"/user"}>
+                  <button className="justify-center px-5 py-3 text-blue-500 bg-white rounded-md border border-white border-solid w-full  active:border active:border-primary active:border-solid focus:border focus:border-primary focus:border-solid">
+                    Profile
+                  </button>
+                </Link>
+                <button onClick={handleLogout} className="justify-center px-5 py-3 text-red-500 bg-white rounded-md border border-white border-solid w-full active:border active:border-primary active:border-solid focus:border focus:border-primary focus:border-solid">
+                  Logout
+                </button>
+              </>
+            ) :
+              <>
+                <Link to={"#"}>
+                  <button className="justify-center px-5 py-3 text-blue-500 bg-white rounded-md border border-white border-solid w-full  active:border active:border-primary active:border-solid focus:border focus:border-primary focus:border-solid">
+                    Sign In
+                  </button>
+                </Link>
+                <Link to={"#"}>
+                  <button className="justify-center px-5 py-3 text-blue-500 bg-white rounded-md border border-white border-solid w-full active:border active:border-primary active:border-solid focus:border focus:border-primary focus:border-solid">
+                    Sign Up
+                  </button>
+                </Link>
+              </>}
+
           </div>
         </div>
       </div>

@@ -58,14 +58,17 @@ function EnterPinModal({ onClose, onSuccess, onFailure, userId, targetId, amount
         formData.append("notes", notes || "");
         console.log('form data:', formData)
 
-        const res = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/transfer`, formData, {
+        for (const pair of formData.entries()) {
+          console.log(pair[0] + ': ' + pair[1]);
+        }
+
+        await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/transfer`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
         );
-        console.log(res);
 
         setShowSuccessModal(true);
         onSuccess();

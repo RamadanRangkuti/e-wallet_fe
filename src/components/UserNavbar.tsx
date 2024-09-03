@@ -35,7 +35,7 @@ export default function UserNavbar() {
     }
   }, [token]);
 
-  console.log(id);
+  // console.log(id);
 
   useEffect(() => {
     const getDataUser = async () => {

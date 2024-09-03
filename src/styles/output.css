@@ -978,16 +978,17 @@ video {
   width: 13rem;
 }
 
+.max-w-fit{
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+}
+
 .max-w-full{
   max-width: 100%;
 }
 
 .max-w-md{
   max-width: 28rem;
-}
-
-.max-w-52{
-  max-width: 13rem;
 }
 
 .flex-1{
@@ -2347,18 +2348,6 @@ video {
 
   .md\:text-left{
     text-align: left;
-  }
-
-  .md\:text-center{
-    text-align: center;
-  }
-
-  .md\:text-justify{
-    text-align: justify;
-  }
-
-  .md\:text-start{
-    text-align: start;
   }
 
   .md\:text-2xl{

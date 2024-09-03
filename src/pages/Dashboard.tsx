@@ -9,6 +9,8 @@ import Downgraph from "../assets/icons/Downgraph.svg";
 import profile from "../assets/images/ProfileNavbar.png";
 import FinancialChart from "../components/FinancialChart";
 import { Link } from "react-router-dom";
+import { useStoreSelector } from "../redux/hooks";
+import { jwtDecode } from "jwt-decode";
 
 interface BalanceData {
   balance: number;
@@ -16,6 +18,8 @@ interface BalanceData {
 
 export default function Dashboard() {
 
+  const { token } = useStoreSelector((state) => state.auth);
+  const decodedToken = jwtDecode<any>(token);
   const [balanceData, setBalanceData] = useState<BalanceData>({
     balance: 0,
   });
@@ -23,11 +27,14 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchBalanceData = async () => {
       try {
-        const userId = 3; // test ID
-        const url = `http://localhost:8080/api/v1/user/${userId}`;
-        const response = await axios.get(url);
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${decodedToken.id}`;
+        const response = await axios.get(url , {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
         const data = response.data.data[0]; 
-        console.log(response.data.data[0].balance)
         setBalanceData({
           balance: data.balance,
         });

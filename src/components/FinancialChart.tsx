@@ -2,6 +2,8 @@ import axios from "axios";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
+import { useStoreSelector } from "../redux/hooks";
+import { jwtDecode } from "jwt-decode";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -18,14 +20,15 @@ interface ApiResponse {
 
 export default function FinancialChart() {
   const [balanceData, setBalanceData] = useState<BalanceData[]>([]);
+  const { token } = useStoreSelector((state) => state.auth);
+  const decodedToken = jwtDecode<any>(token);
 
   useEffect(() => {
     const getTransactions = async () => {
       try {
-        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/3/balance/chart`;
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/${decodedToken.id}/balance/chart`;
         const result = await axios.get<ApiResponse>(url);
         setBalanceData(result.data.data);
-        // console.log('in idata charst'result.data);
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }

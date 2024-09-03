@@ -82,7 +82,7 @@ export default function UserNavbar() {
               </button>
             </div>
             <div
-              className="bg-white absolute right-5 mt-4 w-56 origin-top-right divide-y divide-gray-100 hidden shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-black"
+              className="bg-white absolute right-5 mt-4 w-56 origin-top-right divide-y divide-gray-100 hidden shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-black z-10"
               role="menu"
               aria-orientation="vertical"
               aria-labelledby="menu-button1"

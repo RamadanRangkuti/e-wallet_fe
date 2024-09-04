@@ -10,11 +10,11 @@ import registerLogo from "../assets/images/register.webp";
 import Input from "../components/Input";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import axios, { AxiosResponse } from "axios";
-import { IAuthResponse } from "../types/response";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function Register() {
-  const [form, setForm] = useState<{ email: string; password: string; pin?: number }>({ email: "", password: "", pin: undefined });
+  const [form, setForm] = useState<{ email: string; password: string; pin: string }>({ email: "", password: "", pin: "" });
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -30,24 +30,59 @@ function Register() {
     });
   };
 
+  const onChangePinHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (/^\d*$/.test(e.target.value)) {
+      setForm((form) => {
+        return {
+          ...form,
+          [e.target.name]: e.target.value,
+        };
+      });
+    }
+  };
+
   const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(e.target.value);
   };
 
-  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (form.password !== confirmPassword) {
       return setErrorMessage("Password harus sama");
     }
     setErrorMessage("");
-    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/auth/register`;
-    axios
-      .post(url, form)
-      .then((result: AxiosResponse<IAuthResponse>) => {
-        console.log(result.data);
-        navigate("/login");
-      })
-      .catch((err) => console.error(err));
+    try {
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/auth/register`;
+      const result = await axios.post(url, form);
+      console.log(result.data);
+      Swal.fire({
+        title: "Success!",
+        text: "Register Success",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
+      navigate("/login");
+    } catch (err) {
+      Swal.fire({
+        title: "Failed!",
+        text: "Register Failed!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
+      console.log(err);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -116,7 +151,7 @@ function Register() {
           </label>
           <div className="relative mt-2">
             <img className="absolute mt-[11px] ml-5" width="20" height="20" src={passwordIcon} alt="pin-icon" />
-            <Input input={{ type: "password", name: "pin", placeholder: "Enter Your Pin", autocomplete: "off", maxLength: 6, value: form.pin, onChange: onChangeHandler }} />
+            <Input input={{ type: "password", name: "pin", placeholder: "Enter Your Pin", autocomplete: "off", maxLength: 6, value: form.pin, onChange: onChangePinHandler }} />
           </div>
           <button className="text-white uw:text-2xl bg-primary hover:bg-blue-700 active:bg-blue-800 rounded-lg w-full h-11 uw:h-16" type="submit">
             Register

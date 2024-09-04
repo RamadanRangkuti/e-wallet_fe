@@ -3,12 +3,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import user from "../assets/icons/user.svg";
+
 interface Transaction {
   id: number;
   receiver_fullname: string;
   sender_fullname: string;
   sender_id: string;
   type: string;
+  
   transfer_amount: string;
   isIncome: boolean;
   sender_image: string;
@@ -48,7 +51,11 @@ const TransactionHistory = () => {
       </div>
       {transactions.map((transaction) => (
         <div key={transaction.id} className="flex gap-5 justify-between items-center mt-7 text-base p-4">
-          <img loading="lazy" src={transaction.sender_image} className="shrink-0 self-stretch w-14 aspect-square" alt={`${transaction.sender_fullname}'s profile`} />
+          <img
+            loading="lazy"
+            src={transaction.sender_image || user}
+            className="shrink-0 self-stretch w-14 aspect-square"
+            alt={`${transaction.sender_fullname}'s profile`} />
           <div className="flex flex-col self-stretch pr-2.5 my-auto">
             <div className="font-semibold text-slate-900">{transaction.sender_fullname}</div>
             <div className="mt-3 text-gray-600">{transaction.type}</div>

@@ -38,9 +38,11 @@ const person: Person = {
 export default function TopUp() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailedModal, setShowFailedModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { token } = useStoreSelector((state) => state.auth);
   const [id, setId] = useState<string>("");
   const [getProfile, setProfile] = useState<IProfileBody[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (token) {
@@ -113,12 +115,16 @@ export default function TopUp() {
   const handleSubmit = async () => {
     const amountNumber = parseFloat(nominal.replace(/[,.]/g, ""));
     const adminFeeNumber = parseFloat(adminFee.replace(/[,.]/g, ""));
-    const subtotalNumber = parseFloat(subtotal.replace(/[,.]/g, ""));
-    console.log("user_id: ", id);
-    console.log("uang yang di topup: ", amountNumber);
-    console.log("admin: ", adminFeeNumber);
-    console.log("sub totoal: ", subtotalNumber);
 
+    if (amountNumber < 10000) {
+      setError("The minimum top-up amount is IDR 10,000.");
+      return;
+    }
+
+    if (amountNumber > 5000000) {
+      setError("The maximum top-up amount is IDR 5,000,000.");
+      return;
+    }
     const data = {
       user_id: id,
       payment_id: paymentMethod,
@@ -126,6 +132,7 @@ export default function TopUp() {
       admin: adminFeeNumber,
     };
 
+    setIsLoading(true);
     try {
       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/topup`, data, {
         headers: {
@@ -139,6 +146,8 @@ export default function TopUp() {
     } catch (error) {
       console.error("Error during transaction:", error);
       setShowFailedModal(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -173,6 +182,7 @@ export default function TopUp() {
                 <img src={moneyIcon} alt="Money Icon" className="absolute left-3 w-5 h-5 text-gray-400" />
                 <input type="text" name="nominal" value={nominal} onChange={handleNominalChange} className="pl-10 border rounded-md focus:outline-gray-400 w-full h-12 font-semibold" placeholder="Enter Nominal Transfer" autoComplete="off" />
               </div>
+              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
             </div>
 
             {/* input bank */}
@@ -185,7 +195,7 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "paymentMethod",
+                      name: "bri",
                       value: 1,
                       onChange: handlePaymentMethodChange,
                     }}
@@ -198,7 +208,7 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "paymentMethod",
+                      name: "dana",
                       value: 2,
                       onChange: handlePaymentMethodChange,
                     }}
@@ -211,7 +221,7 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "paymentMethod",
+                      name: "bca",
                       value: 3,
                       onChange: handlePaymentMethodChange,
                     }}
@@ -224,7 +234,7 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "paymentMethod",
+                      name: "gopay",
                       value: 4,
                       onChange: handlePaymentMethodChange,
                     }}
@@ -237,7 +247,7 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "paymentMethod",
+                      name: "ovo",
                       value: 5,
                       onChange: handlePaymentMethodChange,
                     }}
@@ -272,7 +282,7 @@ export default function TopUp() {
                 </div>
 
                 <button className="bg-blue-600 min-h-10 w-full rounded-lg text-white font-thin tracking-wider" onClick={handleSubmit}>
-                  Submit
+                  {isLoading ? "Submit..." : "Submit"}
                 </button>
                 <p className="text-[#4F5665] text-sm font-normal text-wrap">*Get Discount if you pay with Bank Central Asia</p>
               </div>

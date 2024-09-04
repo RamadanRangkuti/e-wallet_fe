@@ -13,6 +13,7 @@ import { useStoreSelector } from "../redux/hooks";
 import { IProfileBody } from "../types/profile";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import Swal from "sweetalert2";
 
 function Profile() {
   const [form, setForm] = useState<IProfileBody>();
@@ -41,7 +42,6 @@ function Profile() {
         });
         setProfile(result.data.data);
         setForm(result.data.data[0]);
-        console.log(result.data);
       } catch (error) {
         console.log(error);
       }
@@ -84,14 +84,37 @@ function Profile() {
         formData.append("image", changeImage);
       }
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
-      const result = await axios.put(url, formData, {
+      await axios.put(url, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(result.data);
+      Swal.fire({
+        title: "Success!",
+        text: "Update Success",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
     } catch (err) {
+      Swal.fire({
+        title: "Failed!",
+        text: "Update Failed!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
       console.error(err);
     }
   };

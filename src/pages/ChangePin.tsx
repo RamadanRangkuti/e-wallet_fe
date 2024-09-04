@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useStoreSelector } from "../redux/hooks";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function ChangePassword() {
   const [pin, setPin] = useState<string[]>(new Array(6).fill(""));
@@ -49,16 +50,39 @@ function ChangePassword() {
       if (enteredPin.length === 6) {
         formData.append("pin", enteredPin);
       }
-      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
-      const result = await axios.put(url, formData, {
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/editpin/${id}`;
+      await axios.put(url, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(result.data);
+      Swal.fire({
+        title: "Success!",
+        text: "Update Success",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
       navigate("/user");
     } catch (err) {
+      Swal.fire({
+        title: "Failed!",
+        text: "Update Failed!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000,
+        position: "top-end",
+        customClass: {
+          popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+        },
+        toast: true,
+      });
       console.error(err);
     }
   };

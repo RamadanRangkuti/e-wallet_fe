@@ -6,9 +6,9 @@ import Input from "../components/Input";
 import NavbarProfile from "../components/NavbarProfile";
 import { useEffect, useState } from "react";
 import { useStoreSelector } from "../redux/hooks";
-import axios, { AxiosResponse } from "axios";
-import { IAuthResponse } from "../types/response";
+import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import Swal from "sweetalert2";
 
 function ChangePassword() {
   const [form, setForm] = useState<{ password: string; newpassword: string }>({ password: "", newpassword: "" });
@@ -34,18 +34,41 @@ function ChangePassword() {
     }
     setErrorMessage("");
     const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/editpassword/${id}`;
-    console.log("Token:", token);
     axios
       .put(url, form, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((result: AxiosResponse<IAuthResponse>) => {
-        alert("Password berhasil diubah");
-        console.log(result.data);
+      .then(() => {
+        Swal.fire({
+          title: "Success!",
+          text: "Update Success",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2000,
+          position: "top-end",
+          customClass: {
+            popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+          },
+          toast: true,
+        });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        Swal.fire({
+          title: "Failed!",
+          text: "Update Failed!",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 2000,
+          position: "top-end",
+          customClass: {
+            popup: "border-solid border-5 border-primary text-sm rounded-lg shadow-lg mt-8 tbt:mt-16",
+          },
+          toast: true,
+        });
+        console.error(err);
+      });
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

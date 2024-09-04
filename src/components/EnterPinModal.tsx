@@ -58,14 +58,17 @@ function EnterPinModal({ onClose, onSuccess, onFailure, userId, targetId, amount
         formData.append("notes", notes || "");
         console.log('form data:', formData)
 
-        const res = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/transfer`, formData, {
+        for (const pair of formData.entries()) {
+          console.log(pair[0] + ': ' + pair[1]);
+        }
+
+        await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/transfer`, formData, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         }
         );
-        console.log(res);
 
         setShowSuccessModal(true);
         onSuccess();
@@ -96,9 +99,9 @@ function EnterPinModal({ onClose, onSuccess, onFailure, userId, targetId, amount
                   <input
                     key={index}
                     id={`pin-${index}`}
-                    type="text"
+                    type="password"
                     maxLength={1}
-                    className="w-8 md:w-12 h-8 md:h-12 py-5 text-center font-semibold text-base md:text-xl border-b border-gray-300 focus:outline-none focus:border-blue-500"
+                    className="w-7 h-10 py-5 text-center font-semibold text-lg border-b-2 border-gray-300 focus:outline-none focus:border-blue-500"
                     value={digit}
                     onChange={(e) => handleChange(e.target.value, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}

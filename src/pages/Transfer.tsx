@@ -56,7 +56,7 @@ function TransferPage() {
       <div className="flex-col w-full">
         <div className="flex md:mb-7">
           <div className="flex flex-col w-full gap-5">
-            <div className="flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold px-5 md:px-0 py-2 md:bg-white md:text-black gap-2">
+            <div className="flex items-center bg-primary w-fit text-white text-xs md:text-base md:font-bold px-5 md:px-0 py-2 md:bg-white md:text-black gap-2">
               <img src={transferIcon} alt="icon" className="hidden md:flex" />
               Transfer Money
             </div>

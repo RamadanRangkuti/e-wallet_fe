@@ -14,7 +14,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function Register() {
-  const [form, setForm] = useState<{ email: string; password: string; pin: string }>({ email: "", password: "", pin: "" });
+  const [form, setForm] = useState<{ email: string; password: string }>({ email: "", password: "" });
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -30,16 +30,6 @@ function Register() {
     });
   };
 
-  const onChangePinHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (/^\d*$/.test(e.target.value)) {
-      setForm((form) => {
-        return {
-          ...form,
-          [e.target.name]: e.target.value,
-        };
-      });
-    }
-  };
 
   const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(e.target.value);
@@ -146,13 +136,7 @@ function Register() {
             <Input input={{ type: showConfirmPassword ? "text" : "password", name: "confirmpassword", placeholder: "Enter Your Password Again", autocomplete: "off", value: confirmPassword, onChange: onConfirmPasswordChange }} />
           </div>
           {errorMessage && <p className="text-red-500 text-sm mb-3">{errorMessage}</p>}
-          <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="pin">
-            Pin
-          </label>
-          <div className="relative mt-2">
-            <img className="absolute mt-[11px] ml-5" width="20" height="20" src={passwordIcon} alt="pin-icon" />
-            <Input input={{ type: "password", name: "pin", placeholder: "Enter Your Pin", autocomplete: "off", maxLength: 6, value: form.pin, onChange: onChangePinHandler }} />
-          </div>
+
           <button className="text-white uw:text-2xl bg-primary hover:bg-blue-700 active:bg-blue-800 rounded-lg w-full h-11 uw:h-16" type="submit">
             Register
           </button>

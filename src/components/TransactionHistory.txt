@@ -1,0 +1,52 @@
+// import {  useStoreSelector } from "../redux/hooks";
+// import {jwtDecode} from "jwt-decode";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useStoreSelector } from "../redux/hooks";
+import { jwtDecode } from "jwt-decode";
+
+interface Transaction {
+  id: number;
+  receiver_fullname: string;
+  sender_fullname: string;
+  sender_id: string;
+  type: string;
+  transfer_amount: string;
+  isIncome: boolean;
+  sender_image: string;
+}
+
+const TransactionHistory = () => {
+  const { token } = useStoreSelector((state) => state.auth);
+  const [userId, setId] = useState<string>("");
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode<{ id: string }>(token);
+      setId(decodedToken.id);
+    }
+  }, [token]);
+
+  useEffect(() => {
+
+    const getTransactions = async () => {
+      try {
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/${userId}`;
+        const result = await axios.get(url);
+        setTransactions(result.data.data);
+        console.log(result.data)
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+      }
+    };
+
+    getTransactions();
+  }, []);
+
+  return (
+    
+  );
+};
+
+export default TransactionHistory;

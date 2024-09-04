@@ -146,12 +146,12 @@ export default function Dashboard() {
                 </div>
                 {transactions.map((transaction) => (
                   <div key={transaction.id} className="flex gap-5 justify-between items-center mt-7 text-base p-4">
-                    <img loading="lazy" src={transaction.sender_image} className="shrink-0 self-stretch w-14 aspect-square" alt={`${transaction.sender_fullname}'s profile`} />
+                    <img loading="lazy" src={transaction.sender_image} className="shrink-0 self-stretch h-14 w-auto aspect-square items-center " alt={`${transaction.sender_fullname}'s profile`} />
                     <div className="flex flex-col self-stretch pr-2.5 my-auto">
                       <div className="font-semibold text-slate-900">{transaction.sender_fullname ? transaction.sender_fullname : "Nama sender" }</div>
                       <div className="mt-3 text-gray-600">{transaction.type}</div>
                     </div>
-                    <div className="mt-3 text-gray-600">{transaction.method}</div>
+                    <div className="mt-3 text-gray-600">{transaction.method || "E-wallet"}</div>
                     <div className={`self-stretch my-auto font-semibold text-right ${(transaction.sender_id == id) ? "text-red-700" : "text-green-500"}`}>Rp {transaction.transfer_amount}</div>
                   </div>
                 ))}

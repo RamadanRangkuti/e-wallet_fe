@@ -845,6 +845,14 @@ video {
   height: 100vh;
 }
 
+.h-auto{
+  height: auto;
+}
+
+.h-14{
+  height: 3.5rem;
+}
+
 .min-h-10{
   min-height: 2.5rem;
 }
@@ -1122,6 +1130,10 @@ video {
 
 .gap-8{
   gap: 2rem;
+}
+
+.gap-16{
+  gap: 4rem;
 }
 
 .gap-x-1\.5{

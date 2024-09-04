@@ -1,5 +1,5 @@
 import topup from "../assets/icons/Upload.svg";
-import peopleImage from "../assets/images/transfer-detail-image.png";
+import peopleImage from "../assets/images/user.webp";
 import unfilledStar from "../assets/icons/UnfilledStar.svg";
 import moneyIcon from "../assets/icons/u_money-bill.svg";
 import Bri from "../assets/images/BRI.png";
@@ -29,8 +29,8 @@ interface Person {
 
 const person: Person = {
   image: peopleImage,
-  name: "Ghaluh 1",
-  phoneNumber: "(239) 555-0108",
+  name: "Enter Your Name",
+  phoneNumber: "Enter Your Phone Number",
   isVerified: true,
   favoriteIcon: unfilledStar,
 };

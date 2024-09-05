@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import TransactionHistory from "../components/TransactionHistory";
 import transfer from "../assets/icons/transferLight.svg";
 import topUp from "../assets/icons/topUpLight.svg";
 import balanceIcon from "../assets/icons/balance.svg";
 import Upgraph from "../assets/icons/Upgraph.svg";
 import Downgraph from "../assets/icons/Downgraph.svg";
 import user from "../assets/images/user.webp";
-// import profile from "../assets/images/ProfileNavbar.png";
-// import profileImage from "../assets/images/user.webp";
 import FinancialChart from "../components/FinancialChart";
 import { Link } from "react-router-dom";
 import { useStoreSelector } from "../redux/hooks";

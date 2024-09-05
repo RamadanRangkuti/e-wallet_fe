@@ -142,6 +142,7 @@ export default function TopUp() {
       });
 
       console.log("Transaction successful:", response.data);
+      
       setNominal("0");
       setAdminFee("0");
       setSubtotal("0");

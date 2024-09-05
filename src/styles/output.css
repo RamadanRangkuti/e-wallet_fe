@@ -853,6 +853,14 @@ video {
   height: 100vh;
 }
 
+.h-auto{
+  height: auto;
+}
+
+.h-14{
+  height: 3.5rem;
+}
+
 .min-h-10{
   min-height: 2.5rem;
 }
@@ -1134,6 +1142,10 @@ video {
 
 .gap-8{
   gap: 2rem;
+}
+
+.gap-16{
+  gap: 4rem;
 }
 
 .gap-x-1\.5{
@@ -1824,10 +1836,6 @@ video {
   --tw-ring-opacity: 0.05;
 }
 
-.filter{
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .hover\:bg-blue-700:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
@@ -2302,14 +2310,14 @@ video {
     padding-right: 2rem;
   }
 
-  .md\:py-52{
-    padding-top: 13rem;
-    padding-bottom: 13rem;
-  }
-
   .md\:py-5{
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
+  }
+
+  .md\:py-52{
+    padding-top: 13rem;
+    padding-bottom: 13rem;
   }
 
   .md\:pb-5{

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import TransactionHistory from "../components/TransactionHistory";
+// import TransactionHistory from "../components/TransactionHistory";
 import transfer from "../assets/icons/transferLight.svg";
 import topUp from "../assets/icons/topUpLight.svg";
 import balanceIcon from "../assets/icons/balance.svg";
@@ -16,9 +16,22 @@ interface BalanceData {
   balance: number;
 }
 
+interface Transaction {
+  method: string;
+  id: number;
+  receiver_fullname: string;
+  sender_fullname: string;
+  sender_id: string;
+  type: string;
+  transfer_amount: string;
+  isIncome: boolean;
+  sender_image: string;
+}
+
 export default function Dashboard() {
   const { token } = useStoreSelector((state) => state.auth);
   const [id, setId] = useState<string>("");
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balanceData, setBalanceData] = useState<BalanceData>({
     balance: 0,
   });
@@ -33,6 +46,8 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchBalanceData = async () => {
       try {
+        const url1 = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/${id}`;
+        const result = await axios.get(url1);
         const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
         const response = await axios.get(url, {
           headers: {
@@ -41,9 +56,11 @@ export default function Dashboard() {
           },
         });
         const data = response.data.data[0];
+        setTransactions(result.data.data);
         setBalanceData({
           balance: data.balance,
         });
+        console.log(result)
       } catch (error) {
         console.error("Error fetching balance data:", error);
       }
@@ -121,8 +138,24 @@ export default function Dashboard() {
             <div className="flex flex-col w-[67%] max-md:ml-0 max-md:w-full">
               <FinancialChart />
             </div>
-            <div className="flex flex-col w-fit max-md:ml-0 max-md:w-full">
-              <TransactionHistory />
+            <div className="flex flex-col w-full max-md:ml-0 max-md:w-full">
+              <div className="flex flex-col grow px-5 pt-4 pb-8 rounded-md border border-gray-200 border-solid max-md:mt-5 w-full">
+                <div className="flex gap-5">
+                  <h2 className="flex-auto text-base font-semibold tracking-normal leading-6 text-slate-900">Transaction History</h2>
+                  <button className="text-xs font-medium tracking-normal leading-6 text-blue-600">See All</button>
+                </div>
+                {transactions.map((transaction) => (
+                  <div key={transaction.id} className="flex gap-5 justify-between items-center mt-7 text-base p-4">
+                    <img loading="lazy" src={transaction.sender_image} className="shrink-0 self-stretch h-14 w-auto aspect-square items-center " alt={`${transaction.sender_fullname}'s profile`} />
+                    <div className="flex flex-col self-stretch pr-2.5 my-auto">
+                      <div className="font-semibold text-slate-900">{transaction.sender_fullname ? transaction.sender_fullname : "Nama sender" }</div>
+                      <div className="mt-3 text-gray-600">{transaction.type}</div>
+                    </div>
+                    <div className="mt-3 text-gray-600">{transaction.method || "E-wallet"}</div>
+                    <div className={`self-stretch my-auto font-semibold text-right ${(transaction.sender_id == id) ? "text-red-700" : "text-green-500"}`}>Rp {transaction.transfer_amount}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>

@@ -18,6 +18,7 @@ import { IProfileBody } from "../types/profile";
 import { jwtDecode } from "jwt-decode";
 import { TopupSuccessModal } from "../components/TopupSuccessModal";
 import { TopupFailedModal } from "../components/TopupFailedModal";
+import Header from "../components/HeaderPage";
 
 interface Person {
   image: string;
@@ -153,9 +154,9 @@ export default function TopUp() {
 
   return (
     <main className="relative w-full">
-      <div className="flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold py-2 px-5 md:px-8 md:bg-white md:text-black">
-        <img className="hidden md:flex" width="20" src={topup} alt="" />
-        <p className="md:ml-3">Transfer Money</p>
+      <div className="mt-5 ml-4">
+
+        <Header title="Top Up" icons={topup} />
       </div>
 
       <div className="grid w-full px-5 md:px-8 md:pb-8">

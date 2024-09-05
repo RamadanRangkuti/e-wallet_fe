@@ -100,7 +100,7 @@ export default function UserNavbar() {
           <div className="relative" ref={dropdownRef}>
             <div>
               <button onClick={handleDropdownToggle} type="button" className="flex gap-5 items-center" id="menu-button" aria-expanded={isDropdownOpen} aria-haspopup="true">
-                <p>{getProfile[0]?.fullname || "Enter Your Name"}</p>
+                <p>{getProfile[0]?.fullname || "User"}</p>
                 <img src={getProfile[0]?.image || userIcon} width="40" className="rounded-full" />
                 <img width="20" src={dropdown} />
               </button>

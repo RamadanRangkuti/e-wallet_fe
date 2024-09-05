@@ -6,7 +6,9 @@ import topUp from "../assets/icons/topUpLight.svg";
 import balanceIcon from "../assets/icons/balance.svg";
 import Upgraph from "../assets/icons/Upgraph.svg";
 import Downgraph from "../assets/icons/Downgraph.svg";
-import profile from "../assets/images/ProfileNavbar.png";
+import user from "../assets/images/user.webp";
+// import profile from "../assets/images/ProfileNavbar.png";
+// import profileImage from "../assets/images/user.webp";
 import FinancialChart from "../components/FinancialChart";
 import { Link } from "react-router-dom";
 import { useStoreSelector } from "../redux/hooks";
@@ -71,15 +73,6 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="flex items-center bg-primary w-screen text-white text-xs md:text-base md:font-bold py-2 px-5 md:px-8 md:bg-white md:text-black md:hidden">
-        <div className="flex gap-5 items-center">
-          <img src={profile} width="40" className="rounded-full" alt="Profile" />
-          <div className="flex flex-col">
-            <p>Hello,</p>
-            <p>Galuh Wizard</p>
-          </div>
-        </div>
-      </div>
       <main className="w-full p-4 md:p-8">
         <section className="w-full max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
@@ -146,7 +139,12 @@ export default function Dashboard() {
                 </div>
                 {transactions.map((transaction) => (
                   <div key={transaction.id} className="flex gap-5 justify-between items-center mt-7 text-base p-4">
-                    <img loading="lazy" src={transaction.sender_image} className="shrink-0 self-stretch h-14 w-auto aspect-square items-center " alt={`${transaction.sender_fullname}'s profile`} />
+                    <img
+                      loading="lazy"
+                      src={transaction.sender_image || user}
+                      className="shrink-0 self-stretch w-14 aspect-square"
+                      alt={`${transaction.sender_fullname}'s profile`}
+                    />
                     <div className="flex flex-col self-stretch pr-2.5 my-auto">
                       <div className="font-semibold text-slate-900">{transaction.sender_fullname ? transaction.sender_fullname : "Nama sender" }</div>
                       <div className="mt-3 text-gray-600">{transaction.type}</div>

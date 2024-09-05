@@ -4,6 +4,7 @@ import transferIcon from "../assets/icons/blueTransfer.svg";
 import TransferListContainer from "../components/TransferListContainer";
 import TransferDetailContainer from "../components/TransferDetailContainer";
 import TransferSuccessModal from "../components/TransferSuccess";
+import Header from "../components/HeaderPage";
 
 const steps = [
   { number: 1, label: "Find People" },
@@ -56,10 +57,7 @@ function TransferPage() {
       <div className="flex-col w-full">
         <div className="flex md:mb-7">
           <div className="flex flex-col w-full gap-5">
-            <div className="flex items-center bg-primary w-fit text-white text-xs md:text-base md:font-bold px-5 md:px-0 py-2 md:bg-white md:text-black gap-2">
-              <img src={transferIcon} alt="icon" className="hidden md:flex" />
-              Transfer Money
-            </div>
+            <Header title="Transfer Money" icons={transferIcon} />
             <div className="hidden md:flex w-full md:w-fit items-center gap-4">
               {steps.map((step, index) => (
                 <div key={step.number} className="flex items-center">

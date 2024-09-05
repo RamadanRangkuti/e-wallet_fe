@@ -36,7 +36,7 @@ const TransactionHistory = () => {
       }
     };
 
-    
+
     getTransactions();
   }, []);
 

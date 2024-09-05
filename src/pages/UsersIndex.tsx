@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import UserNavbar from "../components/UserNavbar";
 import SideNavbar from "../components/UserSidebar";
-import UserFooter from "../components/UserFooter";
 import Profile from "./Profile";
 
 function UsersIndex() {
@@ -14,7 +13,6 @@ function UsersIndex() {
         <SideNavbar />
         {location.pathname === "/user" ? <Profile /> : <Outlet />}
       </div>
-      <UserFooter />
     </div>
   );
 }

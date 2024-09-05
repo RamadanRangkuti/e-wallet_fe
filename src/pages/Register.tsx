@@ -143,13 +143,6 @@ function Register() {
             <img className="absolute mt-3.5 mr-5 right-0 cursor-pointer" width="20" height="20" src={showConfirmPassword ? eyeOffIcon : eyeIcon} alt="toggle-confirm-password-visibility" onClick={toggleConfirmPasswordVisibility} />
             <Input input={{ type: showConfirmPassword ? "text" : "password", name: "confirmpassword", placeholder: "Enter Your Password Again", autocomplete: "off", value: confirmPassword, onChange: onConfirmPasswordChange }} />
           </div>
-          <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="pin">
-            Pin
-          </label>
-          <div className="relative mt-2">
-            <img className="absolute mt-[11px] ml-5" width="20" height="20" src={passwordIcon} alt="pin-icon" />
-            <Input input={{ type: "password", name: "pin", placeholder: "Enter Your Pin", autocomplete: "off", maxLength: 6, value: form.pin, onChange: onChangePinHandler }} />
-          </div>
           {errorMessage && <p className="text-red-500 text-sm mb-3">{errorMessage}</p>}
           <button className="text-white uw:text-2xl bg-primary hover:bg-blue-700 active:bg-blue-800 rounded-lg w-full h-11 uw:h-16" type="submit">
             Register

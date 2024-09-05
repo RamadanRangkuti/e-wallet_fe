@@ -128,6 +128,12 @@ export default function TopUp() {
       setError("The maximum top-up amount is IDR 5,000,000.");
       return;
     }
+
+    if (!paymentMethod) {
+      setError("Please select a payment method.");
+      return;
+    }
+
     const data = {
       user_id: id,
       payment_id: paymentMethod,
@@ -139,7 +145,7 @@ export default function TopUp() {
       setNominal("0");
       setAdminFee("0");
       setSubtotal("0");
-      setPaymentMethod("");
+      setPaymentMethod(undefined);
       setError(null);
     };
 

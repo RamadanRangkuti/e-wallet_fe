@@ -6,6 +6,8 @@ import Header from "../components/HeaderPage";
 import { useStoreSelector } from "../redux/hooks";
 import { jwtDecode } from "jwt-decode";
 import moment from "moment";
+import user from "../assets/images/user.webp";
+
 
 interface DataHistory {
   id: number;
@@ -90,15 +92,15 @@ function TransferHistory() {
                     {data.map((item) => (
                       <div key={item.id} className="flex gap-5 mt-2 w-full font-medium leading-5 text-gray-600 text-lg items-center justify-center max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
                         <div className="flex flex-row justify-between items-center p-4 w-full">
-                          <img loading="lazy" src={item.sender_image} className="w-[48px] h-[48px] object-cover rounded-xl hidden md:block" alt={item.sender_fullname} />
+                          <img loading="lazy" src={item.sender_image || user} className="w-[48px] h-[48px] object-cover rounded-xl hidden md:block" alt="No Image" />
                           <div className="flex flex-col gap-4 md:hidden">
-                            <div>{item.sender_fullname}</div>
-                            <div>{item.sender_phone}</div>
+                            <div>{item.sender_fullname ? item.sender_fullname : "No Name"}</div>
+                            <div>{item.sender_phone ? item.sender_phone : "xxxx-xxxx-xxxx"}</div>
                           </div>
-                          <div className="hidden md:block">{moment(item.created_at).format("MMM D Y")}</div>
-                          <div className="hidden md:block">{item.sender_phone}</div>
-                          <div className="hidden md:block">{item.sender_fullname}</div>
-                          <div className={item.sender_id === userId ? "text-green-500" : "text-red-500"}>{item.transfer_amount ? `Rp.${item.transfer_amount}` : ""}</div>
+                          <div className="hidden md:block">{item.created_at ? moment(item.created_at).format("MMM D Y") : "--/--/--"}</div>
+                          <div className="hidden md:block">{item.sender_phone ? item.sender_phone : "xxxx-xxxx-xxxx"}</div>
+                          <div className="hidden md:block">{item.sender_fullname ? item.sender_fullname : "No Name" }</div>
+                          <div className={item.sender_id === userId ? "text-green-500" : "text-red-500"}>{item.transfer_amount ? `Rp.${item.transfer_amount}` : "Rp.00"}</div>
                         </div>
                       </div>
                     ))}

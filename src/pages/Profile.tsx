@@ -14,6 +14,7 @@ import { IProfileBody } from "../types/profile";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import Swal from "sweetalert2";
+import Header from "../components/HeaderPage";
 
 function Profile() {
   const [form, setForm] = useState<IProfileBody>();
@@ -122,10 +123,7 @@ function Profile() {
   return (
     <main className="font-montserrat w-full">
       <div className="md:mt-5">
-        <div className="flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold px-5 py-2 md:bg-white md:text-black md:mt-5">
-          <img className="hidden md:flex" width="20" src={profile2Blue} alt="" />
-          <p className="md:ml-3">Profile</p>
-        </div>
+        <Header title="Profile" icons={profile2Blue} />
         <div className="p-5 md:border md:border-solid md:mx-5">
           <h1 className="text-xs md:text-base text-black font-semibold">Profile Picture</h1>
           <div className="flex my-3">

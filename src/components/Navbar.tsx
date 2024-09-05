@@ -88,12 +88,12 @@ export default function Navbar() {
               </>
             ) :
               <>
-                <Link to={"#"}>
+                <Link to={"/login"}>
                   <button className="justify-center px-5 py-3 text-blue-500 bg-white rounded-md border border-white border-solid w-full  active:border active:border-primary active:border-solid focus:border focus:border-primary focus:border-solid">
                     Sign In
                   </button>
                 </Link>
-                <Link to={"#"}>
+                <Link to={"/register"}>
                   <button className="justify-center px-5 py-3 text-blue-500 bg-white rounded-md border border-white border-solid w-full active:border active:border-primary active:border-solid focus:border focus:border-primary focus:border-solid">
                     Sign Up
                   </button>

@@ -28,13 +28,13 @@ export default function Dashboard() {
     const fetchBalanceData = async () => {
       try {
         const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${decodedToken.id}`;
-        const response = await axios.get(url , {
+        const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
         });
-        const data = response.data.data[0]; 
+        const data = response.data.data[0];
         setBalanceData({
           balance: data.balance,
         });
@@ -94,18 +94,18 @@ export default function Dashboard() {
                 <div className="flex gap-5 justify-between w-full max-md:flex-wrap max-md:max-w-full">
                   <div className="my-auto font-semibold leading-6 text-slate-900">Fast Service</div>
                   <div className="flex gap-3.5 text-white leading-[150%]">
-                      <Link to={"/user/transfer"}>
-                        <button className="flex gap-2 py-1 pr-3 pl-2 whitespace-nowrap bg-blue-600 rounded-md">
-                          <img loading="lazy" src={transfer} className="shrink-0 w-6 aspect-square" alt="Transfer" />
-                          <span>Transfer</span>
-                        </button>
-                      </Link>
-                      <Link to={"/user/topup"}>
-                        <button className="flex gap-2 py-1 pr-3 pl-2 bg-blue-600 rounded-md">
-                          <img loading="lazy" src={topUp} className="shrink-0 w-6 aspect-square" alt="Top Up" />
-                          <span>Top Up</span>
-                        </button>
-                      </Link>
+                    <Link to={"/user/transfer"}>
+                      <button className="flex gap-2 py-1 pr-3 pl-2 whitespace-nowrap bg-blue-600 rounded-md">
+                        <img loading="lazy" src={transfer} className="shrink-0 w-6 aspect-square" alt="Transfer" />
+                        <span>Transfer</span>
+                      </button>
+                    </Link>
+                    <Link to={"/user/topup"}>
+                      <button className="flex gap-2 py-1 pr-3 pl-2 bg-blue-600 rounded-md">
+                        <img loading="lazy" src={topUp} className="shrink-0 w-6 aspect-square" alt="Top Up" />
+                        <span>Top Up</span>
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

@@ -5,9 +5,10 @@ import image from '../assets/images/Contact us-pana 1.webp';
 interface TransferSuccessModalProps {
   onClose?: () => void;
   onTransferAgain?: () => void;
+  recieverName?: string | null;
 }
 
-const TransferSuccessModal: React.FC<TransferSuccessModalProps> = ({ onClose, onTransferAgain }) => {
+const TransferSuccessModal: React.FC<TransferSuccessModalProps> = ({ onClose, onTransferAgain, recieverName }) => {
   const navigate = useNavigate();
 
   const handleTransferAgain = () => {
@@ -19,7 +20,7 @@ const TransferSuccessModal: React.FC<TransferSuccessModalProps> = ({ onClose, on
     <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" onClick={onTransferAgain}>
       <div className="bg-white w-64 md:w-auto p-5 rounded-md shadow-md" onClick={(e) => e.stopPropagation()}>
         <div className="flex flex-col font-montserrat">
-          <div className="flex w-full border-b border-gray-200 text-gray-400 text-xs md:text-sm font-semibold">TRANSFER TO GHALUH 1</div>
+          <div className="flex w-full border-b border-gray-200 text-gray-400 text-xs md:text-sm font-semibold">TRANSFER TO {recieverName}</div>
           <div className="flex flex-col items-center">
             <div className="flex justify-center mx-10 md:mx-16 w-32 md:w-full">
               <img src={image} alt="contact-us" />

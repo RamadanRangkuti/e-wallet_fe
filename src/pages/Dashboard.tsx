@@ -49,7 +49,11 @@ export default function Dashboard() {
     const fetchBalanceData = async () => {
       try {
         const url1 = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/${id}`;
-        const result = await axios.get(url1);
+        const result = await axios.get(url1, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
         const response = await axios.get(url, {
           headers: {

@@ -77,10 +77,6 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
 
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);
-  };
-
-  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
     setCurrentPage(1);
   };
 
@@ -89,7 +85,7 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
       <div className="flex flex-col font-semibold gap-4">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center">
           <div className="text-xs md:text-base">Find People</div>
-          <form onSubmit={handleSearchSubmit} className="relative w-full md:w-fit">
+          <form className="relative w-full md:w-fit">
             <input
               type="text"
               value={searchInput}

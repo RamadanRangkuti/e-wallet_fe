@@ -36,6 +36,7 @@ function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailCo
   const [error, setError] = useState<string | null>(null);
   const [userId, setUserId] = useState<number | null>(null)
   const [targetId, setTargetId] = useState<number | null>(null)
+  const [recName, setRecName] = useState<string | null>(null)
 
   const token = useSelector((state: RootState) => state.auth.token);
 
@@ -49,6 +50,7 @@ function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailCo
         });
         if (res.data && res.data.data && res.data.data.length > 0) {
           setTarget(res.data.data[0] || null);
+          setRecName(res.data.data[0].fullname)
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -184,13 +186,14 @@ function TransferDetailContainer({ onFinish, onTransferAgain }: TransferDetailCo
           onClose={() => setIsModalOpen(false)}
           onSuccess={handleSuccess}
           onFailure={handleFailure}
+          recName={recName}
           userId={userId}
           targetId={targetId}
           amount={rawNominal}
           notes={notes}
         />
       )}
-      {showSuccessModal && <TransferSuccessModal onClose={() => setShowSuccessModal(false)} onTransferAgain={handleTryAgain} />}
+      {showSuccessModal && <TransferSuccessModal onClose={() => setShowSuccessModal(false)} onTransferAgain={handleTryAgain} recieverName={recName} />}
       {showFailedModal && <TransferFailedModal onClose={() => setShowFailedModal(false)} onBackTo={handleDashboard} onTryAgain={handleTryAgain} />}
     </div>
   );

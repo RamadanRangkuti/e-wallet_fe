@@ -14,7 +14,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 function Register() {
-  const [form, setForm] = useState<{ email: string; password: string; pin: string }>({ email: "", password: "", pin: "" });
+  const [form, setForm] = useState<{ email: string; password: string }>({ email: "", password: "" });
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -30,16 +30,6 @@ function Register() {
     });
   };
 
-  const onChangePinHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (/^\d*$/.test(e.target.value)) {
-      setForm((form) => {
-        return {
-          ...form,
-          [e.target.name]: e.target.value,
-        };
-      });
-    }
-  };
 
   const onConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setConfirmPassword(e.target.value);

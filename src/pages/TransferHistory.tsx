@@ -1,9 +1,14 @@
-// import {jwtDecode} from "jwt-decode"; // Mengubah import jwtDecode ke jwt_decode
 import historyTransfer from "../assets/icons/historyTransfer.svg";
-import search from "../assets/icons/searchDark.svg";
-// import { useStoreSelector } from "../redux/hooks";
+import searchIcon from "../assets/icons/searchDark.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
+<<<<<<< HEAD
+import Header from "../components/HeaderPage";
+=======
+import { useStoreSelector } from "../redux/hooks";
+import { jwtDecode } from "jwt-decode";
+import moment from "moment";
+>>>>>>> e1c15a4424f624d4ef15e500488d4a830d1637bc
 
 interface DataHistory {
   id: number;
@@ -19,54 +24,33 @@ interface DataHistory {
   sender_id: number;
 }
 
-interface TransferItemProps {
-  data: DataHistory;
-  userId: number;
-}
-
-function TransferItem({ data, userId }: TransferItemProps) {
-  return (
-    <div className="flex gap-5 mt-2 w-full font-medium leading-5 text-gray-600 text-lg items-center max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
-      <div className="flex flex-row justify-between p-4 w-full">
-        <img
-          loading="lazy"
-          src={data.sender_image}
-          className="w-[48px] h-[48px] object-cover rounded-xl hidden md:block"
-          alt={data.sender_fullname}
-        />
-        <div className="flex flex-col gap-4 md:hidden">
-          <div>{data.sender_fullname}</div>
-          <div>{data.sender_phone}</div>
-        </div>
-        <div className="hidden md:block">{data.created_at}</div>
-        <div className="hidden md:block">{data.sender_phone}</div>
-        <div className="hidden md:block">{data.sender_fullname}</div>
-        <div className={data.sender_id === userId ? "text-red-500" : "text-green-500"}>{data.transfer_amount}</div>
-      </div>
-    </div>
-  );
-}
-
 function TransferHistory() {
-  // const { token } = useStoreSelector((state) => state.auth);
+  const { token } = useStoreSelector((state) => state.auth);
   const [userId] = useState<number | null>(3);
   const [data, setData] = useState<DataHistory[]>([]);
+  const [id, setId] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
-    // if (!token) return;
+    if (token) {
+      const decodedToken = jwtDecode<{ id: string }>(token);
+      setId(decodedToken.id);
+    }
+  }, [token]);
 
-    // const decodedToken = jwtDecode<{ id: string }>(token);
-    // setUserId(parseInt(decodedToken.id));
-
+  useEffect(() => {
     const getTransactions = async () => {
       try {
-        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/7`;
-        // const result = await axios.get(url, {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // });
-        const result = await axios.get(url);
+        let url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/${id}`;
+        if (search) {
+          url += `?search=${search}`;
+        }
+
+        const result = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setData(result.data.data);
         console.log(result.data);
       } catch (error) {
@@ -74,36 +58,57 @@ function TransferHistory() {
       }
     };
 
-    getTransactions();
-  }, []);
+    if (id) {
+      getTransactions();
+    }
+  }, [id, search, token]);
 
   if (userId === null) return null;
 
   return (
     <>
-      <div className="flex items-center bg-primary w-screen text-white text-xs md:text-base md:font-bold py-2 px-5 md:px-8 md:bg-white md:text-black md:hidden">
-        <div>History Transaction</div>
-      </div>
       <div className="bg-white w-full">
         <div className="w-full max-md:max-w-full">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
             <div className="flex flex-col ml-5 w-4/5 max-md:ml-0 max-md:w-full">
-              <div className="flex flex-col max-md:max-w-full p-4 w-full">
-                <div className="gap-4 self-start mb-5 px-5 font-semibold tracking-normal leading-6 text-slate-900 text-lg hidden md:flex">
-                  <img loading="lazy" src={historyTransfer} className="shrink-0 my-auto w-6 aspect-square" alt="History Transfer" />
-                  <div>History Transaction</div>
-                </div>
+              <div className="flex flex-col max-md:max-w-full w-full">
+                <Header title="History Transaction" icons={historyTransfer} />
                 <div className="flex flex-col md:px-8 pb-11 md:border md:border-gray-200 md:border-solid max-md:px-5 max-md:max-w-full w-full gap-4">
                   <div className="flex gap-5 w-full max-md:flex-wrap max-md:pr-5 max-md:max-w-full p-4">
                     <div className="flex-auto my-auto font-semibold tracking-normal leading-6 text-slate-900 text-lg">Find Transaction</div>
                     <div className="flex gap-8 p-4 text-sm font-medium leading-5 text-gray-600 rounded-md border border-gray-200 border-solid">
-                      <input className="flex-1 text-base outline-none" placeholder="Enter fullname" />
-                      <img loading="lazy" src={search} className="shrink-0 my-auto w-4 aspect-square" alt="Search Icon" />
+                      <input
+                        className="flex-1 text-base outline-none"
+                        placeholder="Enter fullname"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            setSearch((e.target as HTMLInputElement).value);
+                          }
+                        }}
+                      />
+                      <img loading="lazy" src={searchIcon} className="shrink-0 my-auto w-4 aspect-square" alt="Search Icon" />
                     </div>
                   </div>
                   <div className="flex flex-col gap-2 mt-7">
                     {data.map((item) => (
-                      <TransferItem key={item.id} data={item} userId={userId} />
+                      <div key={item.id} className="flex gap-5 mt-2 w-full font-medium leading-5 text-gray-600 text-lg items-center justify-center max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
+                        <div className="flex flex-row justify-between items-center p-4 w-full">
+                          <img
+                            loading="lazy"
+                            src={item.sender_image}
+                            className="w-[48px] h-[48px] object-cover rounded-xl hidden md:block"
+                            alt={item.sender_fullname}
+                          />
+                          <div className="flex flex-col gap-4 md:hidden">
+                            <div>{item.sender_fullname}</div>
+                            <div>{item.sender_phone}</div>
+                          </div>
+                          <div className="hidden md:block">{moment(item.created_at).format("MMM D Y")}</div>
+                          <div className="hidden md:block">{item.sender_phone}</div>
+                          <div className="hidden md:block">{item.sender_fullname}</div>
+                          <div className={item.sender_id === userId ? "text-green-500" : "text-red-500"}>{item.transfer_amount ? `Rp.${item.transfer_amount}` : ""}</div>
+                        </div>
+                      </div>
                     ))}
                   </div>
                   <div className="flex gap-5 mt-10 w-full font-medium leading-5 text-gray-600 max-md:flex-wrap max-md:pr-5 max-md:max-w-full text-lg">

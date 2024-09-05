@@ -37,6 +37,14 @@ function Register() {
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(form.email)) {
+      return setErrorMessage("Harap masukkan email valid");
+    }
+    if (form.password.length < 8) {
+      return setErrorMessage("Password harus memiliki minimal 8 karakter");
+    }
     if (form.password !== confirmPassword) {
       return setErrorMessage("Password harus sama");
     }
@@ -85,7 +93,7 @@ function Register() {
 
   return (
     <main className="font-montserrat md:grid md:grid-cols-2 md:bg-bgprimary w-full h-screen">
-      <section className="bg-white px-5 md:px-20 py-10 md:rounded-r-3xl">
+      <section className="bg-white px-5 md:px-20 py-10 md:py-5 md:rounded-r-3xl">
         <div className="flex">
           <img className="mr-3" src={walletIcon} alt="wallet" />
           <div className="my-auto">
@@ -135,8 +143,14 @@ function Register() {
             <img className="absolute mt-3.5 mr-5 right-0 cursor-pointer" width="20" height="20" src={showConfirmPassword ? eyeOffIcon : eyeIcon} alt="toggle-confirm-password-visibility" onClick={toggleConfirmPasswordVisibility} />
             <Input input={{ type: showConfirmPassword ? "text" : "password", name: "confirmpassword", placeholder: "Enter Your Password Again", autocomplete: "off", value: confirmPassword, onChange: onConfirmPasswordChange }} />
           </div>
+          <label className="font-semibold md:text-xl uw:text-2xl" htmlFor="pin">
+            Pin
+          </label>
+          <div className="relative mt-2">
+            <img className="absolute mt-[11px] ml-5" width="20" height="20" src={passwordIcon} alt="pin-icon" />
+            <Input input={{ type: "password", name: "pin", placeholder: "Enter Your Pin", autocomplete: "off", maxLength: 6, value: form.pin, onChange: onChangePinHandler }} />
+          </div>
           {errorMessage && <p className="text-red-500 text-sm mb-3">{errorMessage}</p>}
-
           <button className="text-white uw:text-2xl bg-primary hover:bg-blue-700 active:bg-blue-800 rounded-lg w-full h-11 uw:h-16" type="submit">
             Register
           </button>

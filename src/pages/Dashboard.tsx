@@ -17,17 +17,23 @@ interface BalanceData {
 }
 
 export default function Dashboard() {
-
   const { token } = useStoreSelector((state) => state.auth);
-  const decodedToken = jwtDecode<any>(token);
+  const [id, setId] = useState<string>("");
   const [balanceData, setBalanceData] = useState<BalanceData>({
     balance: 0,
   });
 
   useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode<{ id: string }>(token);
+      setId(decodedToken.id);
+    }
+  }, [token]);
+
+  useEffect(() => {
     const fetchBalanceData = async () => {
       try {
-        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${decodedToken.id}`;
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
         const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -44,7 +50,7 @@ export default function Dashboard() {
     };
 
     fetchBalanceData();
-  }, []);
+  }, [id, token]);
 
   return (
     <>
@@ -66,9 +72,7 @@ export default function Dashboard() {
                   <img loading="lazy" src={balanceIcon} className="shrink-0 my-auto w-6 aspect-square" alt="Balance" />
                   <div>Balance</div>
                 </div>
-                <div className="mt-5 text-2xl font-medium tracking-normal leading-6 text-slate-900">
-                  Rp.{balanceData.balance.toLocaleString()}
-                </div>
+                <div className="mt-5 text-2xl font-medium tracking-normal leading-6 text-slate-900">Rp.{balanceData.balance.toLocaleString()}</div>
                 <div className="flex gap-5 mt-6 text-xs">
                   <div className="flex flex-col flex-1">
                     <div className="tracking-normal text-gray-600 leading-[200%]">Income</div>

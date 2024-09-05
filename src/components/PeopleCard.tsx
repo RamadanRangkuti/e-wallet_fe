@@ -1,3 +1,4 @@
+import peopleImage from "../assets/images/user.webp";
 
 interface PeopleCardProps {
   person: {
@@ -19,7 +20,7 @@ function PeopleCard({ person, favorite, index, onClick }: PeopleCardProps) {
       onClick={() => onClick(person.id)}
     >
       <div className="md:px-20 max-w-52">
-        <img src={person.image || 'default-image.png'} alt={person.fullname || 'Person'} className="w-12 h-12 rounded-md" />
+        <img src={person.image || peopleImage} alt={person.fullname || 'Person'} className="w-12 h-12 rounded-md" />
       </div>
       <div className="flex justify-center w-52">{person.fullname || 'Unknown'}</div>
       <div className="flex justify-center w-52">{person.phoneNumber || 'N/A'}</div>

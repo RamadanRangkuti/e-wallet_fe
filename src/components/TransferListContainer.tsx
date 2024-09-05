@@ -5,6 +5,9 @@ import unfilledStar from "../assets/icons/UnfilledStar.svg";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import PagePagination from "./Pagination";
+import { useStoreSelector } from "../redux/hooks";
+import { IProfileBody } from "../types/profile";
+import { jwtDecode } from "jwt-decode";
 
 interface TransferListContainerProps {
   onSelectPerson: (id: number) => void;
@@ -28,6 +31,35 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
   const [pageInfo, setPageInfo] = useState<PageInfo | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchInput, setSearchInput] = useState<string>("");
+
+  const [id, setId] = useState<string>("");
+  const { token } = useStoreSelector((state) => state.auth);
+  const [getProfile, setProfile] = useState<IProfileBody[]>([]);
+  
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode<{ id: string }>(token);
+      setId(decodedToken.id);
+    }
+  }, [token]);
+  useEffect(() => {
+    const getDataUser = async () => {
+      if (!id || !token) return;
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
+      console.log("isi paramns",id)
+      try {
+        const result = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setProfile(result.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDataUser();
+  }, [id, token]);
 
   const getPosts = useCallback(
     async (page: number | string, fullname?: string) => {
@@ -96,7 +128,7 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
             <img src={searchIcon} alt="Search" className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-100" />
           </form>
         </div>
-        <div className="hidden md:flex text-sm text-gray-500 font-normal">8 People Found For Galuh</div>
+        <div className="hidden md:flex text-sm text-gray-500 font-normal"> {getProfile.length > 0 ? `8 People Found For ${getProfile[0].fullname}` : 'No people found'}</div>
         <div>
           <div className="text-gray-500">
             {peopleData.map((person, index) => (

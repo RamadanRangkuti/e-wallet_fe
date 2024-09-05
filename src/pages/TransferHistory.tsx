@@ -90,12 +90,7 @@ function TransferHistory() {
                     {data.map((item) => (
                       <div key={item.id} className="flex gap-5 mt-2 w-full font-medium leading-5 text-gray-600 text-lg items-center justify-center max-md:flex-wrap max-md:pr-5 max-md:max-w-full">
                         <div className="flex flex-row justify-between items-center p-4 w-full">
-                          <img
-                            loading="lazy"
-                            src={item.sender_image}
-                            className="w-[48px] h-[48px] object-cover rounded-xl hidden md:block"
-                            alt={item.sender_fullname}
-                          />
+                          <img loading="lazy" src={item.sender_image} className="w-[48px] h-[48px] object-cover rounded-xl hidden md:block" alt={item.sender_fullname} />
                           <div className="flex flex-col gap-4 md:hidden">
                             <div>{item.sender_fullname}</div>
                             <div>{item.sender_phone}</div>

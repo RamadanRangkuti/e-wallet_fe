@@ -1,5 +1,5 @@
-import {  useStoreSelector } from "../redux/hooks";
-import {jwtDecode} from "jwt-decode";
+// import {  useStoreSelector } from "../redux/hooks";
+// import {jwtDecode} from "jwt-decode";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -7,6 +7,7 @@ interface Transaction {
   id: number;
   receiver_fullname: string;
   sender_fullname: string;
+  sender_id: string;
   type: string;
   transfer_amount: string;
   isIncome: boolean;
@@ -14,19 +15,19 @@ interface Transaction {
 }
 
 const TransactionHistory = () => {
-  const { token } = useStoreSelector((state) => state.auth);
+  // const { token } = useStoreSelector((state) => state.auth);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [userId, setUserId] = useState<string>("");
+  const [userId] = useState<string>("3");
 
   useEffect(() => {
-    if (!token) return;
+    // if (!token) return;
 
-    const decodedToken = jwtDecode<{ id: string }>(token);
-    setUserId(decodedToken.id);
+    // const decodedToken = jwtDecode<{ id: string }>(token);
+    // setUserId(decodedToken.id);
 
     const getTransactions = async () => {
       try {
-        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/3`;
+        const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/7`;
         const result = await axios.get(url);
         setTransactions(result.data.data);
         console.log(result.data)
@@ -35,8 +36,9 @@ const TransactionHistory = () => {
       }
     };
 
+
     getTransactions();
-  }, [token]);
+  }, []);
 
   return (
     <div className="flex flex-col grow px-5 pt-4 pb-8 rounded-md border border-gray-200 border-solid max-md:mt-5 w-full">
@@ -51,7 +53,7 @@ const TransactionHistory = () => {
             <div className="font-semibold text-slate-900">{transaction.sender_fullname}</div>
             <div className="mt-3 text-gray-600">{transaction.type}</div>
           </div>
-          <div className={`self-stretch my-auto font-semibold text-right ${(transaction.sender_fullname === userId) ? "text-red-700" : "text-green-500"}`}>Rp {transaction.transfer_amount}</div>
+          <div className={`self-stretch my-auto font-semibold text-right ${(transaction.sender_id == userId) ? "text-red-700" : "text-green-500"}`}>Rp {transaction.transfer_amount}</div>
         </div>
       ))}
     </div>

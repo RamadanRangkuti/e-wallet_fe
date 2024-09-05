@@ -1,5 +1,5 @@
 import topup from "../assets/icons/Upload.svg";
-import peopleImage from "../assets/images/transfer-detail-image.png";
+import peopleImage from "../assets/images/user.webp";
 import unfilledStar from "../assets/icons/UnfilledStar.svg";
 import moneyIcon from "../assets/icons/u_money-bill.svg";
 import Bri from "../assets/images/BRI.png";
@@ -18,8 +18,7 @@ import { IProfileBody } from "../types/profile";
 import { jwtDecode } from "jwt-decode";
 import { TopupSuccessModal } from "../components/TopupSuccessModal";
 import { TopupFailedModal } from "../components/TopupFailedModal";
-
-
+import Header from "../components/HeaderPage";
 
 interface Person {
   image: string;
@@ -31,19 +30,20 @@ interface Person {
 
 const person: Person = {
   image: peopleImage,
-  name: "Ghaluh 1",
-  phoneNumber: "(239) 555-0108",
+  name: "Enter Your Name",
+  phoneNumber: "Enter Your Phone Number",
   isVerified: true,
   favoriteIcon: unfilledStar,
 };
 
 export default function TopUp() {
-
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailedModal, setShowFailedModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { token } = useStoreSelector((state) => state.auth);
   const [id, setId] = useState<string>("");
   const [getProfile, setProfile] = useState<IProfileBody[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (token) {
@@ -70,10 +70,10 @@ export default function TopUp() {
     getDataUser();
   }, [id, token]);
 
-  const [nominal, setNominal] = useState("0"); 
+  const [nominal, setNominal] = useState("0");
   const [subtotal, setSubtotal] = useState("0");
   const [adminFee, setAdminFee] = useState("0");
-  const [paymentMethod, setPaymentMethod] = useState<string | number>(); 
+  const [paymentMethod, setPaymentMethod] = useState<string | number>();
 
   const handlePaymentMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPaymentMethod(e.target.value);
@@ -81,26 +81,26 @@ export default function TopUp() {
 
   const handleNominalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
-  value = value.replace(/\D/g, ''); // Hapus karakter non-digit
+    value = value.replace(/\D/g, ""); // Hapus karakter non-digit
 
-  const numericValue = parseFloat(value); // Konversi menjadi angka desimal
+    const numericValue = parseFloat(value); // Konversi menjadi angka desimal
 
-  if (isNaN(numericValue)) {
-    setNominal("0");
-    setAdminFee("0");
-    setSubtotal("0");
-  } else {
-    const calculatedAdminFee = numericValue * 0.01; 
-    const calculatedSubtotal = numericValue + calculatedAdminFee; 
+    if (isNaN(numericValue)) {
+      setNominal("0");
+      setAdminFee("0");
+      setSubtotal("0");
+    } else {
+      const calculatedAdminFee = numericValue * 0.01;
+      const calculatedSubtotal = numericValue + calculatedAdminFee;
 
-    const formattedNominal = Math.round(numericValue).toLocaleString('id-ID');
-    const formattedAdminFee = calculatedAdminFee.toFixed(0).toLocaleString();
-    const formattedSubtotal = calculatedSubtotal.toLocaleString('id-ID');
+      const formattedNominal = Math.round(numericValue).toLocaleString("id-ID");
+      const formattedAdminFee = calculatedAdminFee.toFixed(0).toLocaleString();
+      const formattedSubtotal = calculatedSubtotal.toLocaleString("id-ID");
 
-    setNominal(formattedNominal); 
-    setAdminFee(formattedAdminFee);
-    setSubtotal(formattedSubtotal);
-  }
+      setNominal(formattedNominal);
+      setAdminFee(formattedAdminFee);
+      setSubtotal(formattedSubtotal);
+    }
   };
 
   const navigate = useNavigate();
@@ -113,46 +113,53 @@ export default function TopUp() {
     navigate("user/dashboard");
   };
 
-
   const handleSubmit = async () => {
-    
-    const amountNumber = parseFloat(nominal.replace(/[,.]/g, '')); 
-    const adminFeeNumber = parseFloat(adminFee.replace(/[,.]/g, '')); 
-    const subtotalNumber = parseFloat(subtotal.replace(/[,.]/g, ''));
-    console.log("user_id: ", id)
-    console.log("uang yang di topup: ", amountNumber)
-    console.log("admin: ", adminFeeNumber)
-    console.log("sub totoal: ",subtotalNumber)
+    const amountNumber = parseFloat(nominal.replace(/[,.]/g, ""));
+    const adminFeeNumber = parseFloat(adminFee.replace(/[,.]/g, ""));
 
+    if (amountNumber < 10000) {
+      setError("The minimum top-up amount is IDR 10,000.");
+      return;
+    }
+
+    if (amountNumber > 5000000) {
+      setError("The maximum top-up amount is IDR 5,000,000.");
+      return;
+    }
     const data = {
-      user_id: id ,
+      user_id: id,
       payment_id: paymentMethod,
       amount: amountNumber,
       admin: adminFeeNumber,
     };
 
+    setIsLoading(true);
     try {
       const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/topup`, data, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
-      
-      console.log('Transaction successful:', response.data);
+
+      console.log("Transaction successful:", response.data);
+      setNominal("0");
+      setAdminFee("0");
+      setSubtotal("0");
 
       setShowSuccessModal(true);
     } catch (error) {
-      console.error('Error during transaction:', error);
+      console.error("Error during transaction:", error);
       setShowFailedModal(true);
+    } finally {
+      setIsLoading(false);
     }
-  };  
+  };
 
-  
   return (
     <main className="relative w-full">
-      <div className="flex items-center bg-primary w-full text-white text-xs md:text-base md:font-bold py-2 px-5 md:px-8 md:bg-white md:text-black">
-        <img className="hidden md:flex" width="20" src={topup} alt="" />
-        <p className="md:ml-3">Transfer Money</p>
+      <div className="mt-5 ml-4">
+
+        <Header title="Top Up" icons={topup} />
       </div>
 
       <div className="grid w-full px-5 md:px-8 md:pb-8">
@@ -162,14 +169,14 @@ export default function TopUp() {
             {/* account */}
             <div className="flex flex-col font-semibold gap-4">
               <div>Account Information</div>
-                <PeopleDetailCard
-                  image={getProfile.length > 0 ? getProfile[0]?.image ?? person.image : person.image}
-                  name={getProfile.length > 0 ? getProfile[0]?.fullname ?? person.name : person.name}
-                  phoneNumber={getProfile.length > 0 ? getProfile[0]?.phone ?? person.phoneNumber : person.phoneNumber}
-                  isVerified={person.isVerified}
-                  favoriteIcon={person.favoriteIcon}
-                />
-              </div>
+              <PeopleDetailCard
+                image={getProfile.length > 0 ? getProfile[0]?.image ?? person.image : person.image}
+                name={getProfile.length > 0 ? getProfile[0]?.fullname ?? person.name : person.name}
+                phoneNumber={getProfile.length > 0 ? getProfile[0]?.phone ?? person.phoneNumber : person.phoneNumber}
+                isVerified={person.isVerified}
+                favoriteIcon={person.favoriteIcon}
+              />
+            </div>
 
             {/* input nomninal */}
             <div className="flex flex-col justify-center">
@@ -177,8 +184,9 @@ export default function TopUp() {
               <div className="text-sm text-gray-500 mb-4">Type the amount you want to transfer and then press continue to the next steps.</div>
               <div className="relative flex items-center">
                 <img src={moneyIcon} alt="Money Icon" className="absolute left-3 w-5 h-5 text-gray-400" />
-                <input type="text" name="nominal"  value={nominal} onChange={handleNominalChange}  className="pl-10 border rounded-md focus:outline-gray-400 w-full h-12 font-semibold" placeholder="Enter Nominal Transfer" autoComplete="off" />
+                <input type="text" name="nominal" value={nominal} onChange={handleNominalChange} className="pl-10 border rounded-md focus:outline-gray-400 w-full h-12 font-semibold" placeholder="Enter Nominal Transfer" autoComplete="off" />
               </div>
+              {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
             </div>
 
             {/* input bank */}
@@ -191,9 +199,9 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "paymentMethod",
-                      value: 1 ,
-                      onChange:handlePaymentMethodChange
+                      name: "bri",
+                      value: 1,
+                      onChange: handlePaymentMethodChange,
                     }}
                   />
                   <img className="w-auto h-8" src={Bri} alt="..." />
@@ -204,9 +212,9 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "paymentMethod",
-                      value: 2 ,
-                      onChange:handlePaymentMethodChange
+                      name: "dana",
+                      value: 2,
+                      onChange: handlePaymentMethodChange,
                     }}
                   />
                   <img className="w-auto h-3" src={Dana} alt="..." />
@@ -217,9 +225,9 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "paymentMethod",
-                     value: 3 ,
-                      onChange:handlePaymentMethodChange
+                      name: "bca",
+                      value: 3,
+                      onChange: handlePaymentMethodChange,
                     }}
                   />
                   <img className="w-auto h-3" src={BCA} alt="..." />
@@ -230,9 +238,9 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "paymentMethod",
-                      value: 4 ,
-                      onChange:handlePaymentMethodChange
+                      name: "gopay",
+                      value: 4,
+                      onChange: handlePaymentMethodChange,
                     }}
                   />
                   <img className="w-auto h-3" src={Gopay} alt="..." />
@@ -243,9 +251,9 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "paymentMethod",
+                      name: "ovo",
                       value: 5,
-                      onChange:handlePaymentMethodChange
+                      onChange: handlePaymentMethodChange,
                     }}
                   />
                   <img className="w-auto h-3" src={OVO} alt="..." />
@@ -268,17 +276,17 @@ export default function TopUp() {
                   </div>
                   <div className="grid grid-cols-2 text-sm lg:gap-12">
                     <p className="text-[#4F5665]">admin</p>
-                    <p className="text-end">Idr. {adminFee || "0" }</p>
+                    <p className="text-end">Idr. {adminFee || "0"}</p>
                   </div>
                   <div className="h-[1px] w-full bg-[#E8E8E8]"></div>
                   <div className="grid grid-cols-2 text-sm gap-12">
                     <p className="text-[#4F5665]">Sub Total</p>
-                    <p className="text-end">Idr. {subtotal || "0" }</p>
+                    <p className="text-end">Idr. {subtotal || "0"}</p>
                   </div>
                 </div>
 
-                <button className="bg-blue-600 min-h-10 w-full rounded-lg text-white font-thin tracking-wider"  onClick={handleSubmit}>
-                  Submit
+                <button className="bg-blue-600 min-h-10 w-full rounded-lg text-white font-thin tracking-wider" onClick={handleSubmit}>
+                  {isLoading ? "Submit..." : "Submit"}
                 </button>
                 <p className="text-[#4F5665] text-sm font-normal text-wrap">*Get Discount if you pay with Bank Central Asia</p>
               </div>
@@ -287,13 +295,8 @@ export default function TopUp() {
         </div>
       </div>
 
-      {showSuccessModal && <TopupSuccessModal 
-      onClose={() => setShowSuccessModal(false)} /
-      >}
-      {showFailedModal && <TopupFailedModal 
-        onClose={() => setShowFailedModal(false)} 
-        onBackTo={handleDashboard} 
-        onTryAgain={handleTryAgain} />}
+      {showSuccessModal && <TopupSuccessModal onClose={() => setShowSuccessModal(false)} />}
+      {showFailedModal && <TopupFailedModal onClose={() => setShowFailedModal(false)} onBackTo={handleDashboard} onTryAgain={handleTryAgain} />}
     </main>
   );
 }

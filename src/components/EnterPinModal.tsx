@@ -14,9 +14,10 @@ interface EnterPinModalProps {
   targetId: number;
   amount: number;
   notes?: string;
+  recName?: string | null;
 }
 
-function EnterPinModal({ onClose, onSuccess, onFailure, userId, targetId, amount, notes }: EnterPinModalProps) {
+function EnterPinModal({ onClose, onSuccess, onFailure, userId, targetId, amount, notes, recName }: EnterPinModalProps) {
   const [pin, setPin] = useState<string[]>(new Array(6).fill(""));
   const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
   const [showFailedModal, setShowFailedModal] = useState<boolean>(false);
@@ -47,38 +48,47 @@ function EnterPinModal({ onClose, onSuccess, onFailure, userId, targetId, amount
 
   const handleSubmit = async () => {
     const enteredPin = pin.join("");
-    const correctPin = "123456"; // Dummy PIN for validation
+    const data = {
+      id: userId.toString(),
+      pin: enteredPin
+    };
 
-    if (enteredPin === correctPin) {
-      try {
-        const formData = new FormData();
-        formData.append("sender_id", userId.toString());
-        formData.append("receiver_id", targetId.toString());
-        formData.append("amount", amount.toString());
-        formData.append("notes", notes || "");
-        console.log('form data:', formData)
+    try {
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/auth/enterpin`;
+      const pinResponse = await axios.post(url, data, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+      });
+      console.log("response", pinResponse);
 
-        const res = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/transfer`, formData, {
+      if (pinResponse.status === 200) {
+        const data = {
+          sender_id: userId.toString(),
+          reciever_id: targetId.toString(),
+          amount: amount.toString(),
+          notes: notes
+        };
+
+        await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/transfer`, data, {
           headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`
           },
-        }
-        );
-        console.log(res);
+        });
 
         setShowSuccessModal(true);
         onSuccess();
-      } catch (error) {
-        console.error("Error making transfer:", error);
+      } else {
         setShowFailedModal(true);
         onFailure();
       }
-    } else {
+    } catch (error) {
+      console.error("Error:", error);
       setShowFailedModal(true);
       onFailure();
     }
   };
+
 
   return (
     <>
@@ -87,7 +97,7 @@ function EnterPinModal({ onClose, onSuccess, onFailure, userId, targetId, amount
       <div className="absolute inset-0 flex items-center justify-center z-40 bg-black bg-opacity-30" onClick={onClose}>
         <div className="bg-white w-auto p-5 rounded-md shadow-md relative" onClick={(e) => e.stopPropagation()}>
           <div className="flex flex-col font-montserrat">
-            <div className="flex w-full border-b border-gray-200 text-gray-400 text-xs md:text-sm font-semibold">TRANSFER TO GHALUH 1</div>
+            <div className="flex w-full border-b border-gray-200 text-gray-400 text-xs md:text-sm font-semibold">TRANSFER TO {recName}</div>
             <div className="flex flex-col justify-center my-8">
               <div className="flex text-base md:text-xl mb-2 font-semibold">Enter Your Pin 👋</div>
               <div className="text-xs md:text-sm text-gray-400">Enter Your Pin For Transaction</div>
@@ -96,9 +106,9 @@ function EnterPinModal({ onClose, onSuccess, onFailure, userId, targetId, amount
                   <input
                     key={index}
                     id={`pin-${index}`}
-                    type="text"
+                    type="password"
                     maxLength={1}
-                    className="w-8 md:w-12 h-8 md:h-12 py-5 text-center font-semibold text-base md:text-xl border-b border-gray-300 focus:outline-none focus:border-blue-500"
+                    className="w-7 h-10 py-5 text-center font-semibold text-lg border-b-2 border-gray-300 focus:outline-none focus:border-blue-500"
                     value={digit}
                     onChange={(e) => handleChange(e.target.value, index)}
                     onKeyDown={(e) => handleKeyDown(e, index)}

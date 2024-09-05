@@ -2,13 +2,10 @@ import historyTransfer from "../assets/icons/historyTransfer.svg";
 import searchIcon from "../assets/icons/searchDark.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
-<<<<<<< HEAD
 import Header from "../components/HeaderPage";
-=======
 import { useStoreSelector } from "../redux/hooks";
 import { jwtDecode } from "jwt-decode";
 import moment from "moment";
->>>>>>> e1c15a4424f624d4ef15e500488d4a830d1637bc
 
 interface DataHistory {
   id: number;

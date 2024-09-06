@@ -24,12 +24,18 @@ interface User {
 interface PageInfo {
   currentPage: number;
   totalPage: number;
+  prevLink: string | null;
+  nextLink: string | null;
 }
 
 function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
   const [peopleData, setPeopleData] = useState<User[]>([]);
-  const [pageInfo, setPageInfo] = useState<PageInfo | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageInfo, setPageInfo] = useState<PageInfo>({
+    currentPage: 1,
+    totalPage: 1,
+    prevLink: null,
+    nextLink: null
+  });
   const [searchInput, setSearchInput] = useState<string>("");
 
   const [id, setId] = useState<string>("");
@@ -61,42 +67,50 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
     getDataUser();
   }, [id, token]);
 
+  // 
+  
   const getPosts = useCallback(
-    async (page: number | string, fullname?: string) => {
+    async (page: number) => {
       try {
-        let getPage = page;
-        if (page === 'next') {
-          getPage = currentPage + 1;
-        }
-
         const params: {
-          page: number | string;
+          page: number;
           fullname?: string;
-        } = {
-          page: getPage,
-        };
+        } = { page };
 
-        if (fullname) {
-          params.fullname = fullname;
+        if (searchInput) {
+          params.fullname = searchInput;
         }
 
-        const res = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user`, { params });
-        setPageInfo(res.data.meta);
+        const res = await axios.get(`${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/`, { params });
+        setPageInfo({
+          currentPage: res.data.meta.page,
+          totalPage: res.data.meta.totalPage,
+          prevLink: res.data.meta.prevLink,
+          nextLink: res.data.meta.nextLink
+        });
         setPeopleData(res.data.data);
-        setCurrentPage(res.data.meta.page);
       } catch (error) {
         console.error("Error fetching data", error);
       }
     },
-    [currentPage]
+    [searchInput]
   );
 
+  // useEffect(() => {
+  //   getPosts(currentPage, searchInput);
+  // }, [getPosts, currentPage, searchInput]);
+
   useEffect(() => {
-    getPosts(currentPage, searchInput);
-  }, [getPosts, currentPage, searchInput]);
+    getPosts(pageInfo.currentPage);
+  }, [getPosts, pageInfo.currentPage]);
+
+  // const handlePageChange = (newPage: number) => {
+  //   setCurrentPage(newPage);
+  //   window.scrollTo({ top: 650, behavior: "smooth" });
+  // };
 
   const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
+    setPageInfo((prev) => ({ ...prev, currentPage: newPage }));
     window.scrollTo({ top: 650, behavior: "smooth" });
   };
 
@@ -107,14 +121,20 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
     navigate(`/user/transfer/${id}`);
   };
 
+  // const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearchInput(event.target.value);
+  //   setCurrentPage(1);
+  // };
+
   const handleSearchInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);
-    setCurrentPage(1);
+    setPageInfo((prev) => ({ ...prev, currentPage: 1 }));
   };
 
   return (
     <div className="flex flex-col md:border md:mr-8 px-5 py-6">
       <div className="flex flex-col font-semibold gap-4">
+
         <div className="flex flex-col md:flex-row md:justify-between md:items-center">
           <div className="text-xs md:text-base">Find People</div>
           <form className="relative w-full md:w-fit">
@@ -128,6 +148,7 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
             <img src={searchIcon} alt="Search" className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-100" />
           </form>
         </div>
+        
         <div className="hidden md:flex text-sm text-gray-500 font-normal"> {getProfile.length > 0 ? `8 People Found For ${getProfile[0].fullname}` : 'No people found'}</div>
         <div>
           <div className="text-gray-500">
@@ -137,7 +158,16 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
           </div>
         </div>
       </div>
-      <PagePagination pages={pageInfo?.totalPage || 0} currentPage={currentPage} onPageChange={handlePageChange} />
+      <PagePagination 
+        meta={{
+          totalData: peopleData.length, 
+          totalPage: pageInfo.totalPage, 
+          page: pageInfo.currentPage, 
+          prevLink: pageInfo.prevLink, 
+          nextLink: pageInfo.nextLink
+        }} 
+        onPageChange={handlePageChange} 
+      />
     </div>
   );
 }

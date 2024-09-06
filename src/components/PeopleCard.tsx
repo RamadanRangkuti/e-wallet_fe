@@ -5,7 +5,7 @@ interface PeopleCardProps {
     id: number;
     image?: string;
     fullname?: string;
-    phoneNumber?: string;
+    phone?: string;
   };
   favorite?: string;
   index: number;
@@ -23,7 +23,7 @@ function PeopleCard({ person, favorite, index, onClick }: PeopleCardProps) {
         <img src={person.image || peopleImage} alt={person.fullname || 'Person'} className="w-12 h-12 rounded-md" />
       </div>
       <div className="flex justify-center w-52">{person.fullname || 'Unknown'}</div>
-      <div className="flex justify-center w-52">{person.phoneNumber || 'N/A'}</div>
+      <div className="flex justify-center w-52">{person.phone || 'N/A'}</div>
       <img src={favorite || 'default-favorite.png'} alt="Favorite" className="w-5 h-5" />
     </div>
   );

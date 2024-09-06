@@ -34,7 +34,11 @@ export default function FinancialChart() {
     const getTransactions = async () => {
       try {
         const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/transactions/${id}/balance/chart`;
-        const result = await axios.get<ApiResponse>(url);
+        const result = await axios.get<ApiResponse>(url,{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });;
         setBalanceData(result.data.data);
       } catch (error) {
         console.error("Error fetching transactions:", error);

@@ -8,7 +8,7 @@ import OVO from "../assets/images/OVO.png";
 import Dana from "../assets/images/Dana.png";
 import Gopay from "../assets/images/Gopay.png";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PeopleDetailCard from "../components/PeopleDetailCard";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input";
@@ -56,6 +56,7 @@ export default function TopUp() {
     const getDataUser = async () => {
       if (!id || !token) return;
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/api/v1/user/${id}`;
+      console.log("isi paramns",id)
       try {
         const result = await axios.get(url, {
           headers: {
@@ -73,7 +74,8 @@ export default function TopUp() {
   const [nominal, setNominal] = useState("0");
   const [subtotal, setSubtotal] = useState("0");
   const [adminFee, setAdminFee] = useState("0");
-  const [paymentMethod, setPaymentMethod] = useState<string | number>();
+  const [paymentMethod, setPaymentMethod] = useState<string | number >();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handlePaymentMethodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPaymentMethod(e.target.value);
@@ -81,9 +83,9 @@ export default function TopUp() {
 
   const handleNominalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
-    value = value.replace(/\D/g, ""); // Hapus karakter non-digit
+    value = value.replace(/\D/g, "");
 
-    const numericValue = parseFloat(value); // Konversi menjadi angka desimal
+    const numericValue = parseFloat(value);
 
     if (isNaN(numericValue)) {
       setNominal("0");
@@ -126,11 +128,25 @@ export default function TopUp() {
       setError("The maximum top-up amount is IDR 5,000,000.");
       return;
     }
+
+    if (!paymentMethod) {
+      setError("Please select a payment method.");
+      return;
+    }
+
     const data = {
       user_id: id,
       payment_id: paymentMethod,
       amount: amountNumber,
       admin: adminFeeNumber,
+    };
+
+    const clearForm = () => {
+      setNominal("0");
+      setAdminFee("0");
+      setSubtotal("0");
+      setPaymentMethod(undefined);
+      setError(null);
     };
 
     setIsLoading(true);
@@ -142,7 +158,9 @@ export default function TopUp() {
       });
 
       console.log("Transaction successful:", response.data);
-
+      formRef.current?.reset();
+      clearForm();
+      
       setShowSuccessModal(true);
     } catch (error) {
       console.error("Error during transaction:", error);
@@ -191,12 +209,12 @@ export default function TopUp() {
               <div className="font-semibold">Payment Method</div>
               <div className="text-sm text-gray-500 mb-4">Choose your payment method for top up account.</div>
 
-              <form action="">
+              <form ref={formRef} onSubmit={handleSubmit}>
                 <div className="grid grid-cols-[auto,auto,1fr] gap-7 items-center ">
                   <Input
                     input={{
                       type: "radio",
-                      name: "bri",
+                      name: "paymentMethod",
                       value: 1,
                       onChange: handlePaymentMethodChange,
                     }}
@@ -209,7 +227,7 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "dana",
+                      name: "paymentMethod",
                       value: 2,
                       onChange: handlePaymentMethodChange,
                     }}
@@ -222,7 +240,7 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "bca",
+                      name: "paymentMethod",
                       value: 3,
                       onChange: handlePaymentMethodChange,
                     }}
@@ -235,7 +253,7 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "gopay",
+                      name: "paymentMethod",
                       value: 4,
                       onChange: handlePaymentMethodChange,
                     }}
@@ -248,7 +266,7 @@ export default function TopUp() {
                   <Input
                     input={{
                       type: "radio",
-                      name: "ovo",
+                      name: "paymentMethod",
                       value: 5,
                       onChange: handlePaymentMethodChange,
                     }}

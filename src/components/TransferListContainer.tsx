@@ -115,6 +115,7 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
   return (
     <div className="flex flex-col md:border md:mr-8 px-5 py-6">
       <div className="flex flex-col font-semibold gap-4">
+
         <div className="flex flex-col md:flex-row md:justify-between md:items-center">
           <div className="text-xs md:text-base">Find People</div>
           <form className="relative w-full md:w-fit">
@@ -128,6 +129,7 @@ function TransferListContainer({ onSelectPerson }: TransferListContainerProps) {
             <img src={searchIcon} alt="Search" className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-100" />
           </form>
         </div>
+        
         <div className="hidden md:flex text-sm text-gray-500 font-normal"> {getProfile.length > 0 ? `8 People Found For ${getProfile[0].fullname}` : 'No people found'}</div>
         <div>
           <div className="text-gray-500">

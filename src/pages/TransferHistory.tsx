@@ -104,7 +104,7 @@ function TransferHistory() {
                     ))}
                   </div>
                   <div className="flex gap-5 mt-10 w-full font-medium leading-5 text-gray-600 max-md:flex-wrap max-md:pr-5 max-md:max-w-full text-lg">
-                    <div className="flex-auto my-auto text-lg">Show {data.length} History of 100 History</div>
+                    <div className="flex-auto my-auto text-lg">Show {data.length} History of {data.length} History</div>
                     <div className="flex gap-5 whitespace-nowrap text-lg">
                       <div>Prev</div>
                       <div className="text-blue-800">1</div>

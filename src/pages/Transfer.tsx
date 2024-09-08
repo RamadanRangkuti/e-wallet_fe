@@ -21,6 +21,17 @@ function TransferPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!id) {
+      setCurrentStep(1);
+      setSelectedPersonId(null);
+      return;
+    }
+
+    setSelectedPersonId(Number(id));
+    setCurrentStep(2);
+  }, [id]);
+
+  useEffect(() => {
     if (id) {
       setSelectedPersonId(Number(id));
       setCurrentStep(2);
